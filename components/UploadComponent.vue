@@ -36,7 +36,7 @@
 
 <script>
 export default {
-    props:['text', 'type'],
+    props:['text', 'type','nmodel'],
     data(){
         return {
             state:{
@@ -74,6 +74,7 @@ export default {
                         this.state.type = response.data.data.type
 
                         this.$emit('suksesUpload',this.state)
+                        this.$emit('getResultPath', this.nmodel, response.data.data.path)
                     }else{
                         this.$swal('Errors', response.data.message, 'error')
                     }

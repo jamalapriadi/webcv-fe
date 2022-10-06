@@ -69,6 +69,23 @@
                             <input type="date" class="form-control" placeholder="Select a date" :required="l.required" v-model="nmodel[l.model]">
                         </div>
 
+                        <div v-if="l.type == 'file'">
+                            <UploadComponentVue :type="l.variant" :nmodel="l.model" @getResultPath="handleGetResultPath"></UploadComponentVue>
+
+                            <div v-if="l.variant == 'image'">
+                                <img v-if="nmodel[l.model] != '' && original_file == true" :src="nmodel[l.model]" alt="" class="img-fluid" style="height:100px;margin-top:10px">
+                            </div>
+                        </div>
+
+                        <div v-if="l.type =='switch'">
+                            <toggle-button
+                                :sync="false"
+                                name="phone"
+                                :labels="{checked: 'Ya', unchecked: 'No'}"
+                                :color="{checked: '#7DCE94', unchecked: '#82C7EB'}"
+                                @change="changeSwitch($event, nmodel[l.model])"/>
+                        </div>
+
                         <span v-if="errors">
                             <p class="text-danger" v-if="errors[l.model]">{{ errors[l.model][0] }}</p>
                         </span>
@@ -87,9 +104,11 @@
 </template>
 
 <script>
+import UploadComponentVue from './UploadComponent.vue'
 export default {
     components: {
         'ckeditor-nuxt': () => { return import('@blowstack/ckeditor-nuxt') },
+        UploadComponentVue
     },
     props:{
         backtitle:{
@@ -127,6 +146,7 @@ export default {
             show_preview:false,
             file:'',
             show_previewbukti:false,
+            original_file:true,
             filebukti:'',
             editorConfig: {
                 simpleUpload: {
@@ -228,6 +248,16 @@ export default {
             };
             reader.readAsDataURL(file);
         },
+
+        changeSwitch(e, m){
+            this.$emit('changeSwitch',e.value, m)
+        },
+
+        handleGetResultPath(md, file)
+        {
+            this.original_file = false
+            this.$emit('getResultPathImage',md, file)
+        }
     }
 }
 </script>

@@ -271,8 +271,8 @@
                         </div>
                     </template>
 
-                    <template v-slot:cell(design_card)="row">
-                        <img :src="row.item.file_design" alt="" style="width:120px">
+                    <template v-slot:cell(preview_image)="row">
+                        <img :src="row.item.preview_image" alt="" style="width:80px">
                     </template>
 
                     <template v-if="btnAction == true" v-slot:cell(qrmember)="row">

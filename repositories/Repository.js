@@ -1,9 +1,11 @@
 import GuestRepository from "./GuestRepository"
 import CategoryRepository from "./CategoryRepository"
 import PostRepository from "./PostRepository"
+import TemplateRepository from "./TemplateRepository"
 
 export default ($axios) => ({
     guest: GuestRepository($axios),
     category: CategoryRepository($axios),
-    post: PostRepository($axios)
+    post: PostRepository($axios),
+    template: TemplateRepository($axios),
 })
