@@ -140,20 +140,38 @@ export default {
                 {
                     to:'#',
                     type:'dropdown',
-                    title:'Dropdown',
-                    icon:'<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-augmented-reality" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><desc>Download more icon variants from https://tabler-icons.io/i/augmented-reality</desc><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 8v-2a2 2 0 0 1 2 -2h2"></path><path d="M4 16v2a2 2 0 0 0 2 2h2"></path><path d="M16 4h2a2 2 0 0 1 2 2v2"></path><path d="M16 20h2a2 2 0 0 0 2 -2v-2"></path><path d="M12 12.5l4 -2.5"></path><path d="M8 10l4 2.5v4.5l4 -2.5v-4.5l-4 -2.5z"></path><path d="M8 10v4.5l4 2.5"></path></svg>',
+                    title:'Blog',
+                    icon:'<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-news" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11"></path><line x1="8" y1="8" x2="12" y2="8"></line><line x1="8" y1="12" x2="12" y2="12"></line><line x1="8" y1="16" x2="12" y2="16"></line></svg>',
                     class:'',
                     permission:'dropdown',
                     submenu:[
                         {
-                            to:'/dashboard',
-                            title:'Sample Link'
+                            to:'/posts',
+                            title:'Posts'
                         },
                         {
-                            to:'/dashboard',
-                            title:'Sample Link 2'
+                            to:'/category',
+                            title:'Category'
                         },
                     ]
+                },
+                {
+                    to:'/portofolio',
+                    type:'menu',
+                    title:'Portofolio',
+                    icon:'<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-bookmarks" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M13 7a2 2 0 0 1 2 2v12l-5 -3l-5 3v-12a2 2 0 0 1 2 -2h6z"></path><path d="M9.265 4a2 2 0 0 1 1.735 -1h6a2 2 0 0 1 2 2v12l-1 -.6"></path></svg>',
+                    class:'',
+                    submenu:[],
+                    permission:'portofolio'
+                },
+                {
+                    to:'/webcv',
+                    type:'menu',
+                    title:'Web CV',
+                    icon:'<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-template" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><rect x="4" y="4" width="16" height="4" rx="1"></rect><rect x="4" y="12" width="6" height="8" rx="1"></rect><line x1="14" y1="12" x2="20" y2="12"></line><line x1="14" y1="16" x2="20" y2="16"></line><line x1="14" y1="20" x2="20" y2="20"></line></svg>',
+                    class:'',
+                    submenu:[],
+                    permission:'webcv'
                 },
             ]
         }
@@ -161,7 +179,7 @@ export default {
     methods:{
         getClass(l){
             if(l.submenu.length > 0){
-                return 'nav-item dropdown'
+                return 'nav-item mb-2 dropdown'
             }else{
                 return 'nav-item mb-2'
             }

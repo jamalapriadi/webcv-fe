@@ -1,18 +1,24 @@
 <template>
     <div>
         <client-only placeholder="loading...">
-            <ckeditor-nuxt :config="editorConfig"  />
+            <ckeditor-nuxt :config="editorConfig" v-model="description" @input="inputDesc"/>
         </client-only>
     </div>
 </template>
 
 <script>
 export default {
+    props:{
+        'desc':{
+            type:String
+        }
+    },
     components: {
         'ckeditor-nuxt': () => { return import('@blowstack/ckeditor-nuxt') },
     },
     data(){
         return {
+            description:this.desc,
             editorConfig: {
                 simpleUpload: {
                     uploadUrl: process.env.LARAVEL_ENDPOINT+'/api/uploads',
@@ -31,12 +37,17 @@ export default {
                 ],
             },
         }
+    },
+    methods:{
+        inputDesc(e){
+            this.$emit('inputDesc',e)
+        }
     }
 }
 </script>
 
-<!-- <style>
+<style>
     .ck-editor__editable {
-        min-height: 150px;
+        min-height: 480px;
     }
-</style> -->
+</style>

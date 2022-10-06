@@ -85,20 +85,9 @@
                         </div>
                     </template>
 
-                    <template v-slot:cell(full_name_member)="row">
+                    <template v-slot:cell(categories)="row">
                         <div class="d-flex align-items-center">
-                            <div>
-                                <div>{{row.item.full_name}}</div>
-                                <small class="text-muted">
-                                    Member ID:
-                                    {{row.item.member_id}}
-                                </small>
-                                <br>
-                                <small class="text-muted" v-if="row.item.phone">
-                                    Phone:
-                                    {{row.item.phone}}
-                                </small>
-                            </div>
+                            <a class="badge badge-primary mb-2 mt-2" style="margin-right:5px" v-for="(l,idx) in row.item.category.data" :key="idx" href="#">{{l.name}}</a>
                         </div>
                     </template>
 
