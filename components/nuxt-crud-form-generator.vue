@@ -78,8 +78,17 @@
                         </div>
 
                         <div v-if="l.type =='switch'">
-                            <toggle-button
+                            <toggle-button v-if="nmodel[l.model] == 'N'"
+                                :value="false"
                                 :sync="false"
+                                name="phone"
+                                :labels="{checked: 'Ya', unchecked: 'No'}"
+                                :color="{checked: '#7DCE94', unchecked: '#82C7EB'}"
+                                @change="changeSwitch($event, nmodel[l.model])"/>
+
+                            <toggle-button v-if="nmodel[l.model] == 'Y'"
+                                :value="true"
+                                :sync="true"
                                 name="phone"
                                 :labels="{checked: 'Ya', unchecked: 'No'}"
                                 :color="{checked: '#7DCE94', unchecked: '#82C7EB'}"
@@ -91,6 +100,9 @@
                         </span>
                         
                     </div>
+
+                    <slot name="custom"></slot>
+
                 </div>
                 <div class="card-footer text-end">
                     <div class="d-flex">

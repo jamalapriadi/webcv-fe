@@ -91,26 +91,8 @@
                         </div>
                     </template>
 
-                    <template v-if="btnAction == true" v-slot:cell(pic)="row">
-                        <span class="avatar rounded" v-bind:style="{
-                            backgroundImage:row.item.pic
-                        }"></span>
-                    </template>
-
-                    <template v-if="btnAction == true" v-slot:cell(syaratrow)="row">
-                        <read-more v-if="row.item.syarat != null" more-str="read more" :text="row.item.syarat" link="#" less-str="read less" :max-chars="60"></read-more>
-                    </template>
-
-                    <template v-if="btnAction == true" v-slot:cell(regulation)="row">
-                        <read-more v-if="row.item.regulation != null" more-str="read more" :text="row.item.regulation" link="#" less-str="read less" :max-chars="160"></read-more>
-                    </template>
-
-                    <template v-if="btnAction == true" v-slot:cell(imagebooklet)="row">
-                        <div class="d-flex py-1 align-items-center">
-                              <span class="avatar me-2" v-bind:style="{
-                                    backgroundImage: 'url('+row.item.image_url+')'
-                                  }"></span>
-                        </div>
+                    <template v-slot:cell(description)="row">
+                        <div v-html="row.item.description"></div>
                     </template>
 
                     <template v-if="btnAction == true" v-slot:cell(roleuser)="row">
@@ -137,8 +119,8 @@
                         </span>
                     </template>
 
-                    <template v-if="btnAction == true" v-slot:cell(activemember)="row">
-                        <span v-show="row.item.active == 'Y'" style="padding-top:15px">
+                    <template v-if="btnAction == true" v-slot:cell(publish)="row">
+                        <span v-show="row.item.publish == 'Y'" style="padding-top:15px">
                             <toggle-button :value="true"
                                 :sync="true"
                                 name="phone"
@@ -147,31 +129,13 @@
                                 @change="nonAktifMember(row.item.id)"/>
                         </span>
 
-                        <span v-show="row.item.active == 'N'" style="padding-top:15px">
+                        <span v-show="row.item.publish == 'N'" style="padding-top:15px">
                             <toggle-button :value="false"
                                 name="phone"
                                 :sync="false"
                                 :labels="{checked: 'Ya', unchecked: 'No'}"
                                 :color="{checked: '#7DCE94', unchecked: '#82C7EB'}"
                                 @change="aktifMember(row.item.id)"/>
-                        </span>
-                    </template>
-
-                    <template v-if="btnAction == true" v-slot:cell(activemembertype)="row">
-                        <span v-show="row.item.active == 'Y'" style="padding-top:15px">
-                            <toggle-button :value="true"
-                                :sync="true"
-                                name="phone"
-                                :labels="{checked: 'Ya', unchecked: 'No'}"
-                                :color="{checked: '#7DCE94', unchecked: '#82C7EB'}"/>
-                        </span>
-
-                        <span v-show="row.item.active == 'N'" style="padding-top:15px">
-                            <toggle-button :value="false"
-                                name="phone"
-                                :sync="false"
-                                :labels="{checked: 'Ya', unchecked: 'No'}"
-                                :color="{checked: '#7DCE94', unchecked: '#82C7EB'}"/>
                         </span>
                     </template>
 
@@ -182,39 +146,6 @@
                                     Actions
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-end" style="">
-                                    <a class="dropdown-item" href="#" @click.prevent="goToEdit(row)">
-                                        Edit
-                                    </a>
-
-                                    <a class="dropdown-item" href="#" @click="openDeleteModal(row)">
-                                        Delete
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-
-                    <template v-if="btnAction == true" v-slot:cell(actionpengajuanmember)="row">
-                        <div class="btn-list flex-nowrap">
-                            <div class="dropdown">
-                                <a href="#" class="btn btn-secondary" @click.prevent="goToDetail(row)">
-                                    Detail
-                                </a>
-                            </div>
-                        </div>
-                    </template>
-
-                    <template v-if="btnAction == true" v-slot:cell(actionsmember)="row">
-                        <div class="btn-list flex-nowrap">
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Actions
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-end" style="">
-                                    <a class="dropdown-item" href="#" @click.prevent="goToDetail(row)">
-                                        Detail
-                                    </a>
-
                                     <a class="dropdown-item" href="#" @click.prevent="goToEdit(row)">
                                         Edit
                                     </a>
@@ -275,7 +206,7 @@
                         <img :src="row.item.preview_image" alt="" style="width:80px">
                     </template>
 
-                    <template v-if="btnAction == true" v-slot:cell(qrmember)="row">
+                    <template v-if="btnAction == true" v-slot:cell(qrcode)="row">
                         <div class="btn-list flex-nowrap">
                             <a href="#" class="btn btn-success" @click.prevent="showQrcode(row)">
 	                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="4" y="4" width="6" height="6" rx="1" /><line x1="7" y1="17" x2="7" y2="17.01" /><rect x="14" y="4" width="6" height="6" rx="1" /><line x1="7" y1="7" x2="7" y2="7.01" /><rect x="4" y="14" width="6" height="6" rx="1" /><line x1="17" y1="7" x2="17" y2="7.01" /><line x1="14" y1="14" x2="17" y2="14" /><line x1="20" y1="14" x2="20" y2="14.01" /><line x1="14" y1="14" x2="14" y2="17" /><line x1="14" y1="20" x2="17" y2="20" /><line x1="17" y1="17" x2="20" y2="17" /><line x1="20" y1="17" x2="20" y2="20" /></svg>
@@ -284,59 +215,7 @@
                         </div>
                     </template>
 
-                    <template v-slot:cell(qrfomember)="row">
-                        <div class="btn-list flex-nowrap">
-                            <a href="#" class="btn btn-success" @click.prevent="showFoQrcode(row)">
-	                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="4" y="4" width="6" height="6" rx="1" /><line x1="7" y1="17" x2="7" y2="17.01" /><rect x="14" y="4" width="6" height="6" rx="1" /><line x1="7" y1="7" x2="7" y2="7.01" /><rect x="4" y="14" width="6" height="6" rx="1" /><line x1="17" y1="7" x2="17" y2="7.01" /><line x1="14" y1="14" x2="17" y2="14" /><line x1="20" y1="14" x2="20" y2="14.01" /><line x1="14" y1="14" x2="14" y2="17" /><line x1="14" y1="20" x2="17" y2="20" /><line x1="17" y1="17" x2="20" y2="17" /><line x1="20" y1="17" x2="20" y2="20" /></svg>
-                                QRCode
-                            </a>
-                        </div>
-                    </template>
-
-                    <template v-if="btnAction == true" v-slot:cell(actionsmerchant)="row">
-                        <div class="btn-list flex-nowrap">
-                            <a href="#" class="btn btn-success" @click.prevent="showQrcode(row)">
-	                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="4" y="4" width="6" height="6" rx="1" /><line x1="7" y1="17" x2="7" y2="17.01" /><rect x="14" y="4" width="6" height="6" rx="1" /><line x1="7" y1="7" x2="7" y2="7.01" /><rect x="4" y="14" width="6" height="6" rx="1" /><line x1="17" y1="7" x2="17" y2="7.01" /><line x1="14" y1="14" x2="17" y2="14" /><line x1="20" y1="14" x2="20" y2="14.01" /><line x1="14" y1="14" x2="14" y2="17" /><line x1="14" y1="20" x2="17" y2="20" /><line x1="17" y1="17" x2="20" y2="17" /><line x1="20" y1="17" x2="20" y2="20" /></svg>
-                                QRCode
-                            </a>
-                            <a href="#" class="btn btn-info" @click.prevent="goToSetUser(row)">
-	                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="9" cy="7" r="4" /><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /><path d="M16 11l2 2l4 -4" /></svg>
-                                Set User
-                            </a>
-                            <div class="dropdown" v-if="row.item.email !='jamal.apriadi@gmail.com'">
-                                <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Actions
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-end" style="">
-                                    <a class="dropdown-item" href="#" @click.prevent="goToEdit(row)">
-                                        Edit
-                                    </a>
-
-                                    <a class="dropdown-item" href="#" @click="openDeleteModal(row)">
-                                        Delete
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-
-                    <template v-if="btnAction == true" v-slot:cell(setfasilitas)="row">
-                        <div class="btn-list flex-nowrap">
-                            <a href="#" class="btn btn-info" @click.prevent="goToSetFitur(row)">
-                                Set Fitur & Benefit
-                            </a>
-                        </div>
-                    </template>
-
-                    <template v-if="btnAction == true" v-slot:cell(setregulation)="row">
-                        <div class="btn-list flex-nowrap">
-                            <a href="#" class="btn btn-success" @click.prevent="goToSetRegulation(row)">
-                                Set Regulation
-                            </a>
-                        </div>
-                    </template>
-
-                    <template v-slot:cell(activecard)="row">
+                    <template v-slot:cell(active)="row">
                         <span v-show="row.item.active == 'Y'" style="padding-top:15px">
                             <toggle-button :value="true"
                                 :sync="true"
