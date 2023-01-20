@@ -32,12 +32,40 @@ export const state = () => ({
     errors:{},
     forms:[
         {
+            label:"Category",
+            model: 'category',
+            name:'category',
+            id:'input-category',
+            type:'select',
+            placeholder:'Masukkan Category',
+            required:true,
+            list:[
+                {
+                    id:'heros',
+                    nama:'Heros'
+                },
+                {
+                    id:'features',
+                    nama:'Features'
+                }
+            ]
+        },
+        {
             label:"Title",
             model: 'title',
             name:'title',
             id:'input-title',
             type:'text',
             placeholder:'Masukkan Title',
+            required:true
+        },
+        {
+            label:"Description",
+            model: 'description',
+            name:'description',
+            id:'input-description',
+            type:'textarea',
+            placeholder:'Masukkan Description',
             required:true
         },
         {
@@ -48,15 +76,6 @@ export const state = () => ({
             type:'file',
             variant:'image',
             placeholder:'Masukkan Preview Image',
-            required:true
-        },
-        {
-            label:"Description",
-            model: 'description',
-            name:'description',
-            id:'input-description',
-            type:'textarea',
-            placeholder:'Masukkan Description',
             required:true
         },
         {
@@ -75,6 +94,7 @@ export const state = () => ({
         preview:'',
         description:'',
         publish:'N',
+        category:'',
         fields:[]
     },
     alertMessage:"",
@@ -94,6 +114,14 @@ export const state = () => ({
         {
             id:'link',
             text:'Link'
+        },
+        {
+            id:'button',
+            text:'Button'
+        },
+        {
+            id:'html',
+            text:'Html'
         }
     ],
 })
@@ -129,6 +157,7 @@ export const mutations = {
             kode:data.id,
             title:data.title,
             preview:data.preview_image,
+            category:data.category,
             description:data.description,
             publish:data.publish,
             fields: data.json_fields
@@ -141,8 +170,9 @@ export const mutations = {
             title:'',
             preview:'',
             description:'',
+            category:'',
             publish:'N',
-            types:[]
+            fields:[]
         }
     },
 

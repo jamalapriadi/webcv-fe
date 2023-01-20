@@ -23,21 +23,7 @@ export default {
     data(){
         return {
             btnClass:'btn btn-primary w-100',
-            nmodel:{
-                username:''
-            },
-            form:[
-                {
-                    label:"Username / Email",
-                    model: 'username',
-                    name:'username',
-                    id:'input-username',
-                    type:'text',
-                    placeholder:'Username / Email',
-                    required:true,
-                    kelas:'username-email'
-                }
-            ]
+            
         }
     },
     computed:{
@@ -45,7 +31,9 @@ export default {
             isFinish: state => state.isFinish,
             success: state => state.success,
             message: state => state.message,
-            errors: state=> state.errors
+            errors: state=> state.errors,
+            form: state => state.form,
+            nmodel: state => state.nmodel
         })
     },
     methods:{
@@ -53,20 +41,13 @@ export default {
 
         handleSubmit(val){
             this.sendemail(val)
-                .then(()=>{
+                .then(() => {
                     if(this.success == true){
                         this.$swal('Success', this.message , 'info');
-
                         this.$router.replace("/login");
                     }
                 })
         },
-
-        resetForm(){
-            for(var a=0;a<this.form.length; a++){
-                this.form[a].model = ""
-            }
-        }
     }
 }
 </script>

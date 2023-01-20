@@ -23,7 +23,7 @@
                                 {{l.menu}}
                             </div>
                             <div class="col-2">
-                                <a href="#" class="btn btn-primary">Set Content</a>
+                                <nuxt-link :to="'/webcv/'+l.id+'/customize'" class="btn btn-primary">Set Content</nuxt-link>
                             </div>
                             <div class="col-2 text-end">
                                 <toggle-button v-if="l.active == 'Y'"

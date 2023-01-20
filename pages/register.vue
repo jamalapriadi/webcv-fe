@@ -4,7 +4,7 @@
                 
         <message :finish="isFinish" :success="success" :message="message" />
 
-        <form-generator :key="componentKey" :nmodel="nmodel" :list="form" :btnClass="btnClass" :btnText="'Daftar'" :errors="errors" @submit="handleSubmit" />
+        <form-generator :nmodel="nmodel" :list="formregister" :btnClass="btnClass" :btnText="'Daftar'" :errors="errors" @submit="handleSubmit" />
 
         <div class="hr-text">or</div>
 
@@ -31,55 +31,8 @@ export default {
     components: { Message },
     data(){
         return {
-            componentKey: 0,
             btnClass:'btn btn-primary w-100',
-            nmodel:{
-                first_name:'',
-                last_name:'',
-                email:'',
-                password:'',
-                password_confirmation:''
-            },
-            form:[
-                {
-                    type:"text",
-                    name:"nama",
-                    model:"nama",
-                    label:"Name",
-                    placeholder:"Please Input Name",
-                    required:true,
-                    value:''
-                },
-                {
-                    type:"email",
-                    name:"email",
-                    model:"email",
-                    label:"Email",
-                    placeholder:"Please Input Email",
-                    required:true,
-                    value:''
-                },
-                {
-                    type:"password",
-                    name:"password",
-                    model:"password",
-                    label:"Password",
-                    placeholder:"Please Input Password",
-                    required:true,
-                    show_forgot:'N',
-                    value:''
-                },
-                {
-                    type:"password",
-                    name:"password_confirmation",
-                    model:"password_confirmation",
-                    label:"Password Confirmation",
-                    placeholder:"Please Input Password Confirmation",
-                    required:true,
-                    show_forgot:'N',
-                    value:''
-                },
-            ]
+            
         }
     },
     computed:{
@@ -88,7 +41,9 @@ export default {
             success: state => state.success,
             message: state => state.message,
             errors: state=> state.errors,
-            tunggu: state => state.tunggu
+            tunggu: state => state.tunggu,
+            formregister: state => state.formregister,
+            nmodel: state => state.nmodel,
         })
     },
     methods:{
@@ -100,24 +55,12 @@ export default {
 
         handleSubmit(val){
             this.register(val)
-                .then(()=>{
+                .then(() => {
                     if(this.success == true){
-                        this.resetForm()
-
-                        this.$swal('Success', 'Registrasi sukses, silakan cek email untuk aktivasi akun' , 'info');
-
+                        this.$swal('Success', this.message , 'info');
                         this.$router.replace("/login");
                     }
-                    
                 })
-        },
-
-        resetForm(){
-            for(var a=0;a<this.form.length; a++){
-                this.form[a].model = ""
-            }
-
-            this.componentKey += 1;
         }
     }
 }

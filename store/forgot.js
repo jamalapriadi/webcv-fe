@@ -2,7 +2,22 @@ export const state = () => ({
     success:false,
     isFinish:0,
     message:"",
-    errors:{}
+    errors:{},
+    form:[
+        {
+            label:"Username / Email",
+            model: 'username',
+            name:'username',
+            id:'input-username',
+            type:'text',
+            placeholder:'Username / Email',
+            required:true,
+            kelas:'username-email'
+        }
+    ],
+    nmodel:{
+        username:''
+    },
 })
 
 export const mutations = {
@@ -17,6 +32,11 @@ export const mutations = {
     },
     SET_FINISH(state, isFinish){
         state.isFinish = isFinish
+    },
+    SET_RESET(state){
+        state.nmodel = {
+            username:''
+        }
     }
     
 }
@@ -34,6 +54,7 @@ export const actions = {
                 commit('SET_SUCCESS', true);
                 commit('SET_MESSAGE', res.data.message)
                 commit('SET_ERROR', {})
+                commit('SET_RESET')
             }else{
                 commit('SET_SUCCESS', false);
                 commit('SET_MESSAGE', res.data.message)

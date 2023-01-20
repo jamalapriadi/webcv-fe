@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import {mapActions, mapState} from 'vuex'
 
 export default {
     auth:false,
@@ -34,41 +35,23 @@ export default {
             class:'d-flex flex-column bg-white'
         }
     },
+    computed:{
+        ...mapState('registrasi',{
+            isFinish: state => state.isFinish,
+            success: state => state.success,
+            message: state => state.message,
+            errors: state=> state.errors,
+            tunggu: state => state.tunggu,
+            form: state => state.form
+        })
+    },
     data(){
         return {
-            isFinish:0,
-            success:false,
-            errors:{},
-            state:[],
-            loading: false,
-            messageclass: "",
-            message: "",
-            form:[
-                {
-                    label:"Email",
-                    model: 'username',
-                    name:'username',
-                    id:'input-username',
-                    type:'text',
-                    placeholder:'Email',
-                    required:true,
-                    kelas:'username-email'
-                },
-                {
-                    label:"Password",
-                    model: 'password',
-                    name:'password',
-                    id:'input-password',
-                    type:'password',
-                    placeholder:'Password',
-                    required:true,
-                    show_forgot:'Y',
-                    kelas:'username-email',
-                }
-            ]
+            
         }
     },
     methods:{
+        ...mapActions('registrasi',['register','login']),
         
         onReset(){
 
@@ -82,52 +65,9 @@ export default {
         },
 
         async handleSubmit(val){
-            this.loading = true
-            this.isFinish = 1
             this.$nuxt.$loading.start()
 
-            try {
-                await this.$auth.loginWith('laravelJWT', {
-                    data: {
-                        username: val.username,
-                        password: val.password,
-                        level: 'Customer',
-                        source: 'login'
-                    }
-                }).then(response => {
-                    this.loading = false
-                    this.isFinish = 2
-
-                    if(response.data.success == true)
-                    {
-                        this.message = response.data.message
-                        this.success = true
-                        this.$router.replace("/dashboard");
-                    }else{
-                        this.success = false
-                        this.messageclass = "alert alert-danger";
-                        this.message = response.data.message
-                    }
-                })
-            } catch (e) {
-                if(e.response.status == 401)
-                {
-                    this.isFinish = 2
-                    this.loading = false;
-                    this.success = false
-                    this.message = e.response.data.message;
-                    this.errors = e.response.data.errors;
-                }
-
-                if(e.response.status == 422)
-                {
-                    this.isFinish = 2
-                    this.loading = false;
-                    this.success = false
-                    this.message = e.response.data.message;
-                    this.errors = e.response.data.errors;
-                }
-            }
+            this.login(val)
         }
     }
 }

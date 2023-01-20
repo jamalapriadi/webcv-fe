@@ -2,13 +2,7 @@
     <div>
         <h2 class="card-title text-center mb-4">Recovery Password</h2>
         <!-- <p class="text-muted mb-4">Enter your email address and your password will be reset and emailed to you.</p> -->            
-        <div v-if="isFinish == 1" class="text-center">
-            <b-spinner variant="success" type="grow" label="Spinning"></b-spinner>
-        </div>
-
-        <div v-if="pesan" class="alert alert-danger" role="alert">
-            <div class="text-muted" v-html="pesan"></div>
-        </div>
+        <message :finish="isFinish" :success="success" :message="message" />
 
         <form-generator :list="form" :nmodel="nmodel" :btnClass="btnClass" :btnText="'Reset Password'" :errors="errors" @submit="handleSubmit" />
 
@@ -21,75 +15,35 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import Message from '~/components/Message.vue'
 
 export default {
     auth:false,
     layout:'auth',
+    components: { Message },
+    async fetch({store, params}){
+        await store.dispatch('recoveryPassword/cekToken',{
+            id: params.id
+        })
+    },
     computed:{
-        ...mapState('registrasi',{
+        ...mapState('recoveryPassword',{
             errors: state=> state.errors,
             isFinish: state => state.isFinish,
             success: state => state.success,
             message: state => state.message,
+            form: state => state.form,
+            nmodel: state => state.nmodel,
+            kode: state => state.kode
         })
     },
     data(){
         return {
             btnClass:'btn btn-primary w-100',
-            componentKey: 0,
-            kode:'',
-            nmodel:{
-                password:'',
-                password_confirmation:''
-            },
-            pesan:'',
-            form:[
-                {
-                    label:"Password",
-                    model: 'password',
-                    name:'password',
-                    id:'input-password',
-                    type:'password',
-                    placeholder:'Password',
-                    required:true,
-                    kelas:'username-email'
-                },
-                {
-                    label:"Password Confirmation",
-                    model: 'password_confirmation',
-                    name:'password_confirmation',
-                    id:'input-password_confirmation',
-                    type:'password',
-                    placeholder:'Password Confirmation',
-                    required:true,
-                    kelas:'username-email'
-                }
-            ]
         }
     },
-    mounted(){
-        this.getData()
-    },
     methods:{
-        ...mapActions('registrasi',['recovery','verifikasi','cekToken']),
-
-        getData(){
-            let app=this;
-            let id= app.$route.params.id;
-            this.kode = id;
-
-            this.cekToken(this.kode)
-                .then(() => {
-                    if(this.success == true)
-                    {
-
-                    }else{
-                        this.$swal('Warning', this.message , 'warning');
-
-                        this.$router.replace("/login");
-                    }
-                })
-        },
+        ...mapActions('recoveryPassword',['recovery','cekToken']),
 
         handleSubmit(val){
             this.recovery({
@@ -100,22 +54,10 @@ export default {
                 .then(()=>{
                     if(this.success == true){
                         this.$swal('Success', this.message , 'info');
-
                         this.$router.replace("/login");
-                        
-                    }else{
-                        this.pesan = this.message
                     }
                     
                 })
-        },
-
-        resetForm(){
-            for(var a=0;a<this.form.length; a++){
-                this.form[a].model = ""
-            }
-
-            this.componentKey += 1;
         }
     }
 }

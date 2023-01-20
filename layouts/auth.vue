@@ -1,9 +1,6 @@
 <template>
     <div class="row g-0 flex-fill">
-        <div class="col-12 col-lg-6 col-xl-8 d-none d-lg-block">
-            <div class="bg-cover h-100 min-vh-100" v-bind:style="{
-                backgroundImage: 'url(https://preview.tabler.io/static/photos/36e273986ed577b8.jpg)'}"></div>
-        </div>
+        
         <div class="col-12 col-lg-6 col-xl-4 border-top-wide border-primary d-flex flex-column justify-content-center">
             <div class="container container-tight my-5 px-lg-5">
                 <div class="text-center mb-4">
@@ -13,6 +10,12 @@
                 <nuxt />
             </div>
         </div>
+
+        <div class="col-12 col-lg-6 col-xl-8 d-none d-lg-block">
+            <div class="bg-cover h-100 min-vh-100" v-bind:style="{
+                backgroundImage: 'url(https://preview.tabler.io/static/photos/finances-us-dollars-and-bitcoins-currency-money-2.jpg)'}"></div>
+        </div>
+
     </div>
 </template>
 
