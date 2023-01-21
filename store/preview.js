@@ -10,8 +10,9 @@ export const mutations = {
 
 export const actions = {
     async get_profile({commit}, slug){
+        
         const res = await this.$repositories.webcv.profile(slug)
 
-        commit('SET_LIST', res.data.data)
+        commit('SET_LIST', res.data)
     }
 }
