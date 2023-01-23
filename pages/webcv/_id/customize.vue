@@ -1,65 +1,113 @@
 <template>
-    <div class="container">
-        <div class="row mb-2 mt-2" v-if="sections">
-            <div class="col-auto">
-                <div class="card bg-dark text-white card-sm">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <div class="font-weight-medium text-white">
-                                    Add Display
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-3 bg-white">
+                <a class="btn btn-dark btn-block">
+                    Add Display
+                </a>
 
-            <div class="col-auto" v-if="sections.data" v-for="(l,idx) in sections.data">
-                <div class="card card-sm">
-                    <div class="card-body">
-                        <a href="#" style="border:none" :class="getClassActive(l.title)" @click.prevent="addNewSection(l)">
-                            <div class="row align-items-center">
-                                <div class="col-auto">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mist" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                        <path d="M5 5h3m4 0h9"></path>
-                                        <path d="M3 10h11m4 0h1"></path>
-                                        <path d="M5 15h5m4 0h7"></path>
-                                        <path d="M3 20h9m4 0h3"></path>
-                                    </svg>
-                                </div>
-                                <div class="col">
-                                    <div class="font-weight-medium">
-                                        {{ l.title }}
+                <div class="accordion mt-2" id="accordion-example" v-if="sections">
+                    <div class="accordion-item" v-for="(k,ix) in sections.data" :key="ix">
+                        <h2 class="accordion-header" id="heading-1">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse-'+ix" aria-expanded="false">
+                                {{ k.nama }}
+                            </button>
+                        </h2>
+                        <div :id="'collapse-'+ix" class="accordion-collapse collapse" data-bs-parent="#accordion-example" style="">
+                            <div class="accordion-body pt-0" v-if="k.section">
+                                <div class="col-auto" v-if="k.section.data" v-for="(l,idx) in k.section.data">
+                                    <div class="card card-sm" style="margin-bottom: 10px;">
+                                        <div class="card-body">
+                                            <a href="#" style="border:none" :class="getClassActive(l.title)" @click.prevent="addNewSection(l)">
+                                                <div class="row align-items-center">
+                                                    <div class="col-auto">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mist" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                            <path d="M5 5h3m4 0h9"></path>
+                                                            <path d="M3 10h11m4 0h1"></path>
+                                                            <path d="M5 15h5m4 0h7"></path>
+                                                            <path d="M3 20h9m4 0h3"></path>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="font-weight-medium">
+                                                            {{ l.title }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- <pre>{{ list }}</pre> -->
+            <!-- <pre>{{ list }}</pre> -->
+            <div class="col-9">
+                <div v-if="list" class="bg-white" style="background:white">
+                    <div v-if="list.data">
+                        <div v-if="list.data.sections">
+                            <div v-if="list.data.sections.data" v-for="(l,idx) in list.data.sections.data" :key="idx">
+                                <div v-if="l.section">
+                                    <div v-if="l.section.data">
+                                        <div v-if="l.section.data.title == 'centered_hero'">
+                                            <div class="editbox">
+                                                <a href="#" class="btn btn-warning btn-sm btn-icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                        <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
+                                                        <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
+                                                    </svg>
+                                                </a>
 
-        <div v-if="list">
-            <div v-if="list.data">
-                <div v-if="list.data.sections">
-                    <div v-if="list.data.sections.data" v-for="(l,idx) in list.data.sections.data" :key="idx">
-                        <div v-if="l.section">
-                            <div v-if="l.section.data">
-                                <div v-if="l.section.data.title == 'centered_hero'">
-                                    <centered_hero :fields="l.json_fields"></centered_hero>
-                                </div>
+                                                <a href="#" class="btn btn-danger btn-sm btn-icon" @click.prevent="deleteSection(l.id)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                        <line x1="4" y1="7" x2="20" y2="7"></line>
+                                                        <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                        <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                                    </svg>
+                                                </a>
+                                            </div>
 
-                                <div v-if="l.section.data.title == 'accordion'">
-                                    <accordionVue :fields="l.json_fields"></accordionVue>
+                                            <centered_hero :title="l.json_fields.title" :description="l.json_fields.description" :img="l.json_fields.img"></centered_hero>
+                                        </div>
+
+                                        <div v-if="l.section.data.title == 'accordion'">
+                                            <div class="editbox">
+                                                <a href="#" class="btn btn-warning btn-sm btn-icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                        <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
+                                                        <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
+                                                    </svg>
+                                                </a>
+
+                                                <a href="#" class="btn btn-danger btn-sm btn-icon" @click.prevent="deleteSection(l.id)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                        <line x1="4" y1="7" x2="20" y2="7"></line>
+                                                        <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                        <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                                    </svg>
+                                                </a>
+                                            </div>
+
+                                            <accordionVue :fields="l.json_fields"></accordionVue>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>  
             </div>
         </div>
 
@@ -75,22 +123,22 @@
         >
             <form v-if="section" @submit.prevent="saveSection">
                 <div v-if="section.title == 'centered_hero'">
-                    <div v-for="(l,idx) in section.json_fields" :key="idx" class="form-group">
-                        <label for="" class="control-label">{{ l.name }}</label>
-                        <input v-if="l.type == 'text'" @input.prevent="inputText($event, idx)" type="text" class="form-control" :placeholder="l.name">
-                        <textarea v-if="l.type == 'textarea'" @input.prevent="inputText($event, idx)" :placeholder="l.name" class="form-control"></textarea>
+                    <input_centered_hero v-if="show_preview == false" @simpan="handleAddsingle"></input_centered_hero>
+                    <div class="mt-2" v-if="show_preview == true">
+                        <centered_hero :title="section_preview.json_fields.title" :description="section_preview.json_fields.description" :img="section_preview.json_fields.img"></centered_hero>
                     </div>
-                    <centered_hero :fields="section_preview.json_fields"></centered_hero>
                 </div> 
 
                 <div v-if="section.title == 'accordion'">
                     <inputDataAccordion @addAccordion="handleaddAccordion"></inputDataAccordion>
-                    <accordionVue :fields="section_preview.json_fields"></accordionVue>
+                    <div class="mt-2">
+                        <accordionVue :fields="section_preview.json_fields"></accordionVue>
+                    </div>
                 </div> 
 
                 <hr>
 
-                <div class="card-footer text-end">
+                <div class="card-footer text-end" v-if="show_preview == true">
                     <div class="d-flex">
                         <a href="#" class="btn btn-link" @click.prevent="batal">Cancel</a>
                         <button type="submit" class="btn btn-primary ms-auto">Save</button>
@@ -107,13 +155,15 @@
 import centered_hero from '~/components/webcv/sections/centered_hero.vue'
 import accordionVue from '~/components/webcv/sections/accordion.vue'
 import inputDataAccordion from '~/components/webcv/sections/inputDataAccordion.vue'
+import input_centered_hero from '~/components/webcv/sections/forms/input_centered_hero.vue'
 
 export default{
-    layout:'main',
+    layout:'fluid_tabler',
     components:{
         centered_hero,
         accordionVue,
-        inputDataAccordion
+        inputDataAccordion,
+        input_centered_hero
     },
     data(){
         return {
@@ -130,7 +180,9 @@ export default{
             },
             loading:false,
             message:'',
-            messageclass:''
+            messageclass:'',
+            categories:['heros','features'],
+            show_preview:false
         }
     },
     mounted(){
@@ -165,7 +217,7 @@ export default{
         },
 
         getSection(){
-            this.$axios.get('/auth/section-all')
+            this.$axios.get('/auth/section-category-list')
                 .then(resp => {
                     this.sections = resp.data
                 })
@@ -185,22 +237,7 @@ export default{
             this.section = l
             this.section_preview.section_id = l.id
             this.section_preview.json_fields =  []
-
-            if(this.section.title == 'centered_hero')
-            {
-                for(var a=0; a<l.json_fields.length; a++)
-                {
-                    this.section_preview.json_fields.push(
-                        {
-                            name: l.json_fields[a].name,
-                            type: l.json_fields[a].type,
-                            value:''
-                        }
-                    )
-                }
-            }
-
-            
+            this.show_preview = false
 
             this.$bvModal.show("modal-section");
         },
@@ -219,6 +256,7 @@ export default{
                 section_id:'',
                 json_fields:[],
             }
+            this.show_preview = false
         },
 
         inputText(e, idx){
@@ -233,7 +271,13 @@ export default{
         },
 
         handleaddAccordion(data){
+            this.show_preview = true
             this.section_preview.json_fields.push(data)
+        },
+
+        handleAddsingle(data){
+            this.show_preview = true
+            this.section_preview.json_fields = data
         },
 
         saveSection(){
@@ -250,6 +294,35 @@ export default{
                         this.$swal('Warning', resp.data.message , 'warning');
                     }
                 })
+        },
+
+        deleteSection(id){
+            this.$swal({
+                title: 'Delete Section?',
+                text: 'Apakah anda yakin ingin menghapus data ini!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Lanjutkan!',
+                cancelButtonText: 'Tidak',
+                showCloseButton: true,
+                showLoaderOnConfirm: true
+            })
+            .then((result) => {
+                if(result.value) {
+                    this.$axios.delete('/auth/delete-menu-section/'+id)
+                        .then(response => {
+                            if(response.data.success==true){
+                                this.$swal('Non Aktif', 'Delete Section berhasil' , 'success');
+                            }else{
+                                this.$swal('Non Aktif', 'Delete Section gagal' , 'error');
+                            }
+
+                            this.getData()
+                        })
+                } else {
+                    this.$swal('Cancelled', 'Aksi dibatalkan', 'info')
+                }
+            })
         }
     }
 }

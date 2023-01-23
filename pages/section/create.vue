@@ -73,9 +73,6 @@
                         </table>
                     </div>
                 </nuxt-crud-form-generator>
-                
-                <!-- <pre>{{list_fields}}</pre>
-                <pre>{{nmodel}}</pre> -->
             </div>
         </div>
     </div>
@@ -85,6 +82,9 @@
 import { mapState, mapActions } from 'vuex'
 export default {
     layout:'main',
+    async fetch({store, params}){
+        await store.dispatch('section/get_section_category')
+    },
     computed:{
         ...mapState('section',{
             backBtn: state=> state.backBtn,

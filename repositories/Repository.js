@@ -3,6 +3,7 @@ import CategoryRepository from "./CategoryRepository"
 import PostRepository from "./PostRepository"
 import TemplateRepository from "./TemplateRepository"
 import SectionRepository from "./SectionRepository"
+import SectioncategoryRepository from "./SectioncategoryRepository"
 import WebcvRepository from "./WebcvRepository"
 
 export default ($axios) => ({
@@ -11,5 +12,6 @@ export default ($axios) => ({
     post: PostRepository($axios),
     template: TemplateRepository($axios),
     section: SectionRepository($axios),
-    webcv: WebcvRepository($axios)
+    webcv: WebcvRepository($axios),
+    sectioncategory: SectioncategoryRepository($axios)
 })

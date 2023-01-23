@@ -2,17 +2,13 @@ export const state = () => ({
     judul: 'Section',
     fields:[
         {key:'No', label:'No.', sortable:false, thStyle:{width:'5%'}},
-        {key:'preview_image', label:'', sortable:false},
-        {key:'title', label:'Title', sortable:false},
-        {key:'category', label:'Category', sortable:false},
-        {key:'description', label:'Description', sortable:false, thStyle:{width:'25%'}},
-        {key:'publish', label:'Publish', sortable:false},
+        {key:'nama', label:'Nama Category', sortable:false},
         {key: 'actions',label:'', sortable: false, thStyle:{width:'15%'}}, 
     ],
-    addLink: '/section/create',
+    addLink: '/section-category/create',
     btnAction:true,
-    edit_data_form: '/section',
-    backBtn:'/section',
+    edit_data_form: '/section-category',
+    backBtn:'/section-category',
     lists:[],
     list:{},
     meta:{
@@ -33,202 +29,35 @@ export const state = () => ({
     errors:{},
     forms:[
         {
-            label:"Category",
-            model: 'category',
-            name:'category',
-            id:'input-category',
-            type:'select',
-            placeholder:'Masukkan Category',
-            required:true,
-            list:[]
-        },
-        {
-            label:"Title",
-            model: 'title',
-            name:'title',
-            id:'input-title',
+            label:"Nama Category",
+            model: 'nama',
+            name:'nama',
+            id:'input-nama',
             type:'text',
-            placeholder:'Masukkan Title',
-            required:true
-        },
-        {
-            label:"Description",
-            model: 'description',
-            name:'description',
-            id:'input-description',
-            type:'textarea',
-            placeholder:'Masukkan Description',
-            required:true
-        },
-        {
-            label:"Preview Image",
-            model: 'preview',
-            name:'preview',
-            id:'input-preview',
-            type:'file',
-            variant:'image',
-            placeholder:'Masukkan Preview Image',
-            required:true
-        },
-        {
-            label:"Publish?",
-            model: 'publish',
-            name:'publish',
-            id:'input-publish',
-            type:'switch',
-            placeholder:'Masukkan Publish',
+            placeholder:'Masukkan nama category',
             required:true
         },
     ],
     nmodel:{
         kode:'',
-        title:'',
-        preview:'',
-        description:'',
-        publish:'N',
-        category:'',
-        fields:[]
+        nama:'',
     },
     alertMessage:"",
-    types:[
-        {
-            id:'text',
-            text:'Text'
-        },
-        {
-            id:'textarea',
-            text:'Textarea'
-        },
-        {
-            id:'image',
-            text:'Image'
-        },
-        {
-            id:'link',
-            text:'Link'
-        },
-        {
-            id:'button',
-            text:'Button'
-        },
-        {
-            id:'html',
-            text:'Html'
-        }
-    ],
-    categories:[]
 })
 
 export const mutations = {
-    SET_SECTION_CATEGORY(state, data){
-        var hasil = []
-        for(var a=0;a<data.data.length; a++)
-        {
-            hasil.push(
-                {
-                    id: data.data[a].nama,
-                    nama: data.data[a].nama
-                }
-            )
-        }
-
-        state.forms = [
-            {
-                label:"Category",
-                model: 'category',
-                name:'category',
-                id:'input-category',
-                type:'select',
-                placeholder:'Masukkan Category',
-                required:true,
-                list:hasil
-            },
-            {
-                label:"Title",
-                model: 'title',
-                name:'title',
-                id:'input-title',
-                type:'text',
-                placeholder:'Masukkan Title',
-                required:true
-            },
-            {
-                label:"Description",
-                model: 'description',
-                name:'description',
-                id:'input-description',
-                type:'textarea',
-                placeholder:'Masukkan Description',
-                required:true
-            },
-            {
-                label:"Preview Image",
-                model: 'preview',
-                name:'preview',
-                id:'input-preview',
-                type:'file',
-                variant:'image',
-                placeholder:'Masukkan Preview Image',
-                required:true
-            },
-            {
-                label:"Publish?",
-                model: 'publish',
-                name:'publish',
-                id:'input-publish',
-                type:'switch',
-                placeholder:'Masukkan Publish',
-                required:true
-            },
-        ]
-    },
-
-    SET_ADD_FIELDS(state, payload){
-        state.nmodel.fields = payload
-    },
-
-    SET_PATH_IMAGE(state, payload)
-    {
-        state.nmodel[payload.model] = payload.file
-    },
-
-    SET_HANDLE_SWITCH(state, e,m)
-    {
-        if(e == true)
-        {
-            state.nmodel.publish = 'Y'
-        }else{
-            state.nmodel.publish = 'N'
-        }
-        
-    },
-
-    CHANGE_IMAGE(state, file){
-        state.nmodel.image = file
-        state.nmodel.image_url = file
-    },
 
     SET_MODEL(state, data){
         state.nmodel = {
             kode:data.id,
-            title:data.title,
-            preview:data.preview_image,
-            category:data.category,
-            description:data.description,
-            publish:data.publish,
-            fields: data.json_fields
+            nama:data.nama,
         }
     },
 
     SET_RESET_MODEL(state){
         state.nmodel={
             kode:'',
-            title:'',
-            preview:'',
-            description:'',
-            category:'',
-            publish:'N',
-            fields:[]
+            nama:'',
         }
     },
 
@@ -304,7 +133,7 @@ export const actions = {
             sortby: state.sortBy,
             sortbydesc: state.sortByDesc ? 'DESC':'ASC'
         }
-        const res = await this.$repositories.section.perPage(params)
+        const res = await this.$repositories.sectioncategory.perPage(params)
 
         commit('SET_FINISH',2)
 
@@ -314,18 +143,6 @@ export const actions = {
             {
                 commit('SET_META_PAGE', res.data.meta.pagination)
             }
-            
-        }else{
-            //handle error here
-        }
-    },
-
-    async get_section_category({commit, state}){
-
-        const res = await this.$repositories.sectioncategory.all()
-
-        if(res.status == 200 && res.data){
-            commit('SET_SECTION_CATEGORY', res.data)
             
         }else{
             //handle error here
@@ -362,7 +179,7 @@ export const actions = {
         commit('SET_FINISH',1)
 
         try{
-            const res = await this.$repositories.section.save(state.nmodel)
+            const res = await this.$repositories.sectioncategory.save(state.nmodel)
         
             commit('SET_FINISH',2)
 
@@ -407,7 +224,7 @@ export const actions = {
     async show({commit,state}, id){
         commit('SET_FINISH',1)
 
-        const res = await this.$repositories.section.show(id)
+        const res = await this.$repositories.sectioncategory.show(id)
         
         commit('SET_MODEL',res.data.data)
         commit('SET_FINISH',2)
@@ -418,7 +235,7 @@ export const actions = {
         commit('SET_FINISH',1)
 
         try{
-            const res = await this.$repositories.section.update(state.nmodel.kode, state.nmodel)
+            const res = await this.$repositories.sectioncategory.update(state.nmodel.kode, state.nmodel)
         
             commit('SET_FINISH',2)
 

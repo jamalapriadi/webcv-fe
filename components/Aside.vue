@@ -198,6 +198,10 @@ export default {
                             to:'/section',
                             title:'Section'
                         },
+                        {
+                            to:'/section-category',
+                            title:'Section Category'
+                        },
                     ]
                 },
             ]

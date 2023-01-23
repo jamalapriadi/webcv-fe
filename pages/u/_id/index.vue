@@ -21,7 +21,7 @@
                                     <div v-if="k.section">
                                         <div v-if="k.section.data">
                                             <div v-if="k.section.data.title == 'centered_hero'">
-                                                <centered_hero :fields="k.json_fields"></centered_hero>
+                                                <centered_hero :title="k.json_fields.title" :description="k.json_fields.description" :img="k.json_fields.img"></centered_hero>
                                             </div>
 
                                             <div v-if="k.section.data.title == 'accordion'" class="container">
@@ -40,7 +40,6 @@
         <div v-if="list.success == false">
         
         </div>
-        <pre>{{ list }}</pre>
     </div>
 </template>
 
