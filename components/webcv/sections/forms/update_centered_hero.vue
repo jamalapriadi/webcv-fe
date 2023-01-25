@@ -21,7 +21,7 @@
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block">Add Preview</button>
+                <button type="submit" class="btn btn-primary btn-block">Show Preview</button>
             </div>
         </form>
     </div>
@@ -31,6 +31,7 @@
 import centered_hero from '~/components/webcv/sections/centered_hero.vue'
 import UploadComponent from '~/components/UploadComponent.vue'
 export default{
+    props:['kode','title','description','img'],
     components:{
         centered_hero,
         UploadComponent
@@ -38,12 +39,12 @@ export default{
     data(){
         return {
             state:{
-                title:'',
-                description:'',
-                img:''
+                title:this.title,
+                description:this.description,
+                img:this.img
             },
-            showPreview:false,
-            loadingimage:false,
+            showPreview:this.img == '' ? false:true,
+            loadingimage:false
         }
     },
     methods:{

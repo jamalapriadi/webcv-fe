@@ -24,6 +24,26 @@
                                                 <centered_hero :title="k.json_fields.title" :description="k.json_fields.description" :img="k.json_fields.img"></centered_hero>
                                             </div>
 
+                                            <div v-if="k.section.data.title == 'centered_screenshoot'">
+                                                <centered_screenshoot :title="k.json_fields.title" :description="k.json_fields.description" :img="k.json_fields.img"></centered_screenshoot>
+                                            </div>
+
+                                            <div v-if="k.section.data.title == 'responsive_left_alignment'">
+                                                <responsive_left_alignment :title="k.json_fields.title" :description="k.json_fields.description" :img="k.json_fields.img"></responsive_left_alignment>
+                                            </div>
+
+                                            <div v-if="k.section.data.title == 'border_hero'">
+                                                <border_hero :title="k.json_fields.title" :description="k.json_fields.description" :img="k.json_fields.img"></border_hero>
+                                            </div>
+
+                                            <div v-if="k.section.data.title == 'dark_hero_mode'">
+                                                <dark_hero_mode :title="k.json_fields.title" :description="k.json_fields.description" :img="k.json_fields.img"></dark_hero_mode>
+                                            </div>
+
+                                            <div v-if="k.section.data.title == 'hanging_icons'">
+                                                <hanging_icons :title="k.json_fields.title" :lists="k.json_fields.forms"></hanging_icons>
+                                            </div>
+
                                             <div v-if="k.section.data.title == 'accordion'" class="container">
                                                 <accordionVue :fields="k.json_fields"></accordionVue>
                                             </div>
@@ -34,25 +54,47 @@
                         </div>
                     </div>
                 </div>
+
+                <first_footerVue v-if="list.profile.data.menu" :profile="list.profile" :menu="list.profile.data.menu"></first_footerVue>
+                <!-- <second_footerVue v-if="list.profile.data.menu" :profile="list.profile" :menu="list.profile.data.menu"></second_footerVue> -->
+                <!-- <third_footerVue v-if="list.profile.data.menu" :profile="list.profile" :menu="list.profile.data.menu"></third_footerVue> -->
+                <!-- <four_footerVue v-if="list.profile.data.menu" :profile="list.profile" :menu="list.profile.data.menu"></four_footerVue> -->
             </div>
         </div>
 
         <div v-if="list.success == false">
         
         </div>
-        <!-- <pre>{{ list }}</pre> -->
     </div>
 </template>
 
 <script>
 import centered_hero from '~/components/webcv/sections/centered_hero.vue'
+import centered_screenshoot from '~/components/webcv/sections/centered_screenshoot.vue'
+import responsive_left_alignment from "~/components/webcv/sections/responsive_left_alignment.vue"
+import border_hero from '~/components/webcv/sections/border_hero.vue'
 import accordionVue from '~/components/webcv/sections/accordion.vue'
+import dark_hero_mode from '~/components/webcv/sections/dark_hero_mode.vue'
+import first_footerVue from '~/components/webcv/footer/first_footer.vue'
+import second_footerVue from '~/components/webcv/footer/second_footer.vue'
+import third_footerVue from "~/components/webcv/footer/third_footer.vue"
+import four_footerVue from '~/components/webcv/footer/four_footer.vue'
+import hanging_icons from "~/components/webcv/sections/hanging_icons.vue"
 
 export default{
     auth:false,
     components:{
         centered_hero,
-        accordionVue
+        accordionVue,
+        centered_screenshoot,
+        responsive_left_alignment,
+        border_hero,
+        dark_hero_mode,
+        first_footerVue,
+        second_footerVue,
+        third_footerVue,
+        four_footerVue,
+        hanging_icons
     },
     data(){
         return {
