@@ -17,7 +17,7 @@
                             <line x1="12" y1="4" x2="12" y2="16"></line>
                         </svg>
                     </h3>
-                    <span class="dropzone-msg-desc">Upload File</span>
+                    <span class="dropzone-msg-desc">Tambahkan Foto</span>
                 </div>
             </div>
         </a>

@@ -202,6 +202,10 @@ export default {
                             to:'/section-category',
                             title:'Section Category'
                         },
+                        {
+                            to:'/cv-template',
+                            title:'CV Template'
+                        },
                     ]
                 },
             ]

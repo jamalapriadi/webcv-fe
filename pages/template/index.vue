@@ -18,7 +18,8 @@
                     @delete="handleDelete"
                     @changePerPage="handlechangePerPage"
                     @pagination="handlePagination"
-                    @changeStatus="get_data" />
+                    @changeStatus="get_data"
+                    @changeStatusMember="get_data" />
             </div>
         </div>
         

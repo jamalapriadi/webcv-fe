@@ -1,28 +1,24 @@
 <template>
-    <div>
-        <div class="page-body">
-            <div class="container-xl">
-                <message :finish="isFinish" :success="success" :message="message" />
+    <div class="page-body">
+        <div class="container-xl">
+            <message :finish="isFinish" :success="success" :message="message" />
 
-                <nuxt-card-datatable 
-                    :title="title" 
-                    :fields="fields" 
-                    :addLink="addLink" 
-                    :btnAction="btnAction" 
-                    :meta="meta" 
-                    :lists="lists"
-                    :hasilcari="hsearch"
-                    :editUrl="edit_data_form"
-                    @search="handleSearch"
-                    @edit="handleEdit"
-                    @delete="handleDelete"
-                    @changePerPage="handlechangePerPage"
-                    @pagination="handlePagination"
-                    @changeStatus="get_data"
-                    @changeStatusMember="get_data" />
-            </div>
+            <nuxt-card-datatable 
+                :title="title" 
+                :fields="fields" 
+                :addLink="addLink" 
+                :btnAction="btnAction" 
+                :meta="meta" 
+                :lists="lists"
+                :hasilcari="hsearch"
+                :editUrl="edit_data_form"
+                @search="handleSearch"
+                @edit="handleEdit"
+                @delete="handleDelete"
+                @changePerPage="handlechangePerPage"
+                @pagination="handlePagination"
+                @changeStatusMember="get_data" />
         </div>
-        
     </div>
 </template>
 
@@ -34,10 +30,10 @@ export default {
     components: { nuxtCardDatatable },
     layout:'main',
     async fetch({store}){
-        await store.dispatch('section/get_data')
+        await store.dispatch('cvtemplate/get_data')
     },
     computed:{
-        ...mapState('section',{
+        ...mapState('cvtemplate',{
             fields: state=> state.fields,
             per_page: state=> state.per_page,
             lists: state => state.lists,
@@ -53,14 +49,13 @@ export default {
     },
     data(){
         return{
-            title:'Section',
+            title:'Cv Template',
         }
     },
     methods:{
-        ...mapActions('section',['get_data','change_page','change_per_page','change_search_key','goToEdit','openDeleteModal']),
+        ...mapActions('cvtemplate',['get_data','change_page','change_per_page','change_search_key','goToEdit','openDeleteModal']),
 
         handleEdit(val){
-            // this.goToEdit(val)
             this.$router.push({ path: this.edit_data_form+'/'+val.item.id+"/edit" })
         },
 

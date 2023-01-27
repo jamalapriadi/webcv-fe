@@ -126,7 +126,7 @@
                                 name="phone"
                                 :labels="{checked: 'Ya', unchecked: 'No'}"
                                 :color="{checked: '#7DCE94', unchecked: '#82C7EB'}"
-                                @change="nonAktifMember(row.item.id)"/>
+                                @change="nonAktifMember(row)"/>
                         </span>
 
                         <span v-show="row.item.publish == 'N'" style="padding-top:15px">
@@ -135,7 +135,7 @@
                                 :sync="false"
                                 :labels="{checked: 'Ya', unchecked: 'No'}"
                                 :color="{checked: '#7DCE94', unchecked: '#82C7EB'}"
-                                @change="aktifMember(row.item.id)"/>
+                                @change="aktifMember(row)"/>
                         </span>
                     </template>
 
@@ -472,8 +472,8 @@ export default {
 
         nonAktifMember(id){
             this.$swal({
-                title: 'Non Aktif User?',
-                text: 'Apakah anda yakin ingin menonaktifkan member ini!',
+                title: 'Non Aktif Data?',
+                text: 'Apakah anda yakin ingin menonaktifkan data ini!',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Ya, Lanjutkan!',
@@ -483,18 +483,18 @@ export default {
             })
             .then((result) => {
                 if(result.value) {
-                    this.$axios.post('api/auth/status-member/'+id+'?status=N')
+                    this.$axios.patch(id.item.links.detail+'?status=N')
                         .then(response => {
                             if(response.data.success==true){
-                                this.$swal('Non Aktif', 'Non Aktif member berhasil' , 'success');
+                                this.$swal('Non Aktif', 'Non Aktif berhasil' , 'success');
                             }else{
-                                this.$swal('Non Aktif', 'Non aktif member gagal' , 'error');
+                                this.$swal('Non Aktif', 'Non aktif gagal' , 'error');
                             }
 
                             this.$emit('changeStatusMember')
                         })
                 } else {
-                    this.$swal('Cancelled', 'Member tidak di non aktifkan', 'info')
+                    this.$swal('Cancelled', 'Data tidak di non aktifkan', 'info')
                     this.$emit('changeStatusUser')
                 }
             })
@@ -502,8 +502,8 @@ export default {
 
         aktifMember(id){
             this.$swal({
-                title: 'Aktif Member?',
-                text: 'Apakah anda yakin ingin mengaktifkan member ini!',
+                title: 'Aktif Data?',
+                text: 'Apakah anda yakin ingin mengaktifkan data ini!',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Ya, Lanjutkan!',
@@ -513,12 +513,12 @@ export default {
             })
             .then((result) => {
                 if(result.value) {
-                    this.$axios.post('api/auth/status-member/'+id+'?status=Y')
+                    this.$axios.patch(id.item.links.detail+'?status=Y')
                         .then(response => {
                             if(response.data.success==true){
-                                this.$swal('Aktif', 'Aktif member berhasil' , 'success');
+                                this.$swal('Aktif', 'Aktif  berhasil' , 'success');
                             }else{
-                                this.$swal('Aktif', 'aktif member gagal' , 'error');
+                                this.$swal('Aktif', 'aktif  gagal' , 'error');
                             }
 
                             this.$emit('changeStatusMember')

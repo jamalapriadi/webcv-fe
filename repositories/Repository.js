@@ -6,6 +6,9 @@ import SectionRepository from "./SectionRepository"
 import SectioncategoryRepository from "./SectioncategoryRepository"
 import WebcvRepository from "./WebcvRepository"
 
+import PersonRepository from "./PersonRepository"
+import CvtemplateRepository from "./CvtemplateRepository"
+
 export default ($axios) => ({
     guest: GuestRepository($axios),
     category: CategoryRepository($axios),
@@ -13,5 +16,8 @@ export default ($axios) => ({
     template: TemplateRepository($axios),
     section: SectionRepository($axios),
     webcv: WebcvRepository($axios),
-    sectioncategory: SectioncategoryRepository($axios)
+    sectioncategory: SectioncategoryRepository($axios),
+
+    person: PersonRepository($axios),
+    cvtemplate: CvtemplateRepository($axios)
 })
