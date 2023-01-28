@@ -393,8 +393,6 @@ export const actions = {
     },
 
     change_path_image({commit, state},payload){
-        console.log('payload')
-        console.log(payload)
         commit('SET_PATH_IMAGE', payload)
     }
 }

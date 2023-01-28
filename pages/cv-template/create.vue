@@ -1,8 +1,19 @@
 <template>
-    <div class="page-body">
-        <div class="container-xl">
-            <message :finish="isFinish" :success="success" :message="message" />
-            <nuxt-crud-form-generator :list="forms" :errors="errors" :title="title" :nmodel="nmodel" :btnText="btnText" :backBtn="backBtn" @submit="handleSubmit"/>
+    <div>
+        <div class="page-body">
+            <div class="container-xl">
+                <message :finish="isFinish" :success="success" :message="message" />
+                <nuxt-crud-form-generator 
+                :list="forms" 
+                :errors="errors" 
+                :title="title" 
+                :nmodel="nmodel" 
+                :btnText="btnText" 
+                :backBtn="backBtn" 
+                @submit="handleSubmit"
+                @changeSwitch="handleSwitch"
+                @getResultPathImage="handlegetResultPathImage" />
+            </div>
         </div>
     </div>
 </template>
@@ -19,20 +30,34 @@ export default {
             isFinish: state => state.isFinish,
             success: state => state.success,
             message: state => state.message,
-            nmodel: state => state.nmodel
+            nmodel: state => state.nmodel,
+            membertype: state => state.membertype
         })
     },
     data(){
         return {
-            title:"Create New CV Template",
+            title:"Create New Template",
             btnText: "Save",
         }
     },
     methods:{
-        ...mapActions('cvtemplate',['save']),
+        ...mapActions('cvtemplate',['save','change_handle_switch','change_path_image']),
 
         handleSubmit(val){
             this.save(val)
+        },
+
+        handleSwitch(e, m){
+            this.change_handle_switch(e,m)
+        },
+
+        handlegetResultPathImage(md, fl)
+        {
+            var params ={
+                model: md,
+                file: fl
+            }
+            this.change_path_image(params)
         }
     }
 }

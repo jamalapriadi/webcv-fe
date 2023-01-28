@@ -1,8 +1,12 @@
 export const state = () => ({
     profile: {},
+    availables:['description','pengalaman','pendidikan','minat','keahlian'],
+    others:['bahasa','kursus','pencapaian','publikasi'],
+    semua:['description','pengalaman','pendidikan','minat','keahlian','bahasa','kursus','pencapaian','publikasi'],
     loading:false,
     message:'',
     messageclass:'',
+    templates:[],
     step1:{
         title:'Detail Pribadi',
         errors:[],
@@ -61,6 +65,36 @@ export const state = () => ({
 export const mutations = {
     SET_MODEL(state, data){
         state.profile = data
+    },
+
+    SET_AVAILABLE(state, data){
+        state.availables.push(data)
+    },
+
+    SET_OTHERS(state){
+        var list =[]
+        for(var a=0;a<state.others.length; a++)
+        {
+            var ada = 'N'
+            for(var b=0;b<state.availables.length;b++)
+            {
+                if(state.others[a] == state.availables[b])
+                {
+                    ada = 'Y'
+                }
+            }
+
+            if(ada == 'N')
+            {
+                list.push(state.others[a])
+            }
+        }
+
+        state.others = list
+    },
+    
+    SET_TEMPLATE(state,data){
+        state.templates = data
     }
 }
 
@@ -69,5 +103,17 @@ export const actions = {
         const res = await this.$repositories.person.profile()
 
         commit('SET_MODEL', res.data)
+    },
+
+    async get_template({commit}){
+        const res = await this.$repositories.cvtemplate.all()
+
+        commit('SET_TEMPLATE', res.data)
+    },
+
+    change_bagian({commit}, val)
+    {
+        commit('SET_AVAILABLE', val)
+        commit('SET_OTHERS')
     }
 }

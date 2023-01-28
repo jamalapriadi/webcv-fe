@@ -1,6 +1,6 @@
 <template>
     <div v-if="profile">
-        <div class="page-body" v-if="profile.success == false">
+        <div class="page-body" v-if="profile.success == true">
             <div class="container-xl">
                 <ul class="steps steps-green steps-counter my-4">
                     <li :class="classStep(0)">Detail Pribadi</li>
@@ -240,6 +240,7 @@ export default {
             current_step:0,
             tambahan:false,
             form:{
+                kode:'',
                 nama_depan:'',
                 nama_belakang:'',
                 email:'',
@@ -265,8 +266,49 @@ export default {
             messageclass:''
         }
     },
+    mounted(){
+        this.setData()
+    },
     methods:{
-        ...mapActions('person',['save']),
+        ...mapActions('person',['save','get_data']),
+
+        setData(){
+            if(this.profile)
+            {
+                if(this.profile.person)
+                {
+                    if(this.profile.person.data)
+                    {
+                        this.form = {
+                            kode: this.profile.person.data.id,
+                            nama_depan:this.profile.person.data.nama_depan,
+                            nama_belakang:this.profile.person.data.nama_belakang,
+                            email:this.profile.person.data.email,
+                            phone:this.profile.person.data.telp,
+                            alamat:this.profile.person.data.alamat,
+                            kode_pos:this.profile.person.data.kode_pos,
+                            kota:this.profile.person.data.kota,
+                            tempat_lahir:this.profile.person.data.tempat_lahir,
+                            tanggal_lahir:this.profile.person.data.tanggal_lahir,
+                            sim:this.profile.person.data.sim,
+                            jenis_kelamin:this.profile.person.data.jk,
+                            kebangsaan:this.profile.person.data.kebangsaan,
+                            status_pernikahan:this.profile.person.data.status_pernikahan,
+                            linkedin:this.profile.person.data.linkedin,
+                            website:this.profile.person.data.website,
+                            file:'',
+                            file_preview:''
+                        }
+
+                        if(this.profile.person.data.foto)
+                        {
+                            this.show_preview = true
+                            this.form.file_preview = this.profile.person.data.foto
+                        }
+                    }
+                }
+            }
+        },
 
         getClassInput(l)
         {
@@ -321,7 +363,7 @@ export default {
         simpan(){
             this.loading = true 
 
-            this.$axios.post('/auth/cv/person', this.form)
+            this.$axios.patch('/auth/cv/person/'+this.form.kode, this.form)
                 .then(resp => {
                     this.loading = false
 

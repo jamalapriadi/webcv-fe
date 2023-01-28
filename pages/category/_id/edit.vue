@@ -11,6 +11,9 @@
 import { mapState, mapActions } from 'vuex'
 export default {
     layout:'main',
+    async fetch({store, params}){
+        await store.dispatch('category/show',params.id)
+    },
     computed:{
         ...mapState('category',{
             backBtn: state=> state.backBtn,
@@ -28,19 +31,8 @@ export default {
             btnText: "Update",
         }
     },
-    mounted(){
-        this.getData()
-    },
     methods:{
         ...mapActions('category',['update','show']),
-
-        getData(){
-            let app=this;
-            let id= app.$route.params.id;
-            this.kode = id;
-
-            this.show(id)
-        },
 
         handleSubmit(val){
             this.update(val)

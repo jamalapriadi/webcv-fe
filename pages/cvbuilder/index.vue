@@ -1,5 +1,11 @@
 <template>
     <div v-if="profile">
+        <div class="card" style="border:none">
+            <div class="card-body">
+                <strong>Detail CV</strong>
+            </div>
+        </div>
+
         <div class="page-body" v-if="profile.success == true">
             <div class="container-xl">
 
@@ -7,7 +13,34 @@
                     <b-spinner variant="success" type="grow" label="Spinning"></b-spinner>
                 </div>
 
-                <pre>{{ profile }}</pre>
+                <div v-if="profile.person" class="card">
+                    <div v-if="profile.person.data" class="card-table table-responsive">
+                        <table class="table table-vcenter">
+                            <thead>
+                                <tr>
+                                    <th>Nama Depan</th>
+                                    <th>Nama Belakang</th>
+                                    <th>Email</th>
+                                    <th>Telp</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ profile.person.data.nama_depan }}</td>
+                                    <td>{{ profile.person.data.nama_belakang }}</td>
+                                    <td>{{ profile.person.data.email }}</td>
+                                    <td>{{ profile.person.data.telp }}</td>
+                                    <td>
+                                        <nuxt-link :to="'/cvbuilder/'+profile.person.data.id+'/detail'" class="btn btn-primary">
+                                            Customize
+                                        </nuxt-link>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
             </div>
         </div>

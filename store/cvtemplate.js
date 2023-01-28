@@ -39,12 +39,13 @@ export const state = () => ({
             required:true
         },
         {
-            label:"Preview",
+            label:"Preview Image",
             model: 'preview',
             name:'preview',
             id:'input-preview',
-            type:'image',
-            placeholder:'Masukkan preview',
+            type:'file',
+            variant:'image',
+            placeholder:'Masukkan Preview Image',
             required:true
         },
         {
@@ -67,11 +68,27 @@ export const state = () => ({
 })
 
 export const mutations = {
+    SET_PATH_IMAGE(state, payload)
+    {
+        state.nmodel[payload.model] = payload.file
+    },
+
+    SET_HANDLE_SWITCH(state, e,m)
+    {
+        if(e == true)
+        {
+            state.nmodel.publish = 'Y'
+        }else{
+            state.nmodel.publish = 'N'
+        }
+        
+    },
+
     SET_MODEL(state, data){
         state.nmodel = {
             kode: data.id,
-            nama: data.name,
-            preview: data.template_preview,
+            nama: data.nama_template,
+            preview: data.preview_image,
             publish: data.publish
         }
     },
@@ -323,5 +340,14 @@ export const actions = {
                     }, 3000)
                 }
             })
+    },
+
+    change_handle_switch({commit, state}, e,m)
+    {
+        commit('SET_HANDLE_SWITCH', e,m)
+    },
+
+    change_path_image({commit, state},payload){
+        commit('SET_PATH_IMAGE', payload)
     }
 }

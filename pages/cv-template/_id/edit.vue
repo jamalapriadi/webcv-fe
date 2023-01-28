@@ -23,10 +23,10 @@ import { mapState, mapActions } from 'vuex'
 export default {
     layout:'main',
     async fetch({store, params}){
-        await store.dispatch('template/show',params.id)
+        await store.dispatch('cvtemplate/show',params.id)
     },
     computed:{
-        ...mapState('template',{
+        ...mapState('cvtemplate',{
             backBtn: state=> state.backBtn,
             forms: state=> state.forms,
             errors: state=> state.errors,
@@ -44,7 +44,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions('template',['save','show','change_handle_switch','change_path_image']),
+        ...mapActions('cvtemplate',['save','show','change_handle_switch','change_path_image']),
 
         handleSubmit(val){
             this.save(val)
