@@ -15,7 +15,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="" class="control-label">Deskripsi</label>
+                        <label for="" class="control-label">Summary</label>
                         <client-only placeholder="loading...">
                             <ckeditor-nuxt :config="editorConfig" v-model="state.description"/>
                         </client-only>

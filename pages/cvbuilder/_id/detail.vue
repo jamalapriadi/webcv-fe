@@ -54,11 +54,20 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <label class="control-label">Profesi</label>
+                                <input type="text" name="profesi" :class="getClassInput('profesi')" placeholder="profesi" v-model="form.profesi">
+
+                                <span v-if="errors">
+                                    <p class="text-danger" v-if="errors['profesi']">{{ errors['profesi'][0] }}</p>
+                                </span>
+                            </div>
+
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="" class="control-label">Alamat Email</label>
-                                        <input type="text" :class="getClassInput('email')" placeholder="Alamat E-Mail" v-model="form.email">
+                                        <input type="text" :class="getClassInput('email')" placeholder="Alamat E-Mail" v-model="form.email" readonly>
 
                                         <span v-if="errors">
                                             <p class="text-danger" v-if="errors['email']">{{ errors['email'][0] }}</p>
@@ -243,6 +252,7 @@ export default {
                 kode:'',
                 nama_depan:'',
                 nama_belakang:'',
+                profesi:'',
                 email:'',
                 phone:'',
                 alamat:'',
@@ -283,6 +293,7 @@ export default {
                             kode: this.profile.person.data.id,
                             nama_depan:this.profile.person.data.nama_depan,
                             nama_belakang:this.profile.person.data.nama_belakang,
+                            profesi:this.profile.person.data.profesi,
                             email:this.profile.person.data.email,
                             phone:this.profile.person.data.telp,
                             alamat:this.profile.person.data.alamat,

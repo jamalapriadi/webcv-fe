@@ -8,6 +8,7 @@ import WebcvRepository from "./WebcvRepository"
 
 import PersonRepository from "./PersonRepository"
 import CvtemplateRepository from "./CvtemplateRepository"
+import SosmedRepository  from "./SosmedRepository"
 
 export default ($axios) => ({
     guest: GuestRepository($axios),
@@ -19,5 +20,6 @@ export default ($axios) => ({
     sectioncategory: SectioncategoryRepository($axios),
 
     person: PersonRepository($axios),
-    cvtemplate: CvtemplateRepository($axios)
+    cvtemplate: CvtemplateRepository($axios),
+    sosmed: SosmedRepository($axios)
 })

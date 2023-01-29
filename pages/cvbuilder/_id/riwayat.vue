@@ -8,6 +8,10 @@
                     <li :class="classStep(2)">Template</li>
                 </ul>
 
+                <pre>{{ sosmeds }}</pre>
+
+                <card_sosmedVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data" :sosmed="sosmeds"></card_sosmedVue>
+
                 <div v-for="(l,idx) in availables" :key="idx">
 
                     <div v-if="l == 'description'">
@@ -44,6 +48,10 @@
 
                     <div v-if="l == 'publikasi'">
                         <card_publikasiVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data"></card_publikasiVue>
+                    </div>
+
+                    <div v-if="l == 'project'">
+                        <card_projectVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data"></card_projectVue>
                     </div>
 
                 </div>
@@ -100,11 +108,14 @@ import card_bahasaVue from "~/components/webcv/cv/card_bahasa.vue"
 import card_kursusVue from "~/components/webcv/cv/card_kursus.vue"
 import card_pencapaianVue from "~/components/webcv/cv/card_pencapaian.vue"
 import card_publikasiVue from '~/components/webcv/cv/card_publikasi.vue'
+import card_projectVue from '~/components/webcv/cv/card_project.vue'
+import card_sosmedVue from '~/components/webcv/cv/card_sosmed.vue'
 
 export default{
     layout:'main',
     async fetch({store, params}){
         await store.dispatch('person/get_data')
+        await store.dispatch('person/get_social_media')
     },
     components:{
         card_descriptionVue,
@@ -115,7 +126,9 @@ export default{
         card_bahasaVue,
         card_kursusVue,
         card_pencapaianVue,
-        card_publikasiVue
+        card_publikasiVue,
+        card_projectVue,
+        card_sosmedVue
     },
     computed:{
         ...mapState('person',{
@@ -125,7 +138,8 @@ export default{
             messageclass: state => state.messageclass,
             availables: state => state.availables,
             others: state => state.others,
-            semua: state => state.semua
+            semua: state => state.semua,
+            sosmeds: state => state.sosmeds
         })
     },
     data(){

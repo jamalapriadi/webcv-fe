@@ -206,6 +206,10 @@
                         <img :src="row.item.preview_image" alt="" style="width:80px">
                     </template>
 
+                    <template v-slot:cell(icon)="row">
+                        <div v-html="row.item.icon"></div>
+                    </template>
+
                     <template v-if="btnAction == true" v-slot:cell(qrcode)="row">
                         <div class="btn-list flex-nowrap">
                             <a href="#" class="btn btn-success" @click.prevent="showQrcode(row)">

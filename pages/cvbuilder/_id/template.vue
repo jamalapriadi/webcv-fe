@@ -7,8 +7,8 @@
                     <li :class="classStep(1)">Pengalaman</li>
                     <li :class="classStep(2)">Template</li>
                 </ul>
-
-                <!-- <pre>{{ templates }}</pre> -->
+                
+                <oxfordVue v-if="profile.person" :person="profile.person.data"></oxfordVue>
 
                 <div class="card">
                     <div class="card-body">
@@ -30,11 +30,16 @@
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
+import oxfordVue from '~/components/webcv/cvtemplate/oxford.vue'
+
 export default{
     layout:'main',
     async fetch({store, params}){
         await store.dispatch('person/get_data')
         await store.dispatch('person/get_template')
+    },
+    components:{
+        oxfordVue
     },
     computed:{
         ...mapState('person',{

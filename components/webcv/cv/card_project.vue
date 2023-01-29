@@ -1,19 +1,20 @@
 <template>
     <div>
         <div class="card mt-2" v-if="person">
-            <div class="card-header">Pengalaman kerja</div>
-            <div class="card-body" v-if="person.pengalaman">
-                <div class="divide-y" v-if="person.pengalaman.data.length > 0">
-                    <div v-for="(l,idx) in person.pengalaman.data" :key="idx">
+            <div class="card-header">Project</div>
+            <div class="card-body" v-if="person.project">
+                <div class="divide-y" v-if="person.project.data.length > 0">
+                    <div v-for="(l,idx) in person.project.data" :key="idx">
                         <div class="row mb-3">
                             <div class="col">
                                 <div class="text-truncate">
-                                    <strong>{{ l.posisi_kerja }}</strong>
+                                    <strong>{{ l.nama_project }}</strong>
                                 </div>
                                 <div class="text-muted">{{ l.periode }} ( {{ l.lama }} )</div>
+                                <div class="text-muted" v-html="l.description"></div>
                             </div>
                             <div class="col-1 align-self-center">
-                                <a href="#" @click.prevent="editPengalaman(l)">
+                                <a href="#" @click.prevent="edit(l)">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                         <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
@@ -34,7 +35,7 @@
                     </div>
                 </div>
 
-                <hr class="mt-4" v-if="person.pengalaman.data.length > 0">
+                <hr class="mt-4" v-if="person.project.data.length > 0">
 
                 <div v-if="tambahan" class="mt-3">
                     <form action="#" class="mb-5" @submit.prevent="simpan">
@@ -46,41 +47,13 @@
                             <div class="text-muted" v-html="message"></div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="" class="control-label">Posisi Kerja</label>
-                                    <input type="text" :class="getClassInput('posisi')" placeholder="misal. Manajer" v-model="state.posisi">
+                        <div class="form-group">
+                            <label for="" class="control-label">Nama Project</label>
+                            <input type="text" :class="getClassInput('nama')" placeholder="misal. Design" v-model="state.nama">
 
-                                    <span v-if="errors">
-                                        <p class="text-danger" v-if="errors['posisi']">{{ errors['posisi'][0] }}</p>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="" class="control-label">Kota</label>
-                                    <input type="text" :class="getClassInput('kota')" placeholder="misal. Jakarta" v-model="state.kota">
-
-                                    <span v-if="errors">
-                                        <p class="text-danger" v-if="errors['kota']">{{ errors['kota'][0] }}</p>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="" class="control-label">Perusahaan</label>
-                                    <input type="text" :class="getClassInput('perusahaan')" placeholder="Perusahaan pemberi kerja" v-model="state.perusahaan">
-
-                                    <span v-if="errors">
-                                        <p class="text-danger" v-if="errors['perusahaan']">{{ errors['perusahaan'][0] }}</p>
-                                    </span>
-                                </div>
-                            </div>
+                            <span v-if="errors">
+                                <p class="text-danger" v-if="errors['nama']">{{ errors['nama'][0] }}</p>
+                            </span>
                         </div>
 
                         <div class="row">
@@ -93,30 +66,10 @@
                                         <p class="text-danger" v-if="errors['tanggal_mulai']">{{ errors['tanggal_mulai'][0] }}</p>
                                     </span>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="" class="control-label">Sampai Sekarang?</label>
-
-                                    <toggle-button v-if="state.present == 'N'"
-                                        :value="false"
-                                        :sync="false"
-                                        name="phone"
-                                        :labels="{checked: 'Ya', unchecked: 'No'}"
-                                        :color="{checked: '#7DCE94', unchecked: '#82C7EB'}"
-                                        @change="changeSwitch($event)"/>
-
-                                    <toggle-button v-if="state.present == 'Y'"
-                                        :value="true"
-                                        :sync="true"
-                                        name="phone"
-                                        :labels="{checked: 'Ya', unchecked: 'No'}"
-                                        :color="{checked: '#7DCE94', unchecked: '#82C7EB'}"
-                                        @change="changeSwitch($event)"/>
-                                </div>
                             </div>
 
                             <div class="col-6">
-                                <div class="form-group" v-if="state.present == 'N'">
+                                <div class="form-group">
                                     <label for="" class="control-label">Tanggal Selesai</label>
                                     <input type="date" :class="getClassInput('tanggal_selesai')" v-model="state.tanggal_selesai">
 
@@ -130,7 +83,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="" class="control-label">Tugas/Tanggung Jawab Pekerjaan</label>
+                                    <label for="" class="control-label">Deskripsi</label>
                                     <client-only placeholder="loading...">
                                         <ckeditor-nuxt :config="editorConfig" v-model="state.deskripsi" />
                                     </client-only>
@@ -164,7 +117,7 @@
                         <path d="M9 12h6"></path>
                         <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path>
                     </svg>
-                    Tambah pengalaman kerja lain
+                    Tambah Project lain
                 </a>
             </div>
         </div>
@@ -183,13 +136,10 @@ export default{
             state:{
                 kode:'',
                 person_id:this.person.id,
-                posisi:'',
-                kota:'',
-                perusahaan:'',
+                nama:'',
                 tanggal_mulai:'',
                 tanggal_selesai:'',
                 deskripsi:'',
-                present:'N'
             },
             errors:[],
             loading:false,
@@ -266,13 +216,10 @@ export default{
             this.state ={
                 kode:'',
                 person_id:this.person.id,
-                posisi:'',
-                kota:'',
-                perusahaan:'',
+                nama:'',
                 tanggal_mulai:'',
                 tanggal_selesai:'',
                 deskripsi:'',
-                present:'N'
             }
 
             this.message = ''
@@ -281,18 +228,9 @@ export default{
             this.addTambahan()
         },
 
-        changeSwitch(e){
-            if(e.value == true)
-            {
-                this.state.present = 'Y'
-            }else{
-                this.state.present = 'N'
-            }
-        },
-
         simpan(){
             this.loading = true
-            this.$axios.post('/auth/cv/pengalaman', this.state)
+            this.$axios.post('/auth/cv/project', this.state)
                 .then(resp => {
                     this.loading = false
 
@@ -329,17 +267,14 @@ export default{
                 })
         },
 
-        editPengalaman(l){
+        edit(l){
             this.state ={
                 kode:l.id,
                 person_id:this.person.id,
-                posisi:l.posisi_kerja,
-                kota:l.kota,
-                perusahaan:l.perusahaan,
+                nama:l.nama_project,
                 tanggal_mulai:l.tanggal_mulai,
                 tanggal_selesai:l.tanggal_selesai,
                 deskripsi:l.description,
-                present:l.present
             }
 
             this.tambahan = true

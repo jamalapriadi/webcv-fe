@@ -1,12 +1,13 @@
 export const state = () => ({
     profile: {},
-    availables:['description','pengalaman','pendidikan','minat','keahlian'],
-    others:['bahasa','kursus','pencapaian','publikasi'],
-    semua:['description','pengalaman','pendidikan','minat','keahlian','bahasa','kursus','pencapaian','publikasi'],
+    availables:['description','pengalaman','keahlian','pendidikan','minat'],
+    others:['project','bahasa','kursus','pencapaian','publikasi'],
+    semua:['description','pengalaman','pendidikan','minat','keahlian','project','bahasa','kursus','pencapaian','publikasi'],
     loading:false,
     message:'',
     messageclass:'',
     templates:[],
+    sosmeds:[],
     step1:{
         title:'Detail Pribadi',
         errors:[],
@@ -95,6 +96,10 @@ export const mutations = {
     
     SET_TEMPLATE(state,data){
         state.templates = data
+    },
+
+    SET_SOSMED(state, data){
+        state.sosmeds = data
     }
 }
 
@@ -109,6 +114,12 @@ export const actions = {
         const res = await this.$repositories.cvtemplate.all()
 
         commit('SET_TEMPLATE', res.data)
+    },
+
+    async get_social_media({commit}){
+        const res = await this.$repositories.sosmed.all()
+
+        commit('SET_SOSMED', res.data)
     },
 
     change_bagian({commit}, val)

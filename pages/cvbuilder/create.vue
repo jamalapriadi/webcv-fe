@@ -54,6 +54,15 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <label class="control-label">Profesi</label>
+                                <input type="text" name="profesi" :class="getClassInput('profesi')" placeholder="profesi" v-model="form.profesi">
+
+                                <span v-if="errors">
+                                    <p class="text-danger" v-if="errors['profesi']">{{ errors['profesi'][0] }}</p>
+                                </span>
+                            </div>
+
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
@@ -242,6 +251,7 @@ export default {
             form:{
                 nama_depan:'',
                 nama_belakang:'',
+                profesi:'',
                 email:'',
                 phone:'',
                 alamat:'',
