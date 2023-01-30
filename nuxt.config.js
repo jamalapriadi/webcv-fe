@@ -42,7 +42,8 @@ export default {
     '~/plugins/vue-youtube-embed.js',
     '~/plugins/vue-datepicker.js',
     '~/plugins/vuejs-countdown-timer.js',
-    { src: '~/plugins/vue-good-table', ssr: false }
+    { src: '~/plugins/vue-good-table', ssr: false },
+    { src: '@/plugins/vue-html2pdf', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

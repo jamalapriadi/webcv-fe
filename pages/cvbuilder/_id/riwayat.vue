@@ -8,10 +8,6 @@
                     <li :class="classStep(2)">Template</li>
                 </ul>
 
-                <pre>{{ sosmeds }}</pre>
-
-                <card_sosmedVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data" :sosmed="sosmeds"></card_sosmedVue>
-
                 <div v-for="(l,idx) in availables" :key="idx">
 
                     <div v-if="l == 'description'">
@@ -52,6 +48,10 @@
 
                     <div v-if="l == 'project'">
                         <card_projectVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data"></card_projectVue>
+                    </div>
+
+                    <div v-if="l == 'social media'">
+                        <card_sosmedVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data" :sosmed="sosmeds"></card_sosmedVue>
                     </div>
 
                 </div>

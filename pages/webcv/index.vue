@@ -84,21 +84,41 @@
                 :dialog-class="'modal-dialog modal-dialog-centered'"
                 title="Create a Webcv"
             >
-                <create_new_webcvVue
-                    @batal="handleBatal"
-                    @suskesWebcv="handleSuksesWebcv"></create_new_webcvVue>
+                <div v-if="profile">
+                    <div v-if="profile.success == true">
+                        <create_new_webcvVue
+                            @batal="handleBatal"
+                            @suskesWebcv="handleSuksesWebcv"
+                            :person="profile.person"></create_new_webcvVue>
+                    </div>
+
+                    <div v-if="profile.success == true">
+                        
+                    </div>
+                </div>
+                
             </b-modal>
         </div>
     </div>
 </template>
 
 <script>
+    import { mapState, mapActions } from 'vuex'
+
     import create_new_webcvVue from "~/components/webcv/create_new_webcv.vue"
     import link_nav_top_webcvVue from "~/components/webcv/link_nav_top_webcv.vue"
     import list_menu_cardVue from "~/components/webcv/menu/list_menu_card.vue"
     import edit_customizationVue from "~/components/webcv/edit_customization.vue"
     export default{
         layout:'main',
+        async fetch({store, params}){
+            await store.dispatch('person/get_data')
+        },
+        computed:{
+            ...mapState('person',{
+                profile: state => state.profile,
+            })
+        },
         components:{
             create_new_webcvVue,
             link_nav_top_webcvVue,

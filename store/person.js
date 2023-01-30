@@ -1,8 +1,8 @@
 export const state = () => ({
     profile: {},
-    availables:['description','pengalaman','keahlian','pendidikan','minat'],
+    availables:['description','pengalaman','keahlian','pendidikan','minat','social media'],
     others:['project','bahasa','kursus','pencapaian','publikasi'],
-    semua:['description','pengalaman','pendidikan','minat','keahlian','project','bahasa','kursus','pencapaian','publikasi'],
+    semua:['description','pengalaman','pendidikan','minat','social media','keahlian','project','bahasa','kursus','pencapaian','publikasi'],
     loading:false,
     message:'',
     messageclass:'',

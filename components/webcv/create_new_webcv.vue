@@ -15,7 +15,7 @@
                     <b-spinner variant="success" type="grow" label="Spinning"></b-spinner>
                 </div>
 
-                <div class="row" style="background:#edf2ff;padding:10px;">
+                <div class="row" style="background:#edf2ff;padding-left:10px;padding-top:10px">
                     <div class="col-5">
                         <div class="form-group">
                             <label for="" class="form-label">Domain</label>
@@ -43,6 +43,16 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row" style="background:#edf2ff;padding-left:10px;">
+
+                    <div class="form-group" v-if="person.data">
+                        <label for="" class="control-label">Select Resume</label>
+                        <select name="person" id="person" class="form-select" v-model="state.person">
+                            <option :value="person.data.id">{{ person.data.nama_depan }} {{ person.data.nama_belakang }} - {{ person.data.profesi }}</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
             <div class="card-footer text-end">
@@ -57,6 +67,7 @@
 
 <script>
 export default {
+    props:['person'],
     data(){
         return {
             backBtn:'/webcv',
@@ -68,13 +79,27 @@ export default {
             cek:false,
             state:{
                 domain:'https://webcv.id',
-                slug:''
+                slug:'',
+                person:''
             },
             errors:[],
             timer: undefined,
         }
     },
+    mounted(){
+        this.setData()
+    },
     methods:{
+        setData(){
+            if(this.person)
+            {
+                if(this.person.data)
+                {
+                    this.state.person = this.person.data.id
+                }
+            }
+        },
+
         getClass(l){
             var defaultClass = 'form-control'
 

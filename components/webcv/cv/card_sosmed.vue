@@ -7,9 +7,14 @@
                     <div v-for="(l,idx) in person.sosmed.data" :key="idx">
                         <div class="row mb-3">
                             <div class="col">
-                                <div class="text-truncate">
-                                    <strong>{{ l.bahasa }}</strong>
-                                    <div class="text-muted">Level : {{ l.nama_level }}</div>
+                                <div class="text-truncate" v-if="l.sosmed">
+                                    <strong v-if="l.sosmed.data">
+                                        <span v-html="l.sosmed.data.icon"></span>
+                                        {{ l.sosmed.data.nama }}
+                                    </strong>
+                                    <div class="text-muted">
+                                        <a :href="l.link_social_media" target="_blank">{{ l.link_social_media }}</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-1 align-self-center">
@@ -46,44 +51,25 @@
                             <div class="text-muted" v-html="message"></div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" v-if="sosmed">
                             <label for="" class="control-label">Social Media</label>
-                            <input type="text" :class="getClassInput('bahasa')" placeholder="misal. Bahasa Inggris" v-model="state.bahasa">
+                            <select class="form-select" v-model="state.sosmed">
+                                <option value="" disabled selected>Pilih</option>
+                                <option v-for="(l,idx) in sosmed.data" :key="idx" :value="l.id">{{ l.nama }}</option>
+                            </select>
 
                             <span v-if="errors">
-                                <p class="text-danger" v-if="errors['bahasa']">{{ errors['bahasa'][0] }}</p>
+                                <p class="text-danger" v-if="errors['sosmed']">{{ errors['sosmed'][0] }}</p>
                             </span>
                         </div>
 
-                        <div class="row">
-                            <div class="col-6">
-                                
-                            </div>
+                        <div class="form-group">
+                            <label for="" class="control-label">Link</label>
+                            <input type="text" :class="getClassInput('link')" v-model="state.link" placeholder="Link Website / Social Media">
 
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="" class="control-label">Level</label>
-
-                                    <select name="level" id="level" class="form-select" v-model="state.level">
-                                        <option value="0">Pilih</option>
-                                        <option value="100">Penutur asli</option>
-                                        <option value="75">Sangat cakap berbicara dan menulis</option>
-                                        <option value="50">Pemahaman bahasa yang sangat baik</option>
-                                        <option value="25">Pemahaman bahasa yang baik dalam pekerjaan</option>
-                                        <option value="20">Pemahaman bahasa standar dalam pekerjaan</option>
-                                        <option value="120">A1</option>
-                                        <option value="130">A2</option>
-                                        <option value="140">B1</option>
-                                        <option value="160">B2</option>
-                                        <option value="180">C1</option>
-                                        <option value="200">C2</option>
-                                    </select>
-
-                                    <span v-if="errors">
-                                        <p class="text-danger" v-if="errors['level']">{{ errors['level'][0] }}</p>
-                                    </span>
-                                </div>
-                            </div>
+                            <span v-if="errors">
+                                <p class="text-danger" v-if="errors['link']">{{ errors['link'][0] }}</p>
+                            </span>
                         </div>
 
                         
