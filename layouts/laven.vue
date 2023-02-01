@@ -1,5 +1,5 @@
 <template>
-    <div class="page">
+    <div class="page" v-if="profile">
         <!-- <div class="lm-animated-bg"></div> -->
     
         <!-- Loading animation -->
@@ -11,24 +11,25 @@
         </div> -->
         <!-- /Loading animation -->
 
-        <!-- <pre>{{ $route.params.id }}</pre> -->
-        <!-- <pre>{{ menus }}</pre> -->
+        <!-- <pre>{{ $auth.user.data.webcv.data }}</pre> -->
 
         <!-- Scroll To Top Button -->
         <div class="lmpixels-scroll-to-top"><i class="lnr lnr-chevron-up"></i></div>
 
-        <div class="page-scroll">
+        <div class="page-scroll" v-if="profile.success">
             <div id="page_container" class="page-container bg-move-effect" data-animation="transition-flip-in-right">
 
                 <!-- Header -->
-                <header id="site_header" class="header">
-                    <div class="header-content clearfix">
+                <header id="site_header" class="header" v-if="profile.person">
+                    <div class="header-content clearfix" v-if="profile.person.data">
                             
                         <!-- Text Logo -->
                         <div class="text-logo">
-                            <a href="index.html">
-                                <div class="logo-symbol">J</div>
-                                <div class="logo-text">Alex <span>Smith</span></div>
+                            <a href="#">
+                                <div class="logo-symbol">
+                                    {{ $auth.user.data.webcv.data.title.charAt(0) }}
+                                </div>
+                                <div class="logo-text">{{ $auth.user.data.webcv.data.title }}</div>
                             </a>
                         </div>
                         <!-- /Text Logo -->
@@ -108,6 +109,8 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 export default{
     head() {
         return {
@@ -192,6 +195,14 @@ export default{
                 },
             ],
         };
+    },
+    async fetch({store, params}){
+        await store.dispatch('person/get_data')
+    },
+    computed:{
+        ...mapState('person',{
+            profile: state => state.profile,
+        })
     },
     data(){
         return {

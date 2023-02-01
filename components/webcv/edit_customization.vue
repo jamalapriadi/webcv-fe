@@ -1,6 +1,14 @@
 <template>
     <div>
         <form action="#" @submit.prevent="update">
+            <div v-if="loading" class="mt-2 text-center">
+                <b-spinner variant="success" type="grow" label="Spinning"></b-spinner>
+            </div>
+
+            <div v-if="message" :class="messageclass" role="alert">
+                <div class="text-muted" v-html="message"></div>
+            </div>
+            
             <div class="form-group">
                 <label for="" class="form-label">Title</label>
                 <input type="text" v-model="state.title" class="form-control" placeholder="Title">
@@ -52,7 +60,10 @@ export default{
             },
             file:{},
             selected_image:'N',
-            renderUpload:false
+            renderUpload:false,
+            loading:false,
+            message:'',
+            messageclass:''
         }
     },
     mounted(){
@@ -104,10 +115,36 @@ export default{
         update(){
             this.$axios.patch('/auth/webcv/'+this.list.id, this.state)
                 .then(resp => {
+                    this.loading = false
+
                     if(resp.data.success == true)
                     {
+                        this.message = resp.data.message
+                        this.messageclass = 'alert alert-success'
+
                         this.getData()
                         this.$emit('suksesUpdateCustomize')
+                    }else{
+                        this.message = resp.data.message
+                        this.messageclass = 'alert alert-warning'
+                    }
+                }).catch(error => {
+                    if (error.response.status == 422) {
+                        this.loading=false
+                        this.errors = error.response.data.errors;
+                        this.messageclass='alert alert-danger';
+                        this.message = error.response.data.message
+
+                        this.$swal('422', this.message, 'Danger')
+                    }
+
+                    if (error.response.status == 500) {
+                        this.loading=false
+                        this.errors = error.response.data.errors;
+                        this.messageclass='alert alert-danger';
+                        this.message = error.response.data.message
+
+                        this.$swal('500', this.message, 'Danger')
                     }
                 })
         }

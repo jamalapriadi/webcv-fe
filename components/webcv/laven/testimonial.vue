@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <div class="row">
+        <div class="row" v-if="list">
             <div class="col-xs-12 col-sm-12">
                 <div class="p-20"></div>
                 <!-- Testimonials -->
@@ -9,7 +9,7 @@
                     <h2>{{ title }}</h2>
                 </div>
 
-                <div v-if="list" id="testimonials_1" class="testimonials owl-carousel" data-mobile-items="1" data-tablet-items="2" data-items="2">
+                <div class="testimonials owl-carousel" data-mobile-items="1" data-tablet-items="2" data-items="2">
                     <!-- Testimonial 1 -->
                     <div class="testimonial-item" v-for="(l,idx) in list" :key="idx">
                         <!-- Testimonial Content -->

@@ -1,105 +1,167 @@
 <template>
     <div v-if="list">
-        <div v-if="list.success == true" class="bg-white">
-            <div v-if="list.profile.data">
-                <div v-if="list.profile.data.menu" class="bg-white">
-                    <header class="d-flex justify-content-center py-3" v-if="list.profile.data.menu.data">
-                        <ul class="nav nav-pills">
-                            <li class="nav-item" v-for="(l,idx) in list.profile.data.menu.data" :key="idx">
-                                <!-- <a href="#" :class="getClassMenu(l.id)" @click.prevent="changePage(l.id)" aria-current="page">{{ l.menu }}</a> -->
-                                <nuxt-link :class="getClassMenu(l.id)" :to="'/u/'+list.profile.data.slug+'/page/'+l.menu">{{ l.menu }}</nuxt-link>
-                            </li>
-                        </ul>
-                    </header>
-                </div>
+        <div v-if="list.success">
+            <div v-if="list.profile">
+                <div v-if="list.profile.data">
 
-                <div v-if="list.profile.data.menu">
-                    <div v-if="list.profile.data.menu.data">
-                        <div v-for="(l,idx) in list.profile.data.menu.data" :key="idx">
-                            <div v-if="l.id == current_menu">
-                                <div v-if="l.sections.data" v-for="(k,ix) in l.sections.data" :key="ix">
-                                    <div v-if="k.section">
-                                        <div v-if="k.section.data">
-                                            <div v-if="k.section.data.title == 'centered_hero'">
-                                                <centered_hero :title="k.json_fields.title" :description="k.json_fields.description" :img="k.json_fields.img"></centered_hero>
-                                            </div>
+                    <header_preview v-if="list.profile.data" :profile="list.profile.data" :current_menu="current_menu"></header_preview>
 
-                                            <div v-if="k.section.data.title == 'centered_screenshoot'">
-                                                <centered_screenshoot :title="k.json_fields.title" :description="k.json_fields.description" :img="k.json_fields.img"></centered_screenshoot>
-                                            </div>
+                    <div id="main" class="site-main">
+                        <div id="main-content" class="single-page-content">
 
-                                            <div v-if="k.section.data.title == 'responsive_left_alignment'">
-                                                <responsive_left_alignment :title="k.json_fields.title" :description="k.json_fields.description" :img="k.json_fields.img"></responsive_left_alignment>
-                                            </div>
+                            <div id="primary" class="content-area">    
+                                <div id="content" class="page-content site-content single-post" role="main">
 
-                                            <div v-if="k.section.data.title == 'border_hero'">
-                                                <border_hero :title="k.json_fields.title" :description="k.json_fields.description" :img="k.json_fields.img"></border_hero>
-                                            </div>
+                                    <div v-if="list.profile.data.menu">
+                                        <div v-if="list.profile.data.menu.data">
+                                            <div v-for="(l,idx) in list.profile.data.menu.data" :key="idx">
+                                                <div v-if="l.menu == current_menu">
+                                                    <div v-if="l.sections.data" v-for="(k,ix) in l.sections.data" :key="ix">
+                                                        <div v-if="k.section">
+                                                            <div v-if="k.section.data">
 
-                                            <div v-if="k.section.data.title == 'dark_hero_mode'">
-                                                <dark_hero_mode :title="k.json_fields.title" :description="k.json_fields.description" :img="k.json_fields.img"></dark_hero_mode>
-                                            </div>
+                                                                <div v-if="k.section.data.title == 'about_me_2'">
+                                                                    <About_me_2Vue :person="list.profile.data.person.data"></About_me_2Vue>
+                                                                </div>
 
-                                            <div v-if="k.section.data.title == 'hanging_icons'">
-                                                <hanging_icons :title="k.json_fields.title" :lists="k.json_fields.forms"></hanging_icons>
-                                            </div>
+                                                                <div v-if="k.section.data.title == 'about_me_1'">
+                                                                    <About_me_1Vue :person="list.profile.data.person.data"></About_me_1Vue>
+                                                                </div>
 
-                                            <div v-if="k.section.data.title == 'accordion'" class="container">
-                                                <accordionVue :fields="k.json_fields"></accordionVue>
+                                                                <div v-if="k.section.data.title == 'what_i_do'">
+                                                                    <what_i_doVue :title="k.json_fields.title" :list="k.json_fields.list"></what_i_doVue>
+                                                                </div>
+
+                                                                <div v-if="k.section.data.title == 'experience'">
+                                                                    <experienceVue :title="'Experience'" :person="list.profile.data.person.data"></experienceVue>
+                                                                </div>
+
+                                                                <div v-if="k.section.data.title == 'education'">
+                                                                    <experienceVue :title="'Education'" :person="list.profile.data.person.data"></experienceVue>
+                                                                </div>
+
+                                                                <div v-if="k.section.data.title == 'certification'">
+                                                                    <certificationVue :person="list.profile.data.person.data"></certificationVue>
+                                                                </div>
+
+                                                                <div v-if="k.section.data.title == '2_row_blog'">
+                                                                    <two_row_blogVue :profile="list.profile.data" :user_id="list.profile.data.person.data.user_id"></two_row_blogVue>
+                                                                </div>
+
+                                                                <div v-if="k.section.data.title == '3_row_blog'">
+                                                                    <three_row_blogVue :profile="list.profile.data" :user_id="list.profile.data.person.data.user_id"></three_row_blogVue>
+                                                                </div>
+
+                                                                <div v-if="k.section.data.title == 'testimonial'">
+                                                                    <testimonialVue :title="k.json_fields.title" :list="k.json_fields.list"></testimonialVue>
+                                                                </div>
+
+                                                                <div v-if="k.section.data.title == 'client'">
+                                                                    <clientVue :title="k.json_fields.title" :list="k.json_fields.list"></clientVue>
+                                                                </div>
+
+                                                                <div v-if="k.section.data.title == 'portofolio_two_columns'">
+                                                                    <portofolio_two_colomunsVue :profile="list.profile.data" :title="'portofolio_two_columns'" :user_id="list.profile.data.person.data.user_id" :class_title="'portfolio-grid two-columns shuffle'"></portofolio_two_colomunsVue>
+                                                                </div>
+
+                                                                <div v-if="k.section.data.title == 'portofolio_three_columns'">
+                                                                    <portofolio_two_colomunsVue :profile="list.profile.data" :title="'portofolio_three_columns'" :user_id="list.profile.data.person.data.user_id" :class_title="'portfolio-grid three-columns shuffle'"></portofolio_two_colomunsVue>
+                                                                </div>
+
+                                                                <div v-if="k.section.data.title == 'portofolio_four_columns'">
+                                                                    <portofolio_two_colomunsVue :profile="list.profile.data" :title="'portofolio_four_columns'" :user_id="list.profile.data.person.data.user_id" :class_title="'portfolio-grid four-columns shuffle'"></portofolio_two_colomunsVue>
+                                                                </div>
+
+                                                                <div v-if="k.section.data.title == 'portofolio_five_columns'">
+                                                                    <portofolio_two_colomunsVue :profile="list.profile.data" :title="'portofolio_five_columns'" :user_id="list.profile.data.person.data.user_id" :class_title="'portfolio-grid five-columns shuffle'"></portofolio_two_colomunsVue>
+                                                                </div>
+
+                                                                <div v-if="k.section.data.title == 'blank_header'">
+                                                                    <blank_headerVue :title="k.json_fields.title"></blank_headerVue>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+
+
                                 </div>
                             </div>
+
                         </div>
                     </div>
-                </div>
 
-                <first_footerVue v-if="list.profile.data.menu" :profile="list.profile" :menu="list.profile.data.menu"></first_footerVue>
-                <!-- <second_footerVue v-if="list.profile.data.menu" :profile="list.profile" :menu="list.profile.data.menu"></second_footerVue> -->
-                <!-- <third_footerVue v-if="list.profile.data.menu" :profile="list.profile" :menu="list.profile.data.menu"></third_footerVue> -->
-                <!-- <four_footerVue v-if="list.profile.data.menu" :profile="list.profile" :menu="list.profile.data.menu"></four_footerVue> -->
+                    <!-- Footer -->
+                    <footer class="site-footer clearfix">
+                        <div class="footer-social">
+                            <ul class="footer-social-links">
+                                <li>
+                                    <a href="https://www.linkedin.com/in/jamal-apriadi" target="_blank">Linkedin</a>
+                                </li>
+
+                                <li>
+                                    <a href="https://www.facebook.com/gha16" target="_blank">Facebook</a>
+                                </li>
+
+                                <li>
+                                    <a href="https://www.instagram.com/jamalapriadi/" target="_blank">Instagram</a>
+                                </li>
+                            </ul>
+                        </div>
+                            
+                        <div class="footer-copyrights">
+                            <p>© 2023 All rights reserved. Jamal Apriadi.</p>
+                        </div>
+                    </footer>
+                    <!-- /Footer -->
+                </div>
             </div>
         </div>
-
-        <div v-if="list.success == false">
-        
-        </div>
+        <!-- <pre>{{ list }}</pre> -->
     </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import header_preview from "~/components/webcv/laven/header_preview.vue"
 
-import centered_hero from '~/components/webcv/sections/centered_hero.vue'
-import centered_screenshoot from '~/components/webcv/sections/centered_screenshoot.vue'
-import responsive_left_alignment from "~/components/webcv/sections/responsive_left_alignment.vue"
-import border_hero from '~/components/webcv/sections/border_hero.vue'
-import dark_hero_mode from '~/components/webcv/sections/dark_hero_mode.vue'
-import hanging_icons from "~/components/webcv/sections/hanging_icons.vue"
-
-import accordionVue from '~/components/webcv/sections/accordion.vue'
-
-import first_footerVue from '~/components/webcv/footer/first_footer.vue'
-import second_footerVue from '~/components/webcv/footer/second_footer.vue'
-import third_footerVue from "~/components/webcv/footer/third_footer.vue"
-import four_footerVue from '~/components/webcv/footer/four_footer.vue'
+import About_me_1Vue from '~/components/webcv/laven/about_me_1.vue';
+import About_me_2Vue from '~/components/webcv/laven/about_me_2.vue';
+import what_i_doVue from '~/components/webcv/laven/what_i_do.vue';
+import experienceVue from '~/components/webcv/laven/experience.vue';
+import certificationVue from "~/components/webcv/laven/certification.vue"
+import two_row_blogVue from "~/components/webcv/laven/two_row_blog_live.vue"
+import three_row_blogVue from '~/components/webcv/laven/three_row_blog_live.vue';
+import testimonialVue from "~/components/webcv/laven/testimonial.vue"
+import clientVue from "~/components/webcv/laven/client.vue"
+import portofolio_two_colomunsVue from "~/components/webcv/laven/portofolio_two_columns_live.vue"
+import blank_headerVue from "~/components/webcv/laven/blank_header.vue"
 
 export default{
     auth:false,
-    layout:'laven',
+    layout:'laven_preview',
+    head(){
+        return {
+            title:this.list.profile ? this.list.profile.data.title : '',
+        }
+    },
     components:{
-        centered_hero,
-        accordionVue,
-        centered_screenshoot,
-        responsive_left_alignment,
-        border_hero,
-        dark_hero_mode,
-        first_footerVue,
-        second_footerVue,
-        third_footerVue,
-        four_footerVue,
-        hanging_icons
+        header_preview,
+        About_me_1Vue,
+        About_me_2Vue,
+        what_i_doVue,
+        experienceVue,
+        certificationVue,
+        two_row_blogVue,
+        three_row_blogVue,
+        testimonialVue,
+        clientVue,
+        portofolio_two_colomunsVue,
+        blank_headerVue
     },
     async fetch({store, params}){
         await store.dispatch('preview/get_profile',params.id)
@@ -131,7 +193,7 @@ export default{
                             {
                                 if(a == 0)
                                 {
-                                    this.current_menu = this.list.profile.data.menu.data[a].id
+                                    this.current_menu = this.list.profile.data.menu.data[a].menu
                                 }
                             }   
                         }

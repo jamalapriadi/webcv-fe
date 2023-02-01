@@ -70,6 +70,7 @@
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -136,7 +137,7 @@ export default{
 
             this.fullpath = app.$route.fullPath
 
-            this.$axios.get('/page/post?path='+this.fullpath)
+            this.$axios.get('/page/portofolio?path='+this.fullpath)
                 .then(resp => {
                     this.list = resp.data
 

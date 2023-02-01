@@ -301,11 +301,11 @@ import certificationVue from "~/components/webcv/laven/certification.vue"
 import two_row_blogVue from "~/components/webcv/laven/two_row_blog.vue"
 import three_row_blogVue from '~/components/webcv/laven/three_row_blog.vue';
 import input_testimonialVue from "~/components/webcv/laven/input_testimonial.vue"
-import testimonialVue from "~/components/webcv/laven/testimonial.vue"
 import input_clientVue from "~/components/webcv/laven/input_client.vue"
+import input_blank_headerVue from '~/components/webcv/laven/input_blank_header.vue';
+import testimonialVue from "~/components/webcv/laven/testimonial.vue"
 import clientVue from "~/components/webcv/laven/client.vue"
 import portofolio_two_colomunsVue from "~/components/webcv/laven/portofolio_two_columns.vue"
-import input_blank_headerVue from '~/components/webcv/laven/input_blank_header.vue';
 import blank_headerVue from "~/components/webcv/laven/blank_header.vue"
 
 export default{
@@ -333,7 +333,6 @@ export default{
     },
     computed:{
         ...mapState('person',{
-            step1: state=> state.step1,
             profile: state => state.profile,
         })
     },

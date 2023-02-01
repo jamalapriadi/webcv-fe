@@ -13,7 +13,7 @@
                         <li class="nav-item" role="presentation">
                             <a href="#tabs-profile-10" class="nav-link" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1">Customization</a>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        <!-- <li class="nav-item" role="presentation">
                             <a href="#tabs-performace-11" class="nav-link" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1">Performance</a>
                         </li>
                         <li class="nav-item ms-auto" role="presentation">
@@ -26,7 +26,7 @@
                                 </svg>
                                 &nbsp;  Leave Feedback
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
 
                     <div class="card-body">

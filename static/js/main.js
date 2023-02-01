@@ -227,16 +227,16 @@
         });
 
         // Initialize Portfolio grid
-        var $portfolio_container = $(".portfolio-grid"),
-            $gallery_container = $("#portfolio-gallery-grid");
+        // var $portfolio_container = $(".portfolio-grid"),
+        //     $gallery_container = $("#portfolio-gallery-grid");
 
-        $gallery_container.imagesLoaded(function () {
-            $gallery_container.masonry();
-        });
+        // $gallery_container.imagesLoaded(function () {
+        //     $gallery_container.masonry();
+        // });
 
-        $portfolio_container.imagesLoaded(function () {
-            portfolio_init(this);
-        });
+        // $portfolio_container.imagesLoaded(function () {
+        //     portfolio_init(this);
+        // });
 
         imageCarousel();
 
@@ -296,7 +296,7 @@
         });
 
         // Clients Slider
-        $(".clients.owl-carousel").imagesLoaded().owlCarousel({
+        $(".clients.owl-carousel").owlCarousel({
             nav: false, // Show next/prev buttons.
             items: 2, // The number of items you want to see on the screen.
             loop: false, // Infinity loop. Duplicate last and first items to get loop illusion.
