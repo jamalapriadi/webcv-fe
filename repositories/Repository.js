@@ -1,3 +1,7 @@
+import PermissionRepository from "./PermissionRepository";
+import RoleRepository from "./RoleRepository";
+import UserRepository from "./UserRepository";
+
 import GuestRepository from "./GuestRepository"
 import CategoryRepository from "./CategoryRepository"
 import PostRepository from "./PostRepository"
@@ -11,6 +15,10 @@ import CvtemplateRepository from "./CvtemplateRepository"
 import SosmedRepository  from "./SosmedRepository"
 
 export default ($axios) => ({
+    permission: PermissionRepository($axios),
+    role: RoleRepository($axios),
+    user: UserRepository($axios),
+    
     guest: GuestRepository($axios),
     category: CategoryRepository($axios),
     post: PostRepository($axios),

@@ -362,6 +362,17 @@ export default{
     async fetch({store, params}){
         await store.dispatch('person/get_data')
     },
+    validate({ params, query, store }) {
+        for(var a=0;a<store.$auth.user.data.permissions.length;a++)
+        {
+            if(store.$auth.user.data.permissions[a].name == "webcv_customize")
+            {
+                return true
+            }
+        }
+
+        return false
+    },
     components:{
         centered_hero,
         About_me_1Vue,

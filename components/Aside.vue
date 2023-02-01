@@ -7,7 +7,7 @@
             <h1 class="navbar-brand navbar-brand-autodark">
                 <a href=".">
                     <!-- <img src="./static/logo-white.svg" width="110" height="32" alt="Tabler" class="navbar-brand-image"> -->
-                    <h1>Webky</h1>
+                    <h1>CV-AKU</h1>
                 </a>
             </h1>
 
@@ -80,14 +80,14 @@
             <div class="collapse navbar-collapse" id="navbar-menu" style="background:#fff;border-right:1px solid lightgray">
                 <ul class="navbar-nav pt-lg-3">
                     <li v-for="(l,idx) in menus" :key="'menu'+idx" v-bind:class="getClass(l)">
-                        <nuxt-link v-if="l.type == 'menu'" :to="l.to" style="color:#222" class="nav-link">
+                        <nuxt-link v-if="l.type == 'menu'" v-show="showMenu(l.permission)" :to="l.to" style="color:#222" class="nav-link">
                             <span class="nav-link-icon d-md-none d-lg-inline-block" v-html="l.icon"></span>
                             <span class="nav-link-title">
                                 {{l.title}}
                             </span>
                         </nuxt-link>
 
-                        <a v-if="l.type == 'dropdown'" class="nav-link dropdown-toggle" href="#navbar-help" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false" >
+                        <a v-show="showMenu(l.permission)" v-if="l.type == 'dropdown'" class="nav-link dropdown-toggle" href="#navbar-help" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false" >
                             <span class="nav-link-icon d-md-none d-lg-inline-block" v-html="l.icon"></span>
                             <span class="nav-link-title" style="color:#222">
                                 {{l.title}}
@@ -95,7 +95,7 @@
                         </a>
 
                         <div v-if="l.type == 'dropdown'" class="dropdown-menu">
-                            <nuxt-link v-for="(k,ix) in l.submenu" :to="k.to" :key="ix" class="dropdown-item" href="./docs/index.html" style="color:#222;margin-left:30px">
+                            <nuxt-link v-for="(k,ix) in l.submenu"  v-show="showMenu(k.permission)" :to="k.to" :key="ix" class="dropdown-item" style="color:#222;margin-left:30px">
                                 {{k.title}}
                             </nuxt-link>
                         </div>
@@ -143,15 +143,17 @@ export default {
                     title:'Blog',
                     icon:'<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-news" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11"></path><line x1="8" y1="8" x2="12" y2="8"></line><line x1="8" y1="12" x2="12" y2="12"></line><line x1="8" y1="16" x2="12" y2="16"></line></svg>',
                     class:'',
-                    permission:'dropdown',
+                    permission:'posts',
                     submenu:[
                         {
                             to:'/posts',
-                            title:'Posts'
+                            title:'Posts',
+                            permission:'list_post'
                         },
                         {
                             to:'/category',
-                            title:'Category'
+                            title:'Category',
+                            permission:'list_category'
                         },
                     ]
                 },
@@ -188,28 +190,58 @@ export default {
                     title:'Master',
                     icon:'<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="12" cy="12" r="4"></circle><circle cx="12" cy="12" r="9"></circle><line x1="15" y1="15" x2="18.35" y2="18.35"></line><line x1="9" y1="15" x2="5.65" y2="18.35"></line><line x1="5.65" y1="5.65" x2="9" y2="9"></line><line x1="18.35" y1="5.65" x2="15" y2="9"></line></svg>',
                     class:'',
-                    permission:'dropdown',
+                    permission:'master',
                     submenu:[
                         {
                             to:'/template',
-                            title:'Template'
+                            title:'Template',
+                            permission:'list_template'
                         },
                         {
                             to:'/section',
-                            title:'Section'
+                            title:'Section',
+                            permission:'list_section'
                         },
                         {
                             to:'/section-category',
-                            title:'Section Category'
+                            title:'Section Category',
+                            permission:'list_section_category'
                         },
                         {
                             to:'/cv-template',
-                            title:'CV Template'
+                            title:'CV Template',
+                            permission:'list_cv_template'
                         },
                         {
                             to:'/sosmed',
-                            title:'Social Media'
+                            title:'Social Media',
+                            permission:'list_social_media'
                         },
+                    ]
+                },
+                {
+                    to:'#',
+                    type:'dropdown',
+                    title:'User',
+                    icon:'<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-users" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path><path d="M21 21v-2a4 4 0 0 0 -3 -3.85"></path></svg>',
+                    class:'',
+                    permission:'user',
+                    submenu:[
+                        {
+                            to:'/users',
+                            title:'User',
+                            permission:'list_user'
+                        },
+                        {
+                            to:'/roles',
+                            title:'Role',
+                            permission:'list_role'
+                        },
+                        {
+                            to:'/permissions',
+                            title:'Permission',
+                            permission:'list_permission'
+                        }
                     ]
                 },
             ]
@@ -223,6 +255,19 @@ export default {
                 return 'nav-item mb-2'
             }
         },
+
+        showMenu(perm)
+        {
+            for(var b=0;b<this.$auth.user.data.permissions.length;b++)
+            {
+                if(this.$auth.user.data.permissions[b].name == perm)
+                {
+                    return true
+                }
+            }
+
+            return false
+        }
     }
 }
 </script>

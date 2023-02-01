@@ -224,6 +224,17 @@ export default {
         create_new_categoryVue,
         'ckeditor-nuxt': () => { return import('@blowstack/ckeditor-nuxt') },
     },
+    validate({ params, query, store }) {
+        for(var a=0;a<store.$auth.user.data.permissions.length;a++)
+        {
+            if(store.$auth.user.data.permissions[a].name == "edit_portofolio")
+            {
+                return true
+            }
+        }
+
+        return false
+    },
     computed:{
         ...mapState('portofolio',{
             isFinish: state => state.isFinish,

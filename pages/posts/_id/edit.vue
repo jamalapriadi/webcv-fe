@@ -212,6 +212,17 @@ export default {
     async fetch({store}){
         await store.dispatch('post/showCategory')
     },
+    validate({ params, query, store }) {
+        for(var a=0;a<store.$auth.user.data.permissions.length;a++)
+        {
+            if(store.$auth.user.data.permissions[a].name == "edit_post")
+            {
+                return true
+            }
+        }
+
+        return false
+    },
     computed:{
         ...mapState('post',{
             isFinish: state => state.isFinish,

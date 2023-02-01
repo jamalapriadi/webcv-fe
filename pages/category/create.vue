@@ -22,6 +22,17 @@ export default {
             nmodel: state => state.nmodel
         })
     },
+    validate({ params, query, store }) {
+        for(var a=0;a<store.$auth.user.data.permissions.length;a++)
+        {
+            if(store.$auth.user.data.permissions[a].name == "create_new_category")
+            {
+                return true
+            }
+        }
+
+        return false
+    },
     data(){
         return {
             title:"Create New Category",

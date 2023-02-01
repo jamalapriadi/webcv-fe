@@ -1,23 +1,26 @@
 <template>
-    <div class="page-body">
-        <div class="container-xl">
-            <message :finish="isFinish" :success="success" :message="message" />
+    <div>
+        <div class="page-body">
+            <div class="container-xl">
+                <message :finish="isFinish" :success="success" :message="message" />
 
-            <nuxt-card-datatable 
-                :title="title" 
-                :fields="fields" 
-                :addLink="addLink" 
-                :btnAction="btnAction" 
-                :meta="meta" 
-                :lists="lists"
-                :hasilcari="hsearch"
-                :editUrl="edit_data_form"
-                @search="handleSearch"
-                @edit="handleEdit"
-                @delete="handleDelete"
-                @changePerPage="handlechangePerPage"
-                @pagination="handlePagination" />
+                <nuxt-card-datatable 
+                    :title="title" 
+                    :fields="fields" 
+                    :addLink="addLink" 
+                    :btnAction="btnAction" 
+                    :meta="meta" 
+                    :lists="lists"
+                    :hasilcari="hsearch"
+                    :editUrl="edit_data_form"
+                    @search="handleSearch"
+                    @edit="handleEdit"
+                    @delete="handleDelete"
+                    @changePerPage="handlechangePerPage"
+                    @pagination="handlePagination" />
+            </div>
         </div>
+        
     </div>
 </template>
 
@@ -28,13 +31,10 @@ import nuxtCardDatatable from '~/components/nuxt-card-datatable.vue'
 export default {
     components: { nuxtCardDatatable },
     layout:'main',
-    async fetch({store}){
-        await store.dispatch('portofolio/get_data')
-    },
     validate({ params, query, store }) {
         for(var a=0;a<store.$auth.user.data.permissions.length;a++)
         {
-            if(store.$auth.user.data.permissions[a].name == "portofolio")
+            if(store.$auth.user.data.permissions[a].name == "list_role")
             {
                 return true
             }
@@ -42,8 +42,11 @@ export default {
 
         return false
     },
+    async fetch({store}){
+        await store.dispatch('role/get_data')
+    },
     computed:{
-        ...mapState('portofolio',{
+        ...mapState('role',{
             fields: state=> state.fields,
             per_page: state=> state.per_page,
             lists: state => state.lists,
@@ -59,13 +62,14 @@ export default {
     },
     data(){
         return{
-            title:'Portofolio',
+            title:'Roles',
         }
     },
     methods:{
-        ...mapActions('portofolio',['change_page','change_per_page','change_search_key','goToEdit','openDeleteModal']),
+        ...mapActions('role',['change_page','change_per_page','change_search_key','goToEdit','openDeleteModal']),
 
         handleEdit(val){
+            // this.goToEdit(val)
             this.$router.push({ path: this.edit_data_form+'/'+val.item.id+"/edit" })
         },
 

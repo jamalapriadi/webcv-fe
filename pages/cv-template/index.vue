@@ -32,6 +32,17 @@ export default {
     async fetch({store}){
         await store.dispatch('cvtemplate/get_data')
     },
+    validate({ params, query, store }) {
+        for(var a=0;a<store.$auth.user.data.permissions.length;a++)
+        {
+            if(store.$auth.user.data.permissions[a].name == "list_cv_template")
+            {
+                return true
+            }
+        }
+
+        return false
+    },
     computed:{
         ...mapState('cvtemplate',{
             fields: state=> state.fields,

@@ -25,6 +25,17 @@ export default {
     async fetch({store, params}){
         await store.dispatch('template/show',params.id)
     },
+    validate({ params, query, store }) {
+        for(var a=0;a<store.$auth.user.data.permissions.length;a++)
+        {
+            if(store.$auth.user.data.permissions[a].name == "edit_template")
+            {
+                return true
+            }
+        }
+
+        return false
+    },
     computed:{
         ...mapState('template',{
             backBtn: state=> state.backBtn,

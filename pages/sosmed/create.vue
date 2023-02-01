@@ -11,6 +11,17 @@
 import { mapState, mapActions } from 'vuex'
 export default {
     layout:'main',
+    validate({ params, query, store }) {
+        for(var a=0;a<store.$auth.user.data.permissions.length;a++)
+        {
+            if(store.$auth.user.data.permissions[a].name == "create_new_social_media")
+            {
+                return true
+            }
+        }
+
+        return false
+    },
     computed:{
         ...mapState('sosmed',{
             backBtn: state=> state.backBtn,

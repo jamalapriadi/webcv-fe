@@ -85,6 +85,17 @@ export default {
     async fetch({store, params}){
         await store.dispatch('section/get_section_category')
     },
+    validate({ params, query, store }) {
+        for(var a=0;a<store.$auth.user.data.permissions.length;a++)
+        {
+            if(store.$auth.user.data.permissions[a].name == "create_new_section")
+            {
+                return true
+            }
+        }
+
+        return false
+    },
     computed:{
         ...mapState('section',{
             backBtn: state=> state.backBtn,

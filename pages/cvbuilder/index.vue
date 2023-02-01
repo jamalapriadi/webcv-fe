@@ -13,7 +13,7 @@
                     <b-spinner variant="success" type="grow" label="Spinning"></b-spinner>
                 </div>
 
-                <p>Refrensi Template : https://zety.com/resume-templates</p>
+                <!-- <p>Refrensi Template : https://zety.com/resume-templates</p> -->
 
                 <div v-if="profile.person" class="card">
                     <div v-if="profile.person.data" class="card-table table-responsive">
@@ -95,6 +95,17 @@ export default{
     layout:'main',
     async fetch({store, params}){
         await store.dispatch('person/get_data')
+    },
+    validate({ params, query, store }) {
+        for(var a=0;a<store.$auth.user.data.permissions.length;a++)
+        {
+            if(store.$auth.user.data.permissions[a].name == "cvbuilder")
+            {
+                return true
+            }
+        }
+
+        return false
     },
     computed:{
         ...mapState('person',{

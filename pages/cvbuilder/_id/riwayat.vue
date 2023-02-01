@@ -117,6 +117,17 @@ export default{
         await store.dispatch('person/get_data')
         await store.dispatch('person/get_social_media')
     },
+    validate({ params, query, store }) {
+        for(var a=0;a<store.$auth.user.data.permissions.length;a++)
+        {
+            if(store.$auth.user.data.permissions[a].name == "edit_cvbuilder")
+            {
+                return true
+            }
+        }
+
+        return false
+    },
     components:{
         card_descriptionVue,
         card_pengalaman_kerjaVue,

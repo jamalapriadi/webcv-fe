@@ -7,6 +7,8 @@
                     <b-spinner variant="success" type="grow" label="Spinning"></b-spinner>
                 </div>
 
+                <!-- <pre>{{ $auth.user.data }}</pre> -->
+
             </div>
         </div>
     </div>
@@ -15,6 +17,17 @@
 <script>
     export default {
         layout:'main',
+        validate({ params, query, store }) {
+            for(var a=0;a<store.$auth.user.data.permissions.length;a++)
+            {
+                if(store.$auth.user.data.permissions[a].name == "dashboard")
+                {
+                    return true
+                }
+            }
+
+            return false
+        },
         data(){
             return {
                 dashboard:[],

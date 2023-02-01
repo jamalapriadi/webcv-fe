@@ -31,6 +31,17 @@ export default {
     async fetch({store}){
         await store.dispatch('category/get_data')
     },
+    validate({ params, query, store }) {
+        for(var a=0;a<store.$auth.user.data.permissions.length;a++)
+        {
+            if(store.$auth.user.data.permissions[a].name == "list_category")
+            {
+                return true
+            }
+        }
+
+        return false
+    },
     computed:{
         ...mapState('category',{
             fields: state=> state.fields,
