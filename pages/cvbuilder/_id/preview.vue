@@ -60,6 +60,11 @@
                     '-webkit-box-shadow': '-2px 9px 22px -11px rgba(0,0,0,0.75)',
                     '-moz-box-shadow': '-2px 9px 22px -11px rgba(0,0,0,0.75)'
                 }">
+                    <li style="background:white;margin-bottom:10px">
+                        <nuxt-link :to="'/cvbuilder'" class="btn btn-secondary btn-block">
+                            Home
+                        </nuxt-link>
+                    </li>
                     <li style="background:white">
                         <a class="btn btn-primary" href="#" @click.prevent="generateReport">
                             Download PDF

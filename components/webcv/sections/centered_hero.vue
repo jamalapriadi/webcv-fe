@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="px-4 py-5 text-center bg-white">
-            <img class="d-block mx-auto mb-4 avatar avatar-xl mb-3 avatar-rounded" :src="img" alt="">
+            <img class="d-block mx-auto mb-4 mb-3 avatar-rounded" :src="img" alt="" style="width:174px;height:174px">
             <h1 class="display-5 fw-bold">{{ title }}</h1>
             <div class="col-lg-6 mx-auto">
                 <p class="lead mb-4" v-html="description"></p>

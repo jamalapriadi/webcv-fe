@@ -2,7 +2,7 @@
     <div v-if="person">
         <div class="card" style="border:none">
             <div class="card-body" style="border:none">
-                <h1>{{ person.nama_depan }} {{ person.nama_belakang }}</h1>
+                <h1 style="font-size:36px">{{ person.nama_depan }} {{ person.nama_belakang }}</h1>
                 <h3>{{ person.profesi }}</h3>
 
                 <div class="row mt-1">
@@ -31,59 +31,51 @@
                     <div class="col-12">
                         <div v-if="person.pengalaman && person.pengalaman.data.length > 0">
                             <h3 style="border-bottom:1px solid lightgray; padding-bottom:10px;">Experience</h3>
-                            <table style="width:70%">
-                                <tr v-for="(l,idx) in person.pengalaman.data" :key="idx">
-                                    <td>
-                                        <strong>{{ l.periode }}</strong>
-                                        <div class="text-muted">{{ l.lama }}</div>
-                                    </td>
-                                    <td>
-                                        <div class="text-truncate">
-                                            <strong>{{ l.posisi_kerja }}</strong>
-                                        </div>
-                                        <div class="text-muted">{{ l.perusahaan }}</div>
-                                        <div class="text-muted" v-html="l.description"></div>
-                                    </td>
-                                </tr>
-                            </table>
+                            <div class="row" v-for="(l,idx) in person.pengalaman.data" :key="idx">
+                                <div class="col-4">
+                                    <strong>{{ l.periode }}</strong>
+                                    <div class="text-muted">{{ l.lama }}</div>
+                                </div>
+                                <div class="col-8">
+                                    <div class="text-truncate">
+                                        <strong>{{ l.posisi_kerja }}</strong>
+                                    </div>
+                                    <div class="text-muted">{{ l.perusahaan }}</div>
+                                    <div class="text-muted" v-html="l.description"></div>
+                                </div>
+                            </div>
                         </div>
 
                         <div v-if="person.pendidikan && person.pendidikan.data.length > 0" class="mt-1">
                             <h3 style="border-bottom:1px solid lightgray; padding-bottom:10px;">Education</h3>
-                            <table style="width:70%">
-                                <tr v-for="(l,idx) in person.pendidikan.data" :key="idx">
-                                    <td>
-                                        <strong>{{ l.periode }}</strong>
-                                        <!-- <div class="text-muted">{{ l.lama }}</div> -->
-                                    </td>
-                                    <td>
-                                        <div class="text-truncate">
-                                            <strong>{{ l.gelar }}</strong>
-                                        </div>
-                                        <div class="text-muted">{{ l.sekolah }}</div>
-                                        <div class="text-muted" v-html="l.description"></div>
-                                    </td>
-                                </tr>
-                            </table>
+                            <div class="row" v-for="(l,idx) in person.pendidikan.data" :key="idx">
+                                <div class="col-4">
+                                    <strong>{{ l.periode }}</strong>
+                                </div>
+                                <div class="col-8">
+                                    <div class="text-truncate">
+                                        <strong>{{ l.gelar }}</strong>
+                                    </div>
+                                    <div class="text-muted">{{ l.sekolah }}</div>
+                                    <div class="text-muted" v-html="l.description"></div>
+                                </div>
+                            </div>
                         </div>
 
                         <div v-if="person.kursus && person.kursus.data.length > 0" class="mt-1">
                             <h3 style="border-bottom:1px solid lightgray; padding-bottom:10px;">Certifications</h3>
-                            <table style="width:70%">
-                                <tr v-for="(l,idx) in person.kursus.data" :key="idx">
-                                    <td>
-                                        <strong>{{ l.periode }}</strong>
-                                        <!-- <div class="text-muted">{{ l.lama }}</div> -->
-                                    </td>
-                                    <td>
-                                        <div class="text-truncate">
-                                            <strong>{{ l.kursus }}</strong>
-                                        </div>
-                                        <div class="text-muted">{{ l.institusi }}</div>
-                                        <div class="text-muted" v-html="l.description"></div>
-                                    </td>
-                                </tr>
-                            </table>
+                            <div class="row" v-for="(l,idx) in person.kursus.data" :key="idx">
+                                <div class="col-4">
+                                    <strong>{{ l.periode }}</strong>
+                                </div>
+                                <div class="col-8">
+                                    <div class="text-truncate">
+                                        <strong>{{ l.kursus }}</strong>
+                                    </div>
+                                    <div class="text-muted">{{ l.institusi }}</div>
+                                    <div class="text-muted" v-html="l.description"></div>
+                                </div>
+                            </div>
                         </div>
 
                         <div v-if="person.publikasi && person.publikasi.data.length > 0" class="mt-1">

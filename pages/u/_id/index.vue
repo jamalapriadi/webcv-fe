@@ -87,6 +87,7 @@ import four_footerVue from '~/components/webcv/footer/four_footer.vue'
 
 export default{
     auth:false,
+    layout:'laven',
     components:{
         centered_hero,
         accordionVue,

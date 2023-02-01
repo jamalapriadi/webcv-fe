@@ -1,417 +1,349 @@
 <template>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-3 bg-white">
-                <a class="btn btn-dark btn-block">
-                    Add Display
-                </a>
+    <div v-if="profile">
+        <div v-if="profile.success == true">
+            <div v-if="profile.person">
+                <div v-if="profile.person.data">
+                    <!-- <p>Refrensi : https://lmpixels.com/demo/leven-html-new/full-width-light/index.html</p> -->
 
-                <div class="accordion mt-2" id="accordion-example" v-if="sections">
-                    <div class="accordion-item" v-for="(k,ix) in sections.data" :key="ix">
-                        <h2 class="accordion-header" id="heading-1">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse-'+ix" aria-expanded="false">
-                                {{ k.nama }}
-                            </button>
-                        </h2>
-                        <div :id="'collapse-'+ix" class="accordion-collapse collapse" data-bs-parent="#accordion-example" style="">
-                            <div class="accordion-body pt-0" v-if="k.section">
-                                <div class="col-auto" v-if="k.section.data" v-for="(l,idx) in k.section.data">
-                                    <div class="card card-sm" style="margin-bottom: 10px;">
-                                        <div class="card-body">
-                                            <a href="#" style="border:none" :class="getClassActive(l.title)" @click.prevent="addNewSection(l)">
-                                                <div class="row align-items-center">
-                                                    <div class="col-auto">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mist" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <!-- <pre>{{ $auth.user.data }}</pre> -->
+
+                    <div v-if="list">
+                        <div v-if="list.data">
+                            <div v-if="list.data.sections">
+                                <div v-for="(l,idx) in list.data.sections.data" :key="idx">
+                                    <div v-if="l.section">
+                                        <div v-if="l.section.data">
+                                            <div class="editbox" v-bind:style="{
+                                                position:'absolute',
+                                                zIndex:10+idx,
+                                                right:0
+                                            }">
+                                                <div class="btn-group">
+                                                    <a v-if="l.section.data.title == 'testimonial' || l.section.data.title == 'client' || l.section.data.title == 'what_i_do' || l.section.data.title == 'blank_header'" href="#" class="btn btn-warning w-100" @click.prevent="editSection(l.id, l.section.data.title, l.json_fields)">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                            <path d="M5 5h3m4 0h9"></path>
-                                                            <path d="M3 10h11m4 0h1"></path>
-                                                            <path d="M5 15h5m4 0h7"></path>
-                                                            <path d="M3 20h9m4 0h3"></path>
+                                                            <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
+                                                            <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path>
+                                                            <path d="M16 5l3 3"></path>
                                                         </svg>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="font-weight-medium">
-                                                            {{ l.title }}
-                                                        </div>
-                                                    </div>
+                                                    </a>
+                                                    <a href="#" class="btn btn-danger w-100" @click.prevent="deleteSection(l.id)">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                            <line x1="4" y1="7" x2="20" y2="7"></line>
+                                                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                                        </svg>
+                                                    </a>
                                                 </div>
-                                            </a>
+                                            </div>
+
+                                            <div v-if="l.section.data.title == 'about_me_2'">
+                                                <About_me_2Vue :person="profile.person.data"></About_me_2Vue>
+                                            </div>
+
+                                            <div v-if="l.section.data.title == 'about_me_1'">
+                                                <About_me_1Vue :person="profile.person.data"></About_me_1Vue>
+                                            </div>
+
+                                            <div v-if="l.section.data.title == 'what_i_do'">
+                                                <what_i_doVue :title="l.json_fields.title" :list="l.json_fields.list"></what_i_doVue>
+                                            </div>
+
+                                            <div v-if="l.section.data.title == 'experience'">
+                                                <experienceVue :title="'Experience'" :person="profile.person.data"></experienceVue>
+                                            </div>
+
+                                            <div v-if="l.section.data.title == 'education'">
+                                                <experienceVue :title="'Education'" :person="profile.person.data"></experienceVue>
+                                            </div>
+
+                                            <div v-if="l.section.data.title == 'certification'">
+                                                <certificationVue :person="profile.person.data"></certificationVue>
+                                            </div>
+
+                                            <div v-if="l.section.data.title == '2_row_blog'">
+                                                <two_row_blogVue :user_id="profile.person.data.user_id"></two_row_blogVue>
+                                            </div>
+
+                                            <div v-if="l.section.data.title == '3_row_blog'">
+                                                <three_row_blogVue :user_id="profile.person.data.user_id"></three_row_blogVue>
+                                            </div>
+
+                                            <div v-if="l.section.data.title == 'testimonial'">
+                                                <testimonialVue :title="l.json_fields.title" :list="l.json_fields.list"></testimonialVue>
+                                            </div>
+
+                                            <div v-if="l.section.data.title == 'client'">
+                                                <clientVue :title="l.json_fields.title" :list="l.json_fields.list"></clientVue>
+                                            </div>
+
+                                            <div v-if="l.section.data.title == 'portofolio_two_columns'">
+                                                <portofolio_two_colomunsVue :title="'portofolio_two_columns'" :user_id="profile.person.data.user_id" :class_title="'portfolio-grid two-columns shuffle'"></portofolio_two_colomunsVue>
+                                            </div>
+
+                                            <div v-if="l.section.data.title == 'portofolio_three_columns'">
+                                                <portofolio_two_colomunsVue :title="'portofolio_three_columns'" :user_id="profile.person.data.user_id" :class_title="'portfolio-grid three-columns shuffle'"></portofolio_two_colomunsVue>
+                                            </div>
+
+                                            <div v-if="l.section.data.title == 'portofolio_four_columns'">
+                                                <portofolio_two_colomunsVue :title="'portofolio_four_columns'" :user_id="profile.person.data.user_id" :class_title="'portfolio-grid four-columns shuffle'"></portofolio_two_colomunsVue>
+                                            </div>
+
+                                            <div v-if="l.section.data.title == 'portofolio_five_columns'">
+                                                <portofolio_two_colomunsVue :title="'portofolio_five_columns'" :user_id="profile.person.data.user_id" :class_title="'portfolio-grid five-columns shuffle'"></portofolio_two_colomunsVue>
+                                            </div>
+
+                                            <div v-if="l.section.data.title == 'blank_header'">
+                                                <blank_headerVue :title="l.json_fields.title"></blank_headerVue>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <ul v-bind:style="{
+                        'line-height': '28px',
+                        'min-height': '410px',
+                        'height':'auto',
+                        'max-width': '8%',
+                        'min-width': '150px',
+                        'padding': '10px',
+                        'position': 'fixed',
+                        'left': '0%',
+                        'top':'15%',
+                        'text-align': 'center',
+                        'bottom': '59%',
+                        'z-index': '1900',
+                        'list-style-type': 'none',
+                        'background':'white',
+                        'box-shadow': '-2px 9px 22px -11px rgba(0,0,0,0.75)',
+                        '-webkit-box-shadow': '-2px 9px 22px -11px rgba(0,0,0,0.75)',
+                        '-moz-box-shadow': '-2px 9px 22px -11px rgba(0,0,0,0.75)'
+                    }" v-if="sections">
+                        <li style="background:white;margin-bottom:10px;border-bottom:1px solid lightgray">
+                            <a href="#" class="btn btn-link">Pilih Menu</a>
+                        </li>
+                        <li v-for="(l,idx) in sections.data" :key="idx" style="background:white;margin-bottom:5px">
+                            <a class="btn btn-primary btn-block" href="#" @click.prevent="showSectionModal(l)">
+                                {{ l.nama }}
+                            </a>
+                        </li>
+                        <li style="background:white;margin-bottom:5px;border-top:1px solid lightgray">
+                            <nuxt-link :to="'/webcv'" class="btn btn-link btn-block">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevrons-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M11 7l-5 5l5 5"></path>
+                                    <path d="M17 7l-5 5l5 5"></path>
+                                </svg>
+                                Kembali
+                            </nuxt-link>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="col-9">
-                <div v-if="list" class="bg-white" style="background:white">
-                    <div v-if="list.data">
-                        <div v-if="list.data.sections">
-                            <div v-if="list.data.sections.data" v-for="(l,idx) in list.data.sections.data" :key="idx">
-                                <div v-if="l.section">
-                                    <div v-if="l.section.data">
+            <b-modal
+                :ref="'modal-section'"
+                :id="'modal-section'"
+                size="lg"
+                no-close-on-backdrop
+                hide-footer
+                :modal-class="'modal modal-blur fade'" 
+                :dialog-class="'modal-dialog modal-dialog-centered'"
+                :title="'Select Section - '+section.nama"
+            >
+
+                <h3 class="text-center">Select Template</h3>
+                <hr>
+                <div v-if="section">
+                    <div v-if="section.section">
+                        <div v-if="section.section.data">
+                            <div class="row">
+                                <div v-for="(l,idx) in section.section.data" :key="idx" class="col-6">
+                                    <div v-bind:style="[
+                                        l.id == section_preview.section_id 
+                                        ?
+                                            {
+                                                border:'2px solid gray'
+                                            }
+                                        :
+                                            {
+                                                border:'none'
+                                            }
+                                    ]">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <a href="#" @click.prevent="setSelectSection(l.id, l.title)">
+                                                    <img :src="l.preview_image" class="img-fluid">
+                                                </a>
+
+                                                <div class="mt-2 text-center" v-html="l.description"></div>
+                                            </div>
+                                        </div>
                                         
-                                        <div v-if="l.section.data.title == 'centered_hero'" class="mt-2">
-                                            <div class="editbox">
-                                                <a href="#" class="btn btn-warning btn-sm btn-icon" @click.prevent="editSection(l.id, l.section.data.title, l.json_fields)">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                        <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
-                                                        <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
-                                                    </svg>
-                                                </a>
-
-                                                <a href="#" class="btn btn-danger btn-sm btn-icon" @click.prevent="deleteSection(l.id)">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                        <line x1="4" y1="7" x2="20" y2="7"></line>
-                                                        <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                        <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
-                                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-                                                    </svg>
-                                                </a>
-                                            </div>
-
-                                            <centered_hero :title="l.json_fields.title" :description="l.json_fields.description" :img="l.json_fields.img"></centered_hero>
-                                        </div>
-
-                                        <div v-if="l.section.data.title == 'centered_screenshoot'" class="mt-2">
-                                            <div class="editbox">
-                                                <a href="#" class="btn btn-warning btn-sm btn-icon" @click.prevent="editSection(l.id, l.section.data.title, l.json_fields)">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                        <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
-                                                        <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
-                                                    </svg>
-                                                </a>
-
-                                                <a href="#" class="btn btn-danger btn-sm btn-icon" @click.prevent="deleteSection(l.id)">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                        <line x1="4" y1="7" x2="20" y2="7"></line>
-                                                        <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                        <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
-                                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-                                                    </svg>
-                                                </a>
-                                            </div>
-
-                                            <centered_screenshoot :title="l.json_fields.title" :description="l.json_fields.description" :img="l.json_fields.img"></centered_screenshoot>
-                                        </div>
-
-                                        <div v-if="l.section.data.title == 'responsive_left_alignment'" class="mt-2">
-                                            <div class="editbox">
-                                                <a href="#" class="btn btn-warning btn-sm btn-icon" @click.prevent="editSection(l.id, l.section.data.title, l.json_fields)">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                        <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
-                                                        <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
-                                                    </svg>
-                                                </a>
-
-                                                <a href="#" class="btn btn-danger btn-sm btn-icon" @click.prevent="deleteSection(l.id)">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                        <line x1="4" y1="7" x2="20" y2="7"></line>
-                                                        <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                        <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
-                                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-                                                    </svg>
-                                                </a>
-                                            </div>
-
-                                            <responsive_left_alignment :title="l.json_fields.title" :description="l.json_fields.description" :img="l.json_fields.img"></responsive_left_alignment>
-                                        </div>
-
-                                        <div v-if="l.section.data.title == 'border_hero'" class="mt-2">
-                                            <div class="editbox">
-                                                <a href="#" class="btn btn-warning btn-sm btn-icon" @click.prevent="editSection(l.id, l.section.data.title, l.json_fields)">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                        <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
-                                                        <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
-                                                    </svg>
-                                                </a>
-
-                                                <a href="#" class="btn btn-danger btn-sm btn-icon" @click.prevent="deleteSection(l.id)">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                        <line x1="4" y1="7" x2="20" y2="7"></line>
-                                                        <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                        <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
-                                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-                                                    </svg>
-                                                </a>
-                                            </div>
-
-                                            <border_hero :title="l.json_fields.title" :description="l.json_fields.description" :img="l.json_fields.img"></border_hero>
-                                        </div>
-
-                                        <div v-if="l.section.data.title == 'dark_hero_mode'" class="mt-2">
-                                            <div class="editbox">
-                                                <a href="#" class="btn btn-warning btn-sm btn-icon" @click.prevent="editSection(l.id, l.section.data.title, l.json_fields)">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                        <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
-                                                        <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
-                                                    </svg>
-                                                </a>
-
-                                                <a href="#" class="btn btn-danger btn-sm btn-icon" @click.prevent="deleteSection(l.id)">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                        <line x1="4" y1="7" x2="20" y2="7"></line>
-                                                        <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                        <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
-                                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-                                                    </svg>
-                                                </a>
-                                            </div>
-
-                                            <dark_hero_mode :title="l.json_fields.title" :description="l.json_fields.description" :img="l.json_fields.img"></dark_hero_mode>
-                                        </div>
-
-                                        <div v-if="l.section.data.title == 'hanging_icons'" class="mt-2">
-                                            <div class="editbox">
-                                                <a href="#" class="btn btn-warning btn-sm btn-icon" @click.prevent="editSection(l.id, l.section.data.title, l.json_fields)">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                        <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
-                                                        <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
-                                                    </svg>
-                                                </a>
-
-                                                <a href="#" class="btn btn-danger btn-sm btn-icon" @click.prevent="deleteSection(l.id)">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                        <line x1="4" y1="7" x2="20" y2="7"></line>
-                                                        <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                        <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
-                                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-                                                    </svg>
-                                                </a>
-                                            </div>
-
-                                            <hanging_icons :title="l.json_fields.title" :lists="l.json_fields.forms"></hanging_icons>
-                                        </div>
-
-                                        <div v-if="l.section.data.title == 'accordion'" class="mt-2">
-                                            <div class="editbox">
-                                                <a href="#" class="btn btn-warning btn-sm btn-icon" @click.prevent="editSection(l.id, l.section.data.title, l.json_fields)">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                        <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
-                                                        <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
-                                                    </svg>
-                                                </a>
-
-                                                <a href="#" class="btn btn-danger btn-sm btn-icon" @click.prevent="deleteSection(l.id)">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                        <line x1="4" y1="7" x2="20" y2="7"></line>
-                                                        <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                        <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
-                                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-                                                    </svg>
-                                                </a>
-                                            </div>
-
-                                            <accordionVue :fields="l.json_fields"></accordionVue>
-                                        </div>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div v-if="loading" class="mt-2 text-center">
+                                <b-spinner variant="success" type="grow" label="Spinning"></b-spinner>
+                            </div>
+
+                            <div v-if="message" :class="messageclass" role="alert">
+                                <div class="text-muted" v-html="message"></div>
+                            </div>
+
+                            <div v-if="nama" class="text-center mt-3">
+                                <div v-if="nama == 'what_i_do' || nama == 'testimonial' || nama == 'client' || nama == 'blank_header'" >
+                                    <a href="#" class="btn btn-primary" @click.prevent="addContent">Set Content</a>
+                                </div>
+                                <div v-else>
+                                    <a href="#" class="btn btn-primary" @click.prevent="saveSection">Add to Page</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>  
-            </div>
+                </div>
+            </b-modal>
+
+            <b-modal
+                :ref="'modal-add-content'"
+                :id="'modal-add-content'"
+                size="lg"
+                no-close-on-backdrop
+                hide-footer
+                :modal-class="'modal modal-blur fade'" 
+                :dialog-class="'modal-dialog modal-dialog-centered'"
+                :title="'Add Content to Section - '+section.nama"
+            >
+                <div v-if="nama == 'what_i_do'">
+                    <input_what_i_doVue :section="section_preview" @addFeature="handleAddFeature"></input_what_i_doVue>
+                </div>
+
+                <div v-if="nama == 'testimonial'">
+                    <input_testimonialVue :section="section_preview" @addFeature="handleAddFeature"></input_testimonialVue>
+                </div>
+
+                <div v-if="nama == 'client'">
+                    <input_clientVue :section="section_preview" @addFeature="handleAddFeature"></input_clientVue>
+                </div>
+
+                <div v-if="nama == 'blank_header'">
+                    <input_blank_headerVue :section="section_preview" @addFeature="handleAddFeature"></input_blank_headerVue>
+                </div>
+            </b-modal>
+
+            <b-modal
+                :ref="'modal-edit-section'"
+                :id="'modal-edit-section'"
+                size="lg"
+                no-close-on-backdrop
+                hide-footer
+                :modal-class="'modal modal-blur fade'" 
+                :dialog-class="'modal-dialog modal-dialog-centered'"
+                title="Update Section"
+            >
+                <form v-if="section" @submit.prevent="updateSection">
+                    <div v-if="editsection.title == 'testimonial'">
+                        <input_testimonialVue 
+                            :section="section_preview" 
+                            :title="editsection.fields.title"
+                            :list="editsection.fields.list"
+                            @addFeature="updateSection"></input_testimonialVue>
+                    </div>
+
+                    <div v-if="editsection.title == 'client'">
+                        <input_clientVue 
+                            :section="section_preview" 
+                            :title="editsection.fields.title"
+                            :list="editsection.fields.list"
+                            @addFeature="updateSection"></input_clientVue>
+                    </div>
+
+                    <div v-if="editsection.title == 'what_i_do'">
+                        <input_what_i_doVue 
+                            :section="section_preview" 
+                            :title="editsection.fields.title"
+                            :list="editsection.fields.list"
+                            @addFeature="updateSection"></input_what_i_doVue>
+                    </div>
+
+                    <div v-if="editsection.title == 'blank_header'">
+                        <input_blank_headerVue 
+                            :section="section_preview" 
+                            :title="editsection.fields.title"
+                            :list="editsection.fields.list"
+                            @addFeature="updateSection"></input_blank_headerVue>
+                    </div>
+                </form>
+            </b-modal>
+
+
         </div>
-
-        <b-modal
-            :ref="'modal-section'"
-            :id="'modal-section'"
-            size="xl"
-            no-close-on-backdrop
-            hide-footer
-            :modal-class="'modal modal-blur fade'" 
-            :dialog-class="'modal-dialog modal-dialog-centered'"
-            title="Create new Section"
-        >
-            <form v-if="section" @submit.prevent="saveSection">
-                <div v-if="section.title == 'centered_hero'">
-                    <input_centered_hero v-if="show_preview == false" @simpan="handleAddsingle"></input_centered_hero>
-                    <div class="mt-2" v-if="show_preview == true">
-                        <centered_hero :title="section_preview.json_fields.title" :description="section_preview.json_fields.description" :img="section_preview.json_fields.img"></centered_hero>
-                    </div>
-                </div> 
-
-                <div v-if="section.title == 'centered_screenshoot'">
-                    <input_centered_hero v-if="show_preview == false" @simpan="handleAddsingle"></input_centered_hero>
-                    <div class="mt-2" v-if="show_preview == true">
-                        <centered_screenshoot :title="section_preview.json_fields.title" :description="section_preview.json_fields.description" :img="section_preview.json_fields.img"></centered_screenshoot>
-                    </div>
-                </div> 
-
-                <div v-if="section.title == 'responsive_left_alignment'">
-                    <input_centered_hero v-if="show_preview == false" @simpan="handleAddsingle"></input_centered_hero>
-                    <div class="mt-2" v-if="show_preview == true">
-                        <responsive_left_alignment :title="section_preview.json_fields.title" :description="section_preview.json_fields.description" :img="section_preview.json_fields.img"></responsive_left_alignment>
-                    </div>
-                </div> 
-
-                <div v-if="section.title == 'border_hero'">
-                    <input_centered_hero v-if="show_preview == false" @simpan="handleAddsingle"></input_centered_hero>
-                    <div class="mt-2" v-if="show_preview == true">
-                        <border_hero :title="section_preview.json_fields.title" :description="section_preview.json_fields.description" :img="section_preview.json_fields.img"></border_hero>
-                    </div>
-                </div>
-                
-                <div v-if="section.title == 'dark_hero_mode'">
-                    <input_centered_hero v-if="show_preview == false" @simpan="handleAddsingle"></input_centered_hero>
-                    <div class="mt-2" v-if="show_preview == true">
-                        <dark_hero_mode :title="section_preview.json_fields.title" :description="section_preview.json_fields.description" :img="section_preview.json_fields.img"></dark_hero_mode>
-                    </div>
-                </div>
-
-                <div v-if="section.title == 'hanging_icons'">
-                    <input_hanging_iconsVue v-if="show_preview == false" @simpan="handleAddsingle" @batal="batal"></input_hanging_iconsVue>
-                    <div class="mt-2" v-if="show_preview == true">
-                        <hanging_icons :title="section_preview.json_fields.title" :lists="section_preview.json_fields.forms"></hanging_icons>
-                    </div>
-                </div>
-
-                <div v-if="section.title == 'accordion'">
-                    <inputDataAccordion @addAccordion="handleaddAccordion"></inputDataAccordion>
-                    <div class="mt-2">
-                        <accordionVue :fields="section_preview.json_fields"></accordionVue>
-                    </div>
-                </div> 
-
-                <hr>
-
-                <div class="card-footer text-end" v-if="show_preview == true">
-                    <div class="d-flex">
-                        <a href="#" class="btn btn-link" @click.prevent="batal">Cancel</a>
-                        <button type="submit" class="btn btn-primary ms-auto">Save</button>
-                    </div>
-                </div>
-            </form>
-        </b-modal>
-
-        <b-modal
-            :ref="'modal-edit-section'"
-            :id="'modal-edit-section'"
-            size="lg"
-            no-close-on-backdrop
-            hide-footer
-            :modal-class="'modal modal-blur fade'" 
-            :dialog-class="'modal-dialog modal-dialog-centered'"
-            title="Update Section"
-        >
-            <form v-if="section" @submit.prevent="updateSection">
-                <div v-if="editsection.title == 'centered_hero'">
-                    <update_centered_hero v-if="show_preview_edit == false" :title="editsection.fields.title" :description="editsection.fields.description" :img="editsection.fields.img" @simpan="handleUpdateSection"></update_centered_hero>
-                    <div class="mt-2" v-if="show_preview_edit == true">
-                        <centered_hero :title="editsection.fields.title" :description="editsection.fields.description" :img="editsection.fields.img"></centered_hero>
-                    </div>
-                </div>
-
-                <div v-if="editsection.title == 'centered_screenshoot'">
-                    <update_centered_hero v-if="show_preview_edit == false" :title="editsection.fields.title" :description="editsection.fields.description" :img="editsection.fields.img" @simpan="handleUpdateSection"></update_centered_hero>
-                    <div class="mt-2" v-if="show_preview_edit == true">
-                        <centered_screenshoot :title="editsection.fields.title" :description="editsection.fields.description" :img="editsection.fields.img"></centered_screenshoot>
-                    </div>
-                </div>
-
-                <div v-if="editsection.title == 'responsive_left_alignment'">
-                    <update_centered_hero v-if="show_preview_edit == false" :title="editsection.fields.title" :description="editsection.fields.description" :img="editsection.fields.img" @simpan="handleUpdateSection"></update_centered_hero>
-                    <div class="mt-2" v-if="show_preview_edit == true">
-                        <responsive_left_alignment :title="editsection.fields.title" :description="editsection.fields.description" :img="editsection.fields.img"></responsive_left_alignment>
-                    </div>
-                </div>
-
-                <div v-if="editsection.title == 'border_hero'">
-                    <update_centered_hero v-if="show_preview_edit == false" :title="editsection.fields.title" :description="editsection.fields.description" :img="editsection.fields.img" @simpan="handleUpdateSection"></update_centered_hero>
-                    <div class="mt-2" v-if="show_preview_edit == true">
-                        <border_hero :title="editsection.fields.title" :description="editsection.fields.description" :img="editsection.fields.img"></border_hero>
-                    </div>
-                </div>
-
-                <div v-if="editsection.title == 'dark_hero_mode'">
-                    <update_centered_hero v-if="show_preview_edit == false" :title="editsection.fields.title" :description="editsection.fields.description" :img="editsection.fields.img" @simpan="handleUpdateSection"></update_centered_hero>
-                    <div class="mt-2" v-if="show_preview_edit == true">
-                        <dark_hero_mode :title="editsection.fields.title" :description="editsection.fields.description" :img="editsection.fields.img"></dark_hero_mode>
-                    </div>
-                </div>
-
-                <div v-if="editsection.title == 'hanging_icons'">
-                    <update_hanging_iconsVue v-if="show_preview_edit == false" :title="editsection.fields.title" :lists="editsection.fields.forms" @simpan="handleUpdateSection"></update_hanging_iconsVue>
-                    <div class="mt-2" v-if="show_preview_edit == true">
-                        <hanging_icons :title="editsection.fields.title" :lists="editsection.fields.forms"></hanging_icons>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="card-footer text-end" v-if="show_preview_edit == true">
-                    <div class="d-flex">
-                        <a href="#" class="btn btn-link" @click.prevent="batalUpdate">Cancel</a>
-                        <button type="submit" class="btn btn-primary ms-auto">Save</button>
-                    </div>
-                </div>
-            </form>
-        </b-modal>
-
-
     </div>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 import centered_hero from '~/components/webcv/sections/centered_hero.vue'
-import centered_screenshoot from '~/components/webcv/sections/centered_screenshoot.vue'
-import responsive_left_alignment from "~/components/webcv/sections/responsive_left_alignment.vue"
-import border_hero from '~/components/webcv/sections/border_hero.vue'
-import dark_hero_mode from '~/components/webcv/sections/dark_hero_mode.vue'
-import hanging_icons from "~/components/webcv/sections/hanging_icons.vue"
-
-import accordionVue from '~/components/webcv/sections/accordion.vue'
-import inputDataAccordion from '~/components/webcv/sections/inputDataAccordion.vue'
-import input_centered_hero from '~/components/webcv/sections/forms/input_centered_hero.vue'
-import update_centered_hero from '~/components/webcv/sections/forms/update_centered_hero.vue'
-
-import input_hanging_iconsVue from '~/components/webcv/sections/forms/input_hanging_icons.vue'
-import update_hanging_iconsVue from "~/components/webcv/sections/forms/update_hanging_icons.vue"
+import About_me_1Vue from '~/components/webcv/laven/about_me_1.vue';
+import About_me_2Vue from '~/components/webcv/laven/about_me_2.vue';
+import input_what_i_doVue from '~/components/webcv/laven/input_what_i_do.vue';
+import what_i_doVue from '~/components/webcv/laven/what_i_do.vue';
+import experienceVue from '~/components/webcv/laven/experience.vue';
+import certificationVue from "~/components/webcv/laven/certification.vue"
+import two_row_blogVue from "~/components/webcv/laven/two_row_blog.vue"
+import three_row_blogVue from '~/components/webcv/laven/three_row_blog.vue';
+import input_testimonialVue from "~/components/webcv/laven/input_testimonial.vue"
+import testimonialVue from "~/components/webcv/laven/testimonial.vue"
+import input_clientVue from "~/components/webcv/laven/input_client.vue"
+import clientVue from "~/components/webcv/laven/client.vue"
+import portofolio_two_colomunsVue from "~/components/webcv/laven/portofolio_two_columns.vue"
+import input_blank_headerVue from '~/components/webcv/laven/input_blank_header.vue';
+import blank_headerVue from "~/components/webcv/laven/blank_header.vue"
 
 export default{
-    layout:'fluid_tabler',
+    layout:'laven',
+    async fetch({store, params}){
+        await store.dispatch('person/get_data')
+    },
     components:{
         centered_hero,
-        centered_screenshoot,
-        responsive_left_alignment,
-        border_hero,
-        dark_hero_mode,
-        hanging_icons,
-        accordionVue,
-        inputDataAccordion,
-        input_centered_hero,
-        update_centered_hero,
-        input_hanging_iconsVue,
-        update_hanging_iconsVue
+        About_me_1Vue,
+        About_me_2Vue,
+        input_what_i_doVue,
+        what_i_doVue,
+        experienceVue,
+        certificationVue,
+        two_row_blogVue,
+        three_row_blogVue,
+        input_testimonialVue,
+        testimonialVue,
+        input_clientVue,
+        clientVue,
+        portofolio_two_colomunsVue,
+        input_blank_headerVue,
+        blank_headerVue
+    },
+    computed:{
+        ...mapState('person',{
+            step1: state=> state.step1,
+            profile: state => state.profile,
+        })
     },
     data(){
         return {
             kode:'',
             list: {},
-            selected_type:'',
+            loading:false,
+            message:'',
+            messageclass:'',
             sections:[],
             section:{},
             section_preview:{
@@ -420,12 +352,7 @@ export default{
                 section_id:'',
                 json_fields:[],
             },
-            loading:false,
-            message:'',
-            messageclass:'',
-            categories:['heros','features'],
-            show_preview:false,
-            show_preview_edit:false,
+            nama:'',
             editsection:{
                 kode:'',
                 title:'',
@@ -469,25 +396,6 @@ export default{
                 .then(resp => {
                     this.sections = resp.data
                 })
-        },  
-
-        getClassActive(type){
-            var asli = 'list-group-item list-group-item-action'
-
-            if(this.selected_type == type){
-                asli = 'list-group-item list-group-item-action active'
-            }
-
-            return asli
-        },
-
-        addNewSection(l){
-            this.section = l
-            this.section_preview.section_id = l.id
-            this.section_preview.json_fields =  []
-            this.show_preview = false
-
-            this.$bvModal.show("modal-section");
         },
 
         batal(){
@@ -495,6 +403,33 @@ export default{
 
             this.reset()
             this.$bvModal.hide("modal-section");
+        },
+
+        showSectionModal(l){
+            this.section = l
+            this.loading = false
+
+            this.section_preview.section_id = l.id
+            this.section_preview.json_fields =  []
+            this.nama = ""
+
+            this.$bvModal.show("modal-section");
+        },
+
+        getClassSelectedSection(l){
+            var asli = ''
+
+            if(asli == l)
+            {
+                asli = ''
+            }
+
+            return asli
+        },
+
+        setSelectSection(l, nama){
+            this.section_preview.section_id = l
+            this.nama = nama
         },
 
         reset(){
@@ -505,27 +440,6 @@ export default{
                 json_fields:[],
             }
             this.show_preview = false
-        },
-
-        inputText(e, idx){
-            for(var a=0; a<this.section_preview.json_fields.length; a++)
-            {
-                if(a == idx)
-                {
-                    this.section_preview.json_fields[a].value = e.target.value
-                }
-            }
-
-        },
-
-        handleaddAccordion(data){
-            this.show_preview = true
-            this.section_preview.json_fields.push(data)
-        },
-
-        handleAddsingle(data){
-            this.show_preview = true
-            this.section_preview.json_fields = data
         },
 
         saveSection(){
@@ -571,7 +485,8 @@ export default{
             this.show_preview_edit = true
         },
 
-        updateSection(){
+        updateSection(data){
+            this.editsection.fields = data
             this.loading = true
 
             this.$axios.post('/auth/update-menu-section/'+this.editsection.kode, this.editsection)
@@ -614,6 +529,17 @@ export default{
                     this.$swal('Cancelled', 'Aksi dibatalkan', 'info')
                 }
             })
+        },
+
+        addContent(){
+            this.$bvModal.hide('modal-section');
+            this.$bvModal.show("modal-add-content");
+        },
+
+        handleAddFeature(data){
+            this.section_preview.json_fields = data
+            this.saveSection()
+            this.$bvModal.hide("modal-add-content");
         }
     }
 }
