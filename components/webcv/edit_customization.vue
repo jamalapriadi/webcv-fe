@@ -25,6 +25,13 @@
             </div>
 
             <div class="form-group">
+                <label class="form-check">
+                    <input class="form-check-input" type="checkbox" @click="changeCheck($event)" :checked="state.ijinkan == 'Y' ?  true : false">
+                    <span class="form-check-label">Ijinkan orang men-download CV Saya</span>
+                </label>
+            </div>
+
+            <div class="form-group">
                 <label for="" class="form-label">Logo</label>
                 <div v-if="selected_image =='Y'" class="mb-2">
                     <img :src="state.file_url" alt="">
@@ -56,7 +63,8 @@ export default{
                 desc:this.list.description,
                 file:'',
                 file_url:'',
-                type_file:''
+                type_file:'',
+                ijinkan:'Y'
             },
             file:{},
             selected_image:'N',
@@ -95,7 +103,8 @@ export default{
                         desc: resp.data.data.description,
                         file:'',
                         file_url:'',
-                        type_file:''
+                        type_file:'',
+                        ijinkan:resp.data.data.ijin_download_cv
                     }
 
                     if(resp.data.data.logo)
@@ -110,6 +119,15 @@ export default{
                         this.renderUpload = true
                     });
                 })
+        },
+
+        changeCheck(e){
+            if(e.target.checked == true)
+            {
+                this.state.ijinkan = 'Y'
+            }else{
+                this.state.ijinkan = 'N'
+            }
         },
 
         update(){

@@ -99,6 +99,22 @@
                                             <div v-if="l.section.data.title == 'blank_header'">
                                                 <blank_headerVue :title="l.json_fields.title"></blank_headerVue>
                                             </div>
+
+                                            <div v-if="l.section.data.title == 'feature_title'">
+                                                <div class="block-title">
+                                                    <h2>{{ l.json_fields.title }}</h2>
+                                                </div>
+                                            </div>
+
+                                            <div v-if="l.section.data.title == 'feature_spacer'">
+                                                <div v-bind:style="{
+                                                    width:'100%',
+                                                    height:l.json_fields.title+'px',
+                                                    background:'transparent'
+                                                }">
+                                                    
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -176,15 +192,15 @@
                                                 border:'none'
                                             }
                                     ]">
-                                        <div class="card mb-3">
-                                            <div class="card-body">
-                                                <a href="#" @click.prevent="setSelectSection(l.id, l.title)">
+                                        <a href="#" @click.prevent="setSelectSection(l.id, l.title)">
+                                            <div class="card mb-3">
+                                                <div class="card-body">
                                                     <img :src="l.preview_image" class="img-fluid">
-                                                </a>
 
-                                                <div class="mt-2 text-center" v-html="l.description"></div>
+                                                    <div class="mt-2 text-center" v-html="l.description"></div>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </a>
                                         
                                     </div>
                                 </div>
@@ -199,7 +215,13 @@
                             </div>
 
                             <div v-if="nama" class="text-center mt-3">
-                                <div v-if="nama == 'what_i_do' || nama == 'testimonial' || nama == 'client' || nama == 'blank_header'" >
+                                <div v-if="nama == 'what_i_do' 
+                                    || nama == 'testimonial' 
+                                    || nama == 'client' 
+                                    || nama == 'blank_header'
+                                    || nama == 'feature_title'
+                                    || nama == 'feature_spacer'
+                                " >
                                     <a href="#" class="btn btn-primary" @click.prevent="addContent">Set Content</a>
                                 </div>
                                 <div v-else>
@@ -235,6 +257,14 @@
 
                 <div v-if="nama == 'blank_header'">
                     <input_blank_headerVue :section="section_preview" @addFeature="handleAddFeature"></input_blank_headerVue>
+                </div>
+
+                <div v-if="nama == 'feature_title'">
+                    <input_heading_titleVue :section="section_preview" @addFeature="handleAddFeature"></input_heading_titleVue>
+                </div>
+
+                <div v-if="nama == 'feature_spacer'">
+                    <input_spacerVue :section="section_preview" @addFeature="handleAddFeature"></input_spacerVue>
                 </div>
             </b-modal>
 
@@ -280,6 +310,22 @@
                             :list="editsection.fields.list"
                             @addFeature="updateSection"></input_blank_headerVue>
                     </div>
+
+                    <div v-if="editsection.title == 'feature_title'">
+                        <input_heading_titleVue 
+                            :section="section_preview" 
+                            :title="editsection.fields.title"
+                            :list="editsection.fields.list"
+                            @addFeature="updateSection"></input_heading_titleVue>
+                    </div>
+
+                    <div v-if="editsection.title == 'feature_spacer'">
+                        <input_spacerVue 
+                            :section="section_preview" 
+                            :title="editsection.fields.title"
+                            :list="editsection.fields.list"
+                            @addFeature="updateSection"></input_spacerVue>
+                    </div>
                 </form>
             </b-modal>
 
@@ -300,13 +346,16 @@ import experienceVue from '~/components/webcv/laven/experience.vue';
 import certificationVue from "~/components/webcv/laven/certification.vue"
 import two_row_blogVue from "~/components/webcv/laven/two_row_blog.vue"
 import three_row_blogVue from '~/components/webcv/laven/three_row_blog.vue';
-import input_testimonialVue from "~/components/webcv/laven/input_testimonial.vue"
-import input_clientVue from "~/components/webcv/laven/input_client.vue"
-import input_blank_headerVue from '~/components/webcv/laven/input_blank_header.vue';
 import testimonialVue from "~/components/webcv/laven/testimonial.vue"
 import clientVue from "~/components/webcv/laven/client.vue"
 import portofolio_two_colomunsVue from "~/components/webcv/laven/portofolio_two_columns.vue"
 import blank_headerVue from "~/components/webcv/laven/blank_header.vue"
+
+import input_testimonialVue from "~/components/webcv/laven/input_testimonial.vue"
+import input_clientVue from "~/components/webcv/laven/input_client.vue"
+import input_blank_headerVue from '~/components/webcv/laven/input_blank_header.vue';
+import input_heading_titleVue from "~/components/webcv/laven/input_heading_title.vue"
+import input_spacerVue from "~/components/webcv/laven/input_spacer.vue"
 
 export default{
     layout:'laven',
@@ -317,19 +366,22 @@ export default{
         centered_hero,
         About_me_1Vue,
         About_me_2Vue,
-        input_what_i_doVue,
         what_i_doVue,
         experienceVue,
         certificationVue,
         two_row_blogVue,
         three_row_blogVue,
-        input_testimonialVue,
         testimonialVue,
         input_clientVue,
         clientVue,
         portofolio_two_colomunsVue,
+        blank_headerVue,
+
         input_blank_headerVue,
-        blank_headerVue
+        input_what_i_doVue,
+        input_testimonialVue,
+        input_heading_titleVue,
+        input_spacerVue
     },
     computed:{
         ...mapState('person',{

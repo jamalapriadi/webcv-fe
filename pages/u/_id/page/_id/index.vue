@@ -21,11 +21,11 @@
                                                             <div v-if="k.section.data">
                                                                 
                                                                 <div v-if="k.section.data.title == 'about_me_2'">
-                                                                    <About_me_2Vue :person="list.profile.data.person.data"></About_me_2Vue>
+                                                                    <About_me_2Vue :person="list.profile.data.person.data" :ijin_download_cv="list.profile.data.ijin_download_cv" @downloadCv="handleDownloadCvSaya(list.profile.data.slug)"></About_me_2Vue>
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == 'about_me_1'">
-                                                                    <About_me_1Vue :person="list.profile.data.person.data"></About_me_1Vue>
+                                                                    <About_me_1Vue :person="list.profile.data.person.data" :ijin_download_cv="list.profile.data.ijin_download_cv" @downloadCv="handleDownloadCvSaya(list.profile.data.slug)"></About_me_1Vue>
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == 'what_i_do'">
@@ -78,6 +78,22 @@
 
                                                                 <div v-if="k.section.data.title == 'blank_header'">
                                                                     <blank_headerVue :title="k.json_fields.title"></blank_headerVue>
+                                                                </div>
+
+                                                                <div v-if="k.section.data.title == 'feature_title'">
+                                                                    <div class="block-title">
+                                                                        <h2>{{ k.json_fields.title }}</h2>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div v-if="k.section.data.title == 'feature_spacer'">
+                                                                    <div v-bind:style="{
+                                                                        width:'100%',
+                                                                        height:k.json_fields.title+'px',
+                                                                        background:'transparent'
+                                                                    }">
+                                                                        
+                                                                    </div>
                                                                 </div>
 
                                                             </div>
@@ -186,6 +202,11 @@ export default{
 
         changePage(id){
             this.current_menu = id
+        },
+
+        handleDownloadCvSaya(data){
+            let route = this.$router.resolve({path: '/u/'+data+'/download-cv-saya'});
+            window.open(route.href, '_blank');
         }
     }
 }

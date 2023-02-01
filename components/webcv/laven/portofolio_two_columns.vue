@@ -1,9 +1,5 @@
 <template>
-    <div class="mt-5">
-        <div class="block-title">
-            <h2>Portofolio</h2>
-        </div>
-
+    <div>
         <!-- Portfolio Grid -->
         <div class="row">
             <div class=" col-xs-12 col-sm-12 ">

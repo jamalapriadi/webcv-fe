@@ -23,8 +23,9 @@
                             <h1>{{ person.nama_depan }} {{ person.nama_belakang }}</h1>
                             <p style="text-align:justify" v-html="person.description"></p>
                                 
+                            <h1>{{ person.ijin_download_cv }}</h1>
                             <div class="home-buttons">
-                                <a href="#" target="_blank" class="btn btn-primary">Download CV</a>
+                                <a href="#" v-if="ijin_download_cv == 'Y'" @click.prevent="downloadCv" target="_blank" class="btn btn-primary">Download CV</a>
                                 <a href="#" target="_self" class="btn btn-secondary">Contact</a>
                             </div>
                         </div>
@@ -37,6 +38,19 @@
 
 <script>
 export default{
-    props:['person']
+    props:{
+        person:{
+            type:Object
+        },
+        ijin_download_cv:{
+            type:String,
+            default:'Y'
+        }
+    },
+    methods:{
+        downloadCv(){
+            this.$emit('downloadCv')
+        }
+    }
 }
 </script>

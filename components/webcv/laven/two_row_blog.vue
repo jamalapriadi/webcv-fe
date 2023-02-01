@@ -1,8 +1,5 @@
 <template>
-    <div class="mt-5">
-        <div class="block-title">
-            <h2>Latest Blog</h2>
-        </div>
+    <div>
 
         <div class="row" v-if="lists">
             <div class=" col-xs-12 col-sm-12 " v-if="lists.data">
