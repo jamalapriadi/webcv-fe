@@ -1,6 +1,6 @@
 <template>
     <div v-if="list">
-        <div v-if="list.success">
+        <div v-if="list.success == true">
             <div v-if="list.profile">
                 <div v-if="list.profile.data">
 
@@ -76,7 +76,24 @@
         </div>
 
         <div v-if="list.success == false">
-        
+            <div class="page page-center">
+                <div class="container-tight py-4">
+                    <div class="empty">
+                        <div class="empty-header">404</div>
+                        <p class="empty-title">Oops… You just found an error page</p>
+                        <p class="empty-subtitle text-muted">
+                            We are sorry but the page you are looking for was not found
+                        </p>
+                        <div class="empty-action">
+                            <nuxt-link :to="'/'" class="btn btn-primary">
+                                <!-- Download SVG icon from http://tabler-icons.io/i/arrow-left -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
+                                Take me home
+                            </nuxt-link>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -101,7 +118,7 @@ export default{
     layout:'laven_preview',
     head(){
         return {
-            title:this.list.post ? this.list.post.data.title : ''
+            title:this.getTitle()
         }
     },
     components:{
@@ -130,6 +147,25 @@ export default{
         this.getData()
     },
     methods:{
+        getTitle(){
+            if(this.list)
+            {
+                if(this.list.success == true)
+                {
+                    if(this.list.post)
+                    {
+                        if(this.list.post.data){
+                            return this.list.post.data.title
+                        }
+                    }
+                    
+                }else if(this.list.success == false)
+                {
+                    return "404 - Not Found"
+                }
+            }
+        },
+        
         getData(){
             let app=this;
             let id= app.$route.params.id;
