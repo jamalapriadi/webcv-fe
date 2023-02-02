@@ -78,7 +78,7 @@ export default {
             can_create:true,
             cek:false,
             state:{
-                domain:'https://webcv.id',
+                domain:process.env.FE_URL,
                 slug:'',
                 person:''
             },
