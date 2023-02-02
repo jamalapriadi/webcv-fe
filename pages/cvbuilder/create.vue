@@ -351,7 +351,7 @@ export default {
                         this.message = resp.data.message
                         this.messageclass = 'alert alert-success'
 
-                        this.$router.replace("/cvbuilder/"+this.form.kode+"/riwayat");
+                        this.$router.replace("/cvbuilder/"+resp.data.person_id+"/riwayat");
                     }else{
                         this.message = resp.data.message
                         this.messageclass = 'alert alert-warning'

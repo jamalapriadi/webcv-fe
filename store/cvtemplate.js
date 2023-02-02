@@ -98,7 +98,7 @@ export const mutations = {
             kode:'',
             nama:'',
             preview:'',
-            publish:''
+            publish:'N'
         }
     },
 

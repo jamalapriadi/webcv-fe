@@ -14,43 +14,43 @@
                         <card_descriptionVue v-if="profile.person" :person="profile.person.data" @sukses="get_data"></card_descriptionVue>
                     </div>
 
-                    <div v-if="l == 'pengalaman'">
+                    <div v-if="l == 'pengalaman'" class="mt-4">
                         <card_pengalaman_kerjaVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data"></card_pengalaman_kerjaVue>
                     </div>
 
-                    <div v-if="l == 'pendidikan'">
+                    <div v-if="l == 'pendidikan'" class="mt-4">
                         <card_pendidikanVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data"></card_pendidikanVue>
                     </div>
 
-                    <div v-if="l == 'minat'">
+                    <div v-if="l == 'minat'" class="mt-4">
                         <card_minatVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data"></card_minatVue>
                     </div>
 
-                    <div v-if="l == 'keahlian'">
+                    <div v-if="l == 'keahlian'" class="mt-4">
                         <card_keahlianVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data"></card_keahlianVue>
                     </div>
 
-                    <div v-if="l == 'bahasa'">
+                    <div v-if="l == 'bahasa'" class="mt-4">
                         <card_bahasaVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data"></card_bahasaVue>
                     </div>
 
-                    <div v-if="l == 'kursus'">
+                    <div v-if="l == 'kursus'" class="mt-4">
                         <card_kursusVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data"></card_kursusVue>
                     </div>
 
-                    <div v-if="l == 'pencapaian'">
+                    <div v-if="l == 'pencapaian'" class="mt-4">
                         <card_pencapaianVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data"></card_pencapaianVue>
                     </div>
 
-                    <div v-if="l == 'publikasi'">
+                    <div v-if="l == 'publikasi'" class="mt-4">
                         <card_publikasiVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data"></card_publikasiVue>
                     </div>
 
-                    <div v-if="l == 'project'">
+                    <div v-if="l == 'project'" class="mt-4">
                         <card_projectVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data"></card_projectVue>
                     </div>
 
-                    <div v-if="l == 'social media'">
+                    <div v-if="l == 'social media'" class="mt-4">
                         <card_sosmedVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data" :sosmed="sosmeds"></card_sosmedVue>
                     </div>
 

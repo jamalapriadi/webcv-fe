@@ -2,7 +2,6 @@
     <div v-if="person">
         <div class="card" v-bind:style="{
                 background:'#373d48',
-                color:'white',
                 border:'none',
                 'box-shadow':'none',
                 'border-radius':'0'
