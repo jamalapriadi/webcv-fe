@@ -1,13 +1,13 @@
 <template>
-    <aside class="navbar navbar-vertical navbar-expand-lg navbar-dark">
+    <aside class="navbar navbar-vertical navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <h1 class="navbar-brand navbar-brand-autodark">
-                <a href=".">
+            <h1 class="navbar-brand navbar-brand-autolight bg-dark">
+                <a href="#" class="text-white">
                     <!-- <img src="./static/logo-white.svg" width="110" height="32" alt="Tabler" class="navbar-brand-image"> -->
-                    <h1>CV-AKU</h1>
+                    <h1 class="text-white">CV-AKU</h1>
                 </a>
             </h1>
 
@@ -77,7 +77,7 @@
                 </div>
             </div>
         
-            <div class="collapse navbar-collapse" id="navbar-menu" style="background:#fff;border-right:1px solid lightgray">
+            <div class="collapse navbar-collapse" id="navbar-menu">
                 <ul class="navbar-nav pt-lg-3">
                     <li v-for="(l,idx) in menus" :key="'menu'+idx" v-bind:class="getClass(l)">
                         <nuxt-link v-if="l.type == 'menu'" v-show="showMenu(l.permission)" :to="l.to" style="color:#222" class="nav-link">

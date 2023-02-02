@@ -1,7 +1,9 @@
 <template>
-    <div>
-        <div class="text-center">
-            <b-spinner variant="success" type="grow" label="Spinning"></b-spinner>
+    <div class="px-4 border-bottom">
+        <div class="container container-tight py-4">
+            <div class="text-center">
+                <b-spinner variant="success" type="grow" label="Spinning"></b-spinner>
+            </div>
         </div>
     </div>
 </template>

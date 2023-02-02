@@ -1,8 +1,10 @@
 <template>
-    <div class="container alert">
-        <message :finish="isFinish" :success="success" :message="message" />
+    <div class="px-4 border-bottom">
+        <div class="container container-tight py-4">
+            <message :finish="isFinish" :success="success" :message="message" />
         
-        <p v-if="isFinish > 1">Please wait while we're logging you in...</p>
+            <p v-if="isFinish > 1">Please wait while we're logging you in...</p>
+        </div>
     </div>
 </template>
 
