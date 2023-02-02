@@ -26,7 +26,7 @@
                         <!-- Text Logo -->
                         <div class="text-logo">
                             <a href="#">
-                                <div class="logo-symbol">
+                                <div class="logo-symbol" v-if="$auth.user.data.webcv.data.title">
                                     {{ $auth.user.data.webcv.data.title.charAt(0) }}
                                 </div>
                                 <div class="logo-text">{{ $auth.user.data.webcv.data.title }}</div>

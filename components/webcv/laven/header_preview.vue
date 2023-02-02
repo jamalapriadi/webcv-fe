@@ -6,7 +6,7 @@
             <!-- Text Logo -->
             <div class="text-logo">
                 <a href="#">
-                    <div class="logo-symbol">
+                    <div class="logo-symbol" v-if="profile.title">
                         {{ profile.title.charAt(0) }}
                     </div>
                     <div class="logo-text">{{ profile.title }}</div>
