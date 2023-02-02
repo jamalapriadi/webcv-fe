@@ -59,7 +59,7 @@ export default {
     },
     data(){
         return{
-            title:'sosmed',
+            title:'Social Media',
         }
     },
     methods:{

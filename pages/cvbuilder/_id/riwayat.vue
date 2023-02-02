@@ -8,89 +8,104 @@
                     <li :class="classStep(2)">Template</li>
                 </ul>
 
-                <div v-for="(l,idx) in availables" :key="idx">
-
-                    <div v-if="l == 'description'">
+                <form action="#" @submit.prevent="simpan">
+                    <div v-show="showStrukturFile('description')">
                         <card_descriptionVue v-if="profile.person" :person="profile.person.data" @sukses="get_data"></card_descriptionVue>
                     </div>
 
-                    <div v-if="l == 'pengalaman'" class="mt-4">
+                    <div v-show="showStrukturFile('pengalaman')" class="mt-4">
                         <card_pengalaman_kerjaVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data"></card_pengalaman_kerjaVue>
                     </div>
 
-                    <div v-if="l == 'pendidikan'" class="mt-4">
+                    <div v-show="showStrukturFile('pendidikan')" class="mt-4">
                         <card_pendidikanVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data"></card_pendidikanVue>
                     </div>
 
-                    <div v-if="l == 'minat'" class="mt-4">
+                    <div v-show="showStrukturFile('minat')" class="mt-4">
                         <card_minatVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data"></card_minatVue>
                     </div>
 
-                    <div v-if="l == 'keahlian'" class="mt-4">
+                    <div v-show="showStrukturFile('keahlian')" class="mt-4">
                         <card_keahlianVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data"></card_keahlianVue>
                     </div>
 
-                    <div v-if="l == 'bahasa'" class="mt-4">
+                    <div v-show="showStrukturFile('bahasa')" class="mt-4">
                         <card_bahasaVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data"></card_bahasaVue>
                     </div>
 
-                    <div v-if="l == 'kursus'" class="mt-4">
+                    <div v-show="showStrukturFile('kursus')" class="mt-4">
                         <card_kursusVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data"></card_kursusVue>
                     </div>
 
-                    <div v-if="l == 'pencapaian'" class="mt-4">
+                    <div v-show="showStrukturFile('pencapaian')" class="mt-4">
                         <card_pencapaianVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data"></card_pencapaianVue>
                     </div>
 
-                    <div v-if="l == 'publikasi'" class="mt-4">
+                    <div v-show="showStrukturFile('publikasi')" class="mt-4">
                         <card_publikasiVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data"></card_publikasiVue>
                     </div>
 
-                    <div v-if="l == 'project'" class="mt-4">
+                    <div v-show="showStrukturFile('project')" class="mt-4">
                         <card_projectVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data"></card_projectVue>
                     </div>
 
-                    <div v-if="l == 'social media'" class="mt-4">
+                    <div v-show="showStrukturFile('social media')" class="mt-4">
                         <card_sosmedVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data" :sosmed="sosmeds"></card_sosmedVue>
                     </div>
 
-                </div>
-
-                <div class="card mt-3" v-if="others.length > 0">
-                    <div class="card-body">
-                        <select name="" id="" class="form-select" v-model="bagian" @change="changeBagian">
-                            <option value="" disabled selected>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                    <path d="M12 5l0 14"></path>
-                                    <path d="M5 12l14 0"></path>
-                                </svg>
-                                Tambahkan bagian ekstra
-                            </option>
-                            <option v-for="(l,idx) in others" :key="idx" :value="l">{{ l }}</option>
-                        </select>
+                    <div class="card mt-3" v-if="others_struktur_fields.length > 0">
+                        <div class="card-body">
+                            <select name="" id="" class="form-select" v-model="bagian" @change="changeBagian">
+                                <option value="" disabled selected>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M12 5l0 14"></path>
+                                        <path d="M5 12l14 0"></path>
+                                    </svg>
+                                    Tambahkan bagian ekstra
+                                </option>
+                                <option v-for="(l,idx) in others_struktur_fields" :key="idx" :value="l.name">{{ l.name }}</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <div class="text-center text-muted mt-4" v-if="profile.person">
-                    <nuxt-link class="btn btn-primary btn-lg" :to="'/cvbuilder/'+profile.person.data.id+'/template'">
-                        Langkah Selanjutnya &nbsp;
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <path d="M9 6l6 6l-6 6"></path>
-                        </svg>
-                    </nuxt-link>
-                </div>
+                    <div v-if="loading" class="mt-2 text-center">
+                        <b-spinner variant="success" type="grow" label="Spinning"></b-spinner>
+                    </div>
 
-                <div class="text-center text-muted mt-3" v-if="profile.person">
-                    <nuxt-link :to="'/cvbuilder/'+profile.person.data.id+'/detail'" class="text-link text-muted">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <path d="M15 6l-6 6l6 6"></path>
-                        </svg> &nbsp;
-                        Langkah Sebelumnya
-                    </nuxt-link>
-                </div>
+                    <div v-if="message" :class="messageclass" role="alert">
+                        <div class="text-muted" v-html="message"></div>
+                    </div>
+
+                    <div class="text-center text-muted mt-4" v-if="profile.person">
+                        <!-- <nuxt-link class="btn btn-primary btn-lg" :to="'/cvbuilder/'+profile.person.data.id+'/template'">
+                            Langkah Selanjutnya &nbsp;
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M9 6l6 6l-6 6"></path>
+                            </svg>
+                        </nuxt-link> -->
+
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            Langkah Selanjutnya &nbsp;
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M9 6l6 6l-6 6"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="text-center text-muted mt-3" v-if="profile.person">
+                        <nuxt-link :to="'/cvbuilder/'+profile.person.data.id+'/detail'" class="text-link text-muted">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M15 6l-6 6l6 6"></path>
+                            </svg> &nbsp;
+                            Langkah Sebelumnya
+                        </nuxt-link>
+                    </div>
+                </form>
+
 
             </div>
         </div>
@@ -150,17 +165,84 @@ export default{
             availables: state => state.availables,
             others: state => state.others,
             semua: state => state.semua,
-            sosmeds: state => state.sosmeds
+            sosmeds: state => state.sosmeds,
+            struktur_fields: state => state.struktur_fields
         })
     },
     data(){
         return {
             current_step:1,
-            bagian:''
+            bagian:'',
+            loading:false,
+            message:'',
+            messageclass:'',
+            form:{
+                kode:'',
+                struktur_fields:[]
+            },
+            others_struktur_fields:[]
         }
     },
+    mounted(){
+        this.setData()
+        this.setOthersField()
+    },
     methods:{
-        ...mapActions('person',['get_data','change_bagian']),
+        ...mapActions('person',['get_data','change_bagian','change_struktur_field','update_current_stuktur_fields']),
+
+        setData(){
+            if(this.profile)
+            {
+                if(this.profile.person)
+                {
+                    if(this.profile.person.data)
+                    {
+                        this.form = {
+                            kode: this.profile.person.data.id,
+                            struktur_fields:[]
+                        }
+
+                        this.update_current_stuktur_fields(this.profile.person.data.struktur_fields)
+   
+                    }
+                }
+            }
+        },
+
+        setOthersField(){
+            this.others_struktur_fields = []
+            if(this.struktur_fields)
+            {
+                for(var a=0;a<this.struktur_fields.length;a++)
+                {
+                    if(this.struktur_fields[a].show == 'N')
+                    {
+                        this.others_struktur_fields.push(this.struktur_fields[a])
+                    }
+                }
+            }
+        },
+
+        showStrukturFile(nama){
+            if(this.struktur_fields)
+            {
+                for(var a=0;a<this.struktur_fields.length;a++)
+                {
+                    if(this.struktur_fields[a].name == nama)
+                    {
+                        if(this.struktur_fields[a].show == 'Y')
+                        {
+                            return true
+                        }else{
+                            return false
+                        }
+                        
+                    }
+                }
+            }
+
+            return false
+        },
 
         classStep(id){
             var asli = 'step-item'
@@ -174,9 +256,55 @@ export default{
         },
 
         changeBagian(){
+            var params = {
+                tambahan: true,
+                nama:this.bagian
+            }
+
+            this.change_struktur_field(params)
+            this.setOthersField()
             this.change_bagian(this.bagian)
             this.bagian = ''
-        }
+        },
+
+        simpan(){
+            this.loading = true 
+            this.form.struktur_fields = this.struktur_fields
+
+            this.$axios.patch('/auth/cv/person/'+this.form.kode, this.form)
+                .then(resp => {
+                    this.loading = false
+
+                    if(resp.data.success == true)
+                    {
+                        this.message = resp.data.message
+                        this.messageclass = 'alert alert-success'
+
+                        this.$router.replace("/cvbuilder/"+this.form.kode+"/template");
+                    }else{
+                        this.message = resp.data.message
+                        this.messageclass = 'alert alert-warning'
+                    }
+                }).catch(error => {
+                    if (error.response.status == 422) {
+                        this.loading=false
+                        this.errors = error.response.data.errors;
+                        this.messageclass='alert alert-danger';
+                        this.message = error.response.data.message
+
+                        this.$swal('422', this.message, 'Danger')
+                    }
+
+                    if (error.response.status == 500) {
+                        this.loading=false
+                        this.errors = error.response.data.errors;
+                        this.messageclass='alert alert-danger';
+                        this.message = error.response.data.message
+
+                        this.$swal('500', this.message, 'Danger')
+                    }
+                })
+        },
     }
 }
 </script>

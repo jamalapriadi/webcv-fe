@@ -96,6 +96,10 @@
                                                                     </div>
                                                                 </div>
 
+                                                                <div v-if="k.section.data.title == 'textarea'">
+                                                                    <div v-html="k.json_fields.title"></div>
+                                                                </div>
+
                                                             </div>
                                                         </div>
                                                     </div>

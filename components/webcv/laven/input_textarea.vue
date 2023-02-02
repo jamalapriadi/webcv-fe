@@ -1,8 +1,10 @@
 <template>
     <div>
         <div class="form-group">
-            <label for="" class="control-label">Height (pixels)</label>
-            <input type="numer" v-model="json_fields.title" class="form-control">
+            <label for="" class="control-label">Text</label>
+            <client-only placeholder="loading...">
+                <ckeditor-nuxt :config="editorConfig" v-model="json_fields.title"/>
+            </client-only>
         </div>
         <hr style="border:1px solid gray">
 
@@ -10,11 +12,7 @@
             <h2>Sample</h2>
         </div>
 
-        <div v-bind:style="{
-            width:'100%',
-            height:json_fields.title+'px',
-            background:'lightgray'
-        }"></div>
+        <div class="mt-3" v-html="json_fields.title"></div>
 
         <div class="text-center mt-4">
             <a href="#" @click.prevent="publishContent" class="btn btn-primary">Save Content</a>
@@ -30,7 +28,8 @@ export default{
     props:['section','title','list'],
     components:{
         InputDropzoneDefault,
-        testimonialVue
+        testimonialVue,
+        'ckeditor-nuxt': () => { return import('@blowstack/ckeditor-nuxt') },
     },
     data(){
         return {
@@ -42,11 +41,56 @@ export default{
                 file_preview:''
             },
             json_fields:{
-                title:this.title,
+                title:this.title ,
                 list:this.list ? this.list : []
             },
             show_preview:false,
-            kode:'Y'
+            kode:'Y',
+            editorConfig: {
+                simpleUpload: {
+                    uploadUrl: process.env.LARAVEL_ENDPOINT+'/api/uploads',
+                    headers: {
+                        // 'Authorization': 'optional_token'
+                        'accept': 'application/json'
+                    }
+                },
+                removePlugins: [
+                    'Title',
+                    'Code',
+                    'Superscript',
+                    'Subscript',
+                    'PageBreak',
+                    'MathType',
+                    'LinkImage',
+                    'CodeBlock',
+                    'CloudServices',
+                    'FontColor',
+                    'FontBackgroundColor',
+                    'FontFamily',
+                    'FontSize',
+                    'Link',
+                    'LinkImage',
+                    'Image',
+                    'ImageCaption',
+                    'ImageInsert',
+                    'ImageResize',
+                    'ImageStyle',
+                    'ImageToolbar',
+                    'ImageUpload',
+                    'Heading',
+                    'Strikethrough',
+                    'BlockQuote',
+                    'IndentBlock',
+                    'Indent',
+                    'TodoList',
+                    'Table',
+                    'TableCellProperties',
+                    'TableProperties',
+                    'TableToolbar',
+                    'HorizontalLine',
+                    'Highlight',
+                ],
+            },
         }
     },
     methods:{

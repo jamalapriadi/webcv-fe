@@ -242,9 +242,9 @@
             </div>
 
             <div style="margin-top:15px;border:none" class="empty card" v-else>
-                <!-- <div class="empty-img">
-                    <img src="~/assets/static/illustrations/undraw_printing_invoices_5r4r.svg" height="128" alt="">
-                </div> -->
+                <div class="empty-img">
+                    <img src="~/static/illustrations/undraw_printing_invoices_5r4r.svg" height="128" alt="">
+                </div>
                 <p class="empty-title">No results found</p>
                 <p class="empty-subtitle text-muted">
                     Try adjusting your search or filter to find what you're looking for.

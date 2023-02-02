@@ -4,10 +4,10 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <h1 class="navbar-brand navbar-brand-autolight bg-dark">
-                <a href="#" class="text-white">
+            <h1 class="navbar-brand navbar-brand-autolight text-center">
+                <a href="#">
                     <!-- <img src="./static/logo-white.svg" width="110" height="32" alt="Tabler" class="navbar-brand-image"> -->
-                    <h1 class="text-white">CV-AKU</h1>
+                    <h1>CVAku</h1>
                 </a>
             </h1>
 

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="border-bottom:1px solid lightgray">
         <div class="card" style="border:none">
             <div class="card-body">
                 <div class="row">
@@ -30,7 +30,7 @@
 
                             <div class="btn-list ml-2">
 
-                                <a href="#" class="btn btn-icon btn-danger" v-if="canedit" @click.prevent="updateShortUrl">
+                                <a href="#" class="btn btn-danger" v-if="canedit" @click.prevent="updateShortUrl">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                         <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
@@ -39,7 +39,7 @@
                                     </svg>
                                 </a>
 
-                                <a href="#" class="btn btn-icon btn-secondary" @click.prevent="goEdit">
+                                <a href="#" class="btn btn-secondary" @click.prevent="goEdit">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                         <line x1="18" y1="6" x2="6" y2="18"></line>

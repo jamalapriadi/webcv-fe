@@ -118,7 +118,7 @@
                                 </div>
                             </div>
 
-                            <div v-if="tambahan">
+                            <div v-show="showStrukturFile('informasi_tambahan')">
                                 
                                 <div class="row">
                                     <div class="col-6">
@@ -187,13 +187,13 @@
                             </div>
 
                             <a href="#" @click.prevent="addTambahan" class="mt-2 btn btn-block btn-secondary">
-                                <svg v-if="tambahan == false" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-rounded-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <svg v-if="showStrukturFile('informasi_tambahan') == false" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-rounded-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                     <path d="M9 12h6"></path>
                                     <path d="M12 9v6"></path>
                                     <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path>
                                 </svg>
-                                <svg v-if="tambahan == true" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-rounded-minus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <svg v-if="showStrukturFile('informasi_tambahan') == true" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-rounded-minus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                     <path d="M9 12h6"></path>
                                     <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path>
@@ -253,6 +253,7 @@ export default {
         ...mapState('person',{
             step1: state=> state.step1,
             profile: state => state.profile,
+            struktur_fields: state => state.struktur_fields
         })
     },
     data(){
@@ -277,7 +278,8 @@ export default {
                 linkedin:'',
                 website:'',
                 file:'',
-                file_preview:''
+                file_preview:'',
+                struktur_fields:[]
             },
             show_preview:false,
             errors:[],
@@ -287,7 +289,28 @@ export default {
         }
     },
     methods:{
-        ...mapActions('person',['save']),
+        ...mapActions('person',['save','change_struktur_field']),
+
+        showStrukturFile(nama){
+            if(this.struktur_fields)
+            {
+                for(var a=0;a<this.struktur_fields.length;a++)
+                {
+                    if(this.struktur_fields[a].name == nama)
+                    {
+                        if(this.struktur_fields[a].show == 'Y')
+                        {
+                            return true
+                        }else{
+                            return false
+                        }
+                        
+                    }
+                }
+            }
+
+            return false
+        },
 
         getClassInput(l)
         {
@@ -310,6 +333,13 @@ export default {
 
         addTambahan(){
             this.tambahan = !this.tambahan
+
+            var params = {
+                tambahan: this.tambahan,
+                nama:'informasi_tambahan'
+            }
+
+            this.change_struktur_field(params)
         },
 
         classStep(id){
@@ -341,6 +371,7 @@ export default {
 
         simpan(){
             this.loading = true 
+            this.form.struktur_fields = this.struktur_fields
 
             this.$axios.post('/auth/cv/person', this.form)
                 .then(resp => {

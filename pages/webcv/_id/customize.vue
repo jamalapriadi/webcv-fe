@@ -19,7 +19,13 @@
                                                 right:0
                                             }">
                                                 <div class="btn-group">
-                                                    <a v-if="l.section.data.title == 'testimonial' || l.section.data.title == 'client' || l.section.data.title == 'what_i_do' || l.section.data.title == 'blank_header'" href="#" class="btn btn-warning w-100" @click.prevent="editSection(l.id, l.section.data.title, l.json_fields)">
+                                                    <a v-if="l.section.data.title == 'testimonial' 
+                                                    || l.section.data.title == 'client' 
+                                                    || l.section.data.title == 'what_i_do' 
+                                                    || l.section.data.title == 'blank_header'
+                                                    || l.section.data.title == 'feature_title'
+                                                    || l.section.data.title == 'feature_spacer'
+                                                    || l.section.data.title == 'textarea'" href="#" class="btn btn-warning w-100" @click.prevent="editSection(l.id, l.section.data.title, l.json_fields)">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                                             <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
@@ -115,6 +121,11 @@
                                                     
                                                 </div>
                                             </div>
+
+                                            <div v-if="l.section.data.title == 'textarea'">
+                                                <div v-html="l.json_fields.title"></div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -221,6 +232,7 @@
                                     || nama == 'blank_header'
                                     || nama == 'feature_title'
                                     || nama == 'feature_spacer'
+                                    || nama == 'textarea'
                                 " >
                                     <a href="#" class="btn btn-primary" @click.prevent="addContent">Set Content</a>
                                 </div>
@@ -265,6 +277,10 @@
 
                 <div v-if="nama == 'feature_spacer'">
                     <input_spacerVue :section="section_preview" @addFeature="handleAddFeature"></input_spacerVue>
+                </div>
+
+                <div v-if="nama == 'textarea'">
+                    <input_textareaVue :section="section_preview" @addFeature="handleAddFeature"></input_textareaVue>
                 </div>
             </b-modal>
 
@@ -326,6 +342,14 @@
                             :list="editsection.fields.list"
                             @addFeature="updateSection"></input_spacerVue>
                     </div>
+
+                    <div v-if="editsection.title == 'textarea'">
+                        <input_textareaVue 
+                            :section="section_preview" 
+                            :title="editsection.fields.title"
+                            :list="editsection.fields.list"
+                            @addFeature="updateSection"></input_textareaVue>
+                    </div>
                 </form>
             </b-modal>
 
@@ -356,6 +380,7 @@ import input_clientVue from "~/components/webcv/laven/input_client.vue"
 import input_blank_headerVue from '~/components/webcv/laven/input_blank_header.vue';
 import input_heading_titleVue from "~/components/webcv/laven/input_heading_title.vue"
 import input_spacerVue from "~/components/webcv/laven/input_spacer.vue"
+import input_textareaVue from '~/components/webcv/laven/input_textarea.vue';
 
 export default{
     layout:'laven',
@@ -392,7 +417,8 @@ export default{
         input_what_i_doVue,
         input_testimonialVue,
         input_heading_titleVue,
-        input_spacerVue
+        input_spacerVue,
+        input_textareaVue
     },
     computed:{
         ...mapState('person',{

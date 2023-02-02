@@ -8,6 +8,56 @@ export const state = () => ({
     messageclass:'',
     templates:[],
     sosmeds:[],
+    struktur_fields:[
+        {
+            name:'informasi_tambahan',
+            show:'N'
+        },
+        {
+            name:'description',
+            show:'Y'
+        },
+        {
+            name:'pengalaman',
+            show:'Y'
+        },
+        {
+            name:'keahlian',
+            show:'Y'
+        },
+        {
+            name:'pendidikan',
+            show:'Y'
+        },
+        {
+            name:'minat',
+            show:'Y'
+        },
+        {
+            name:'social media',
+            show:'Y'
+        },
+        {
+            name:'project',
+            show:'N'
+        },
+        {
+            name:'bahasa',
+            show:'N'
+        },
+        {
+            name:'kursus',
+            show:'N'
+        },
+        {
+            name:'pencapaian',
+            show:'N'
+        },
+        {
+            name:'publikasi',
+            show:'N'
+        }
+    ],
     step1:{
         title:'Detail Pribadi',
         errors:[],
@@ -100,6 +150,26 @@ export const mutations = {
 
     SET_SOSMED(state, data){
         state.sosmeds = data
+    },
+
+    SET_STRUKTUR_FIELDS(state,data)
+    {
+        for(var a=0;a<state.struktur_fields.length;a++)
+        {
+            if(state.struktur_fields[a].name == data.nama)
+            {
+                if(data.tambahan == true)
+                {
+                    state.struktur_fields[a].show = 'Y'
+                }else{
+                    state.struktur_fields[a].show = 'N'
+                }
+            }
+        }
+    },
+
+    UPDATE_STRUKTUR_FIELDS(state, data){
+        state.struktur_fields = data
     }
 }
 
@@ -126,5 +196,15 @@ export const actions = {
     {
         commit('SET_AVAILABLE', val)
         commit('SET_OTHERS')
+    },
+
+    change_struktur_field({commit}, params)
+    {
+        commit('SET_STRUKTUR_FIELDS',params)
+    },
+
+    update_current_stuktur_fields({commit}, data)
+    {
+        commit('UPDATE_STRUKTUR_FIELDS', data)
     }
 }

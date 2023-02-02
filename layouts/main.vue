@@ -31,13 +31,12 @@ export default {
             bodyAttrs: {
                 class: "border-top-wide border-primary d-flex flex-column"
             },
-            link: [
-                { 
-                    rel: 'stylesheet', 
-                    type: 'text/css', 
-                    crossorigin: 'anonymous',
-                    href: 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD' 
-                }
+            link:[
+                {
+                    rel: "stylesheet",
+                    type: "text/css",
+                    href: "/css/bootstrap.min.css"
+                },
             ]
         }
     },
@@ -49,6 +48,15 @@ export default {
 </script>
 
 <style>
+    html{
+        background:white;
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+    body{
+        background:white
+    }
     .toasting {
         color: #fff !important;
         background-color: green !important;
