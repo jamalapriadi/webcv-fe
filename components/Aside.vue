@@ -217,6 +217,11 @@ export default {
                             title:'Social Media',
                             permission:'list_social_media'
                         },
+                        {
+                            to:'/negara',
+                            title:'Negara',
+                            permission:'list_negara'
+                        }
                     ]
                 },
                 {
@@ -241,7 +246,7 @@ export default {
                             to:'/permissions',
                             title:'Permission',
                             permission:'list_permission'
-                        }
+                        },
                     ]
                 },
             ]

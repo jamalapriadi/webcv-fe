@@ -13,6 +13,7 @@ import WebcvRepository from "./WebcvRepository"
 import PersonRepository from "./PersonRepository"
 import CvtemplateRepository from "./CvtemplateRepository"
 import SosmedRepository  from "./SosmedRepository"
+import NegaraRepository from "./NegaraRepository"
 
 export default ($axios) => ({
     permission: PermissionRepository($axios),
@@ -29,5 +30,7 @@ export default ($axios) => ({
 
     person: PersonRepository($axios),
     cvtemplate: CvtemplateRepository($axios),
-    sosmed: SosmedRepository($axios)
+    sosmed: SosmedRepository($axios),
+
+    negara: NegaraRepository($axios)
 })

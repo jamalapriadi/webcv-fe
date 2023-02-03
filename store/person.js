@@ -8,6 +8,7 @@ export const state = () => ({
     messageclass:'',
     templates:[],
     sosmeds:[],
+    negara:[],
     struktur_fields:[
         {
             name:'informasi_tambahan',
@@ -114,6 +115,10 @@ export const state = () => ({
 })
 
 export const mutations = {
+    SET_NEGARA(state, data){
+        state.negara = data
+    },
+
     SET_MODEL(state, data){
         state.profile = data
     },
@@ -190,6 +195,12 @@ export const actions = {
         const res = await this.$repositories.sosmed.all()
 
         commit('SET_SOSMED', res.data)
+    },
+
+    async get_negara({commit}){
+        const res = await this.$repositories.negara.all()
+
+        commit('SET_NEGARA', res.data)
     },
 
     change_bagian({commit}, val)

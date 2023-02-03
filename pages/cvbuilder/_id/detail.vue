@@ -3,13 +3,22 @@
         <div class="page-body" v-if="profile.success == true">
             <div class="container-xl">
                 <ul class="steps steps-green steps-counter my-4">
-                    <li :class="classStep(0)">Detail Pribadi</li>
-                    <li :class="classStep(1)">Pengalaman</li>
+                    <li :class="classStep(0)">{{ $bahasa.showLabel({label:'Detail Pribadi',negara:form.bahasa}) }}</li>
+                    <li :class="classStep(1)">{{ $bahasa.showLabel({label:'Detail Pengalaman',negara:form.bahasa}) }}</li>
                     <li :class="classStep(2)">Template</li>
                 </ul>
 
                 <form action="#" @submit.prevent="simpan">
                     <div class="card" v-if="current_step == 0">
+                        <div class="card-header">
+                            {{ $bahasa.showLabel({label:'Detail Pribadi',negara:form.bahasa}) }}
+
+                            <div class="card-actions" v-if="negara">
+                                <select name="bahasa" id="bahasa" v-model="form.bahasa" class="form-select">
+                                    <option v-for="(l,idx) in negara.data" :key="idx" :value="l.kode_negara">{{ l.nama_negara }}</option> 
+                                </select>
+                            </div>
+                        </div>
                         <div class="card-body">
                             
                             <div class="row">
@@ -36,16 +45,20 @@
                                 </div>
                                 <div class="col-8">
                                     <div class="form-group">
-                                        <label for="" class="control-label">Nama Depan</label>
-                                        <input type="text" :class="getClassInput('nama_depan')" placeholder="Nama Depan" v-model="form.nama_depan">
+                                        <label for="" class="control-label">
+                                            {{ $bahasa.showLabel({label:'Nama Depan',negara:form.bahasa}) }}
+                                        </label>
+                                        <input type="text" :class="getClassInput('nama_depan')" :placeholder="$bahasa.showLabel({label:'Nama Depan',negara:form.bahasa})" v-model="form.nama_depan">
 
                                         <span v-if="errors">
                                             <p class="text-danger" v-if="errors['nama_depan']">{{ errors['nama_depan'][0] }}</p>
                                         </span>
                                     </div>
                                     <div class="form-group">
-                                        <label for="" class="control-label">Nama Belakang</label>
-                                        <input type="text" :class="getClassInput('nama_belakang')" placeholder="Nama Belakang" v-model="form.nama_belakang">
+                                        <label for="" class="control-label">
+                                            {{ $bahasa.showLabel({label:'Nama Belakang',negara:form.bahasa}) }}
+                                        </label>
+                                        <input type="text" :class="getClassInput('nama_belakang')" :placeholder="$bahasa.showLabel({label:'Nama Belakang',negara:form.bahasa})" v-model="form.nama_belakang">
 
                                         <span v-if="errors">
                                             <p class="text-danger" v-if="errors['nama_belakang']">{{ errors['nama_belakang'][0] }}</p>
@@ -54,9 +67,9 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="control-label">Profesi</label>
-                                <input type="text" name="profesi" :class="getClassInput('profesi')" placeholder="profesi" v-model="form.profesi">
+                            <div class="form-group mt-2">
+                                <label class="control-label">{{ $bahasa.showLabel({label:'Profesi',negara:form.bahasa}) }}</label>
+                                <input type="text" name="profesi" :class="getClassInput('profesi')" :placeholder="$bahasa.showLabel({label:'Profesi',negara:form.bahasa})" v-model="form.profesi">
 
                                 <span v-if="errors">
                                     <p class="text-danger" v-if="errors['profesi']">{{ errors['profesi'][0] }}</p>
@@ -66,8 +79,8 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="" class="control-label">Alamat Email</label>
-                                        <input type="text" :class="getClassInput('email')" placeholder="Alamat E-Mail" v-model="form.email" readonly>
+                                        <label for="" class="control-label">{{ $bahasa.showLabel({label:'Alamat Email',negara:form.bahasa}) }} </label>
+                                        <input type="text" :class="getClassInput('email')" :placeholder="$bahasa.showLabel({label:'Alamat Email',negara:form.bahasa})" v-model="form.email">
 
                                         <span v-if="errors">
                                             <p class="text-danger" v-if="errors['email']">{{ errors['email'][0] }}</p>
@@ -76,8 +89,8 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="" class="control-label">Nomor Telepon</label>
-                                        <input type="text" :class="getClassInput('phone')" placeholder="Nomor Telepon" v-model="form.phone">
+                                        <label for="" class="control-label">{{ $bahasa.showLabel({label:'Nomor Telepon',negara:form.bahasa}) }} </label>
+                                        <input type="text" :class="getClassInput('phone')" :placeholder="$bahasa.showLabel({label:'Nomor Telepon',negara:form.bahasa})" v-model="form.phone">
 
                                         <span v-if="errors">
                                             <p class="text-danger" v-if="errors['phone']">{{ errors['phone'][0] }}</p>
@@ -87,8 +100,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label">Alamat</label>
-                                <textarea name="alamat" :class="getClassInput('alamat')" placeholder="Alamat" v-model="form.alamat"></textarea>
+                                <label class="control-label">{{ $bahasa.showLabel({label:'Alamat',negara:form.bahasa}) }} </label>
+                                <textarea name="alamat" :class="getClassInput('alamat')" :placeholder="$bahasa.showLabel({label:'Alamat',negara:form.bahasa})" v-model="form.alamat"></textarea>
 
                                 <span v-if="errors">
                                     <p class="text-danger" v-if="errors['alamat']">{{ errors['alamat'][0] }}</p>
@@ -98,8 +111,8 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="" class="control-label">Kode Pos</label>
-                                        <input type="text" :class="getClassInput('kode_pos')" placeholder="Kode Pos" v-model="form.kode_pos">
+                                        <label for="" class="control-label">{{ $bahasa.showLabel({label:'Kode Pos',negara:form.bahasa}) }} </label>
+                                        <input type="text" :class="getClassInput('kode_pos')" :placeholder="$bahasa.showLabel({label:'Kode Pos',negara:form.bahasa})" v-model="form.kode_pos">
 
                                         <span v-if="errors">
                                             <p class="text-danger" v-if="errors['kode_pos']">{{ errors['kode_pos'][0] }}</p>
@@ -108,8 +121,8 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="" class="control-label">Kota</label>
-                                        <input type="text" :class="getClassInput('kota')" placeholder="Kota" v-model="form.kota">
+                                        <label for="" class="control-label">{{ $bahasa.showLabel({label:'Kota',negara:form.bahasa}) }} </label>
+                                        <input type="text" :class="getClassInput('kota')" :placeholder="$bahasa.showLabel({label:'Kota',negara:form.bahasa})" v-model="form.kota">
 
                                         <span v-if="errors">
                                             <p class="text-danger" v-if="errors['kota']">{{ errors['kota'][0] }}</p>
@@ -123,27 +136,27 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="" class="control-label">Tempat Lahir</label>
-                                            <input type="text" placeholder="Tempat Lahir" class="form-control" v-model="form.tempat_lahir">
+                                            <label for="" class="control-label">{{ $bahasa.showLabel({label:'Tempat Lahir',negara:form.bahasa}) }} </label>
+                                            <input type="text" :placeholder="$bahasa.showLabel({label:'Tempat Lahir',negara:form.bahasa})" class="form-control" v-model="form.tempat_lahir">
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="" class="control-label">Tanggal Lahir</label>
-                                            <input type="date" placeholder="Tanggal Lahir" class="form-control" v-model="form.tanggal_lahir">
+                                            <label for="" class="control-label">{{ $bahasa.showLabel({label:'Tanggal Lahir',negara:form.bahasa}) }} </label>
+                                            <input type="date" :placeholder="$bahasa.showLabel({label:'Tanggal Lahir',negara:form.bahasa})" class="form-control" v-model="form.tanggal_lahir">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="" class="control-label">SIM</label>
-                                            <input type="text" placeholder="SIM" class="form-control" v-model="form.sim">
+                                            <label for="" class="control-label">{{ $bahasa.showLabel({label:'SIM',negara:form.bahasa}) }} </label>
+                                            <input type="text" :placeholder="$bahasa.showLabel({label:'SIM',negara:form.bahasa})" class="form-control" v-model="form.sim">
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="" class="control-label">Jenis Kelamin</label>
+                                            <label for="" class="control-label">{{ $bahasa.showLabel({label:'Jenis Kelamin',negara:form.bahasa}) }} </label>
                                             <select name="jk" id="jk" v-model="form.jenis_kelamin" class="form-select">
                                                 <option value="L">Laki-laki</option>
                                                 <option value="P">Perempuan</option>
@@ -154,13 +167,13 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="" class="control-label">Kebangsaan</label>
-                                            <input type="text" placeholder="Kebangsaan" v-model="form.kebangsaan" class="form-control">
+                                            <label for="" class="control-label">{{ $bahasa.showLabel({label:'Kebangsaan',negara:form.bahasa}) }}</label>
+                                            <input type="text" :placeholder="$bahasa.showLabel({label:'Kebangsaan',negara:form.bahasa})" v-model="form.kebangsaan" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="" class="control-label">Status Pernikahan</label>
+                                            <label for="" class="control-label">{{ $bahasa.showLabel({label:'Status Pernikahan',negara:form.bahasa}) }} </label>
                                             <select name="status_pernikahan" id="status_pernikahan" class="form-select" v-model="form.status_pernikahan">
                                                 <option value="Belum Kawin">Belum Kawin</option>
                                                 <option value="Kawin">Kawin</option>
@@ -173,14 +186,14 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="" class="control-label">Linkedin</label>
-                                            <input type="text" placeholder="Linkedin" v-model="form.linkedin" class="form-control">
+                                            <label for="" class="control-label">{{ $bahasa.showLabel({label:'Linkedin',negara:form.bahasa}) }}</label>
+                                            <input type="text" :placeholder="$bahasa.showLabel({label:'Linkedin',negara:form.bahasa})" v-model="form.linkedin" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="" class="control-label">Website</label>
-                                            <input type="text" placeholder="Website" v-model="form.website" class="form-control">
+                                            <label for="" class="control-label">{{ $bahasa.showLabel({label:'Website',negara:form.bahasa}) }} </label>
+                                            <input type="text" :placeholder="$bahasa.showLabel({label:'Website',negara:form.bahasa})" v-model="form.website" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -198,7 +211,7 @@
                                     <path d="M9 12h6"></path>
                                     <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path>
                                 </svg>
-                                Informasi Tambahan
+                                {{ $bahasa.showLabel({label:'Informasi Tambahan',negara:form.bahasa}) }}
                             </a>
                         </div>
                     </div>
@@ -213,7 +226,7 @@
 
                     <div class="text-center text-muted mt-3">
                         <button type="submit" class="btn btn-primary btn-lg">
-                            Langkah Selanjutnya &nbsp;
+                            {{ $bahasa.showLabel({label:'Langkah Selanjutnya',negara:form.bahasa}) }} &nbsp; &nbsp;
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                 <path d="M9 6l6 6l-6 6"></path>
@@ -237,6 +250,7 @@ export default {
     },
     async fetch({store, params}){
         await store.dispatch('person/get_data')
+        await store.dispatch('person/get_negara')
     },
     validate({ params, query, store }) {
         for(var a=0;a<store.$auth.user.data.permissions.length;a++)
@@ -253,7 +267,8 @@ export default {
         ...mapState('person',{
             step1: state=> state.step1,
             profile: state => state.profile,
-            struktur_fields: state => state.struktur_fields
+            struktur_fields: state => state.struktur_fields,
+            negara: state => state.negara
         })
     },
     data(){
@@ -280,7 +295,8 @@ export default {
                 website:'',
                 file:'',
                 file_preview:'',
-                struktur_fields:[]
+                struktur_fields:[],
+                bahasa:'ID',
             },
             show_preview:false,
             errors:[],
@@ -322,7 +338,8 @@ export default {
                             website:this.profile.person.data.website,
                             file:'',
                             file_preview:'',
-                            struktur_fields:[]
+                            struktur_fields:[],
+                            bahasa:this.profile.person.data.cv_bahasa
                         }
 
                         if(this.profile.person.data.foto)

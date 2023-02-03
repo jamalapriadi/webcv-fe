@@ -43,7 +43,8 @@ export default {
     '~/plugins/vue-datepicker.js',
     '~/plugins/vuejs-countdown-timer.js',
     { src: '~/plugins/vue-good-table', ssr: false },
-    { src: '@/plugins/vue-html2pdf', mode: 'client' }
+    { src: '@/plugins/vue-html2pdf', mode: 'client' },
+    '~/plugins/label.js' 
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

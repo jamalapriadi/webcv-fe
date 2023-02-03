@@ -1,16 +1,25 @@
 <template>
     <div v-if="profile">
         <div class="page-body" v-if="profile.success == true">
-            <div class="container-xl">
-                <ul class="steps steps-green steps-counter my-4">
-                    <li :class="classStep(0)">Detail Pribadi</li>
-                    <li :class="classStep(1)">Pengalaman</li>
+            <div class="container-xl" v-if="profile.person">
+                <ul class="steps steps-green steps-counter my-4" v-if="profile.person.data">
+                    <li :class="classStep(0)">{{ $bahasa.showLabel({label:'Detail Pribadi',negara:profile.person.data.cv_bahasa}) }}</li>
+                    <li :class="classStep(1)">{{ $bahasa.showLabel({label:'Detail Pengalaman',negara:profile.person.data.cv_bahasa}) }}</li>
                     <li :class="classStep(2)">Template</li>
                 </ul>
 
                 <form action="#" @submit.prevent="simpan">
                     <div v-show="showStrukturFile('description')">
-                        <card_descriptionVue v-if="profile.person" :person="profile.person.data" @sukses="get_data"></card_descriptionVue>
+                        <div class="card">
+                            <div class="card-header">
+                                {{ $bahasa.showLabel({label:'Profil',negara:profile.person.data.cv_bahasa}) }}
+                            </div>
+                            <div class="card-body">
+                                <client-only placeholder="loading...">
+                                    <ckeditor-nuxt :config="editorConfig" v-model="form.description"/>
+                                </client-only>
+                            </div>
+                        </div>
                     </div>
 
                     <div v-show="showStrukturFile('pengalaman')" class="mt-4">
@@ -62,7 +71,7 @@
                                         <path d="M12 5l0 14"></path>
                                         <path d="M5 12l14 0"></path>
                                     </svg>
-                                    Tambahkan bagian ekstra
+                                    {{ $bahasa.showLabel({label:'Tambahkan bagian ekstra',negara:profile.person.data.cv_bahasa}) }}
                                 </option>
                                 <option v-for="(l,idx) in others_struktur_fields" :key="idx" :value="l.name">{{ l.name }}</option>
                             </select>
@@ -78,16 +87,8 @@
                     </div>
 
                     <div class="text-center text-muted mt-4" v-if="profile.person">
-                        <!-- <nuxt-link class="btn btn-primary btn-lg" :to="'/cvbuilder/'+profile.person.data.id+'/template'">
-                            Langkah Selanjutnya &nbsp;
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <path d="M9 6l6 6l-6 6"></path>
-                            </svg>
-                        </nuxt-link> -->
-
                         <button type="submit" class="btn btn-primary btn-lg">
-                            Langkah Selanjutnya &nbsp;
+                            {{ $bahasa.showLabel({label:'Langkah Selanjutnya',negara:profile.person.data.cv_bahasa}) }} &nbsp;
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                 <path d="M9 6l6 6l-6 6"></path>
@@ -101,7 +102,7 @@
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                 <path d="M15 6l-6 6l6 6"></path>
                             </svg> &nbsp;
-                            Langkah Sebelumnya
+                            {{ $bahasa.showLabel({label:'Langkah Sebelumnya',negara:profile.person.data.cv_bahasa}) }}
                         </nuxt-link>
                     </div>
                 </form>
@@ -154,14 +155,12 @@ export default{
         card_pencapaianVue,
         card_publikasiVue,
         card_projectVue,
-        card_sosmedVue
+        card_sosmedVue,
+        'ckeditor-nuxt': () => { return import('@blowstack/ckeditor-nuxt') },
     },
     computed:{
         ...mapState('person',{
-            loading: state => state.loading,
             profile: state => state.profile,
-            message: state => state.message,
-            messageclass: state => state.messageclass,
             availables: state => state.availables,
             others: state => state.others,
             semua: state => state.semua,
@@ -178,9 +177,55 @@ export default{
             messageclass:'',
             form:{
                 kode:'',
+                description:'',
                 struktur_fields:[]
             },
-            others_struktur_fields:[]
+            others_struktur_fields:[],
+            editorConfig: {
+                simpleUpload: {
+                    uploadUrl: process.env.LARAVEL_ENDPOINT+'/api/uploads',
+                    headers: {
+                        // 'Authorization': 'optional_token'
+                        'accept': 'application/json'
+                    }
+                },
+                removePlugins: [
+                    'Title',
+                    'Code',
+                    'Superscript',
+                    'Subscript',
+                    'PageBreak',
+                    'MathType',
+                    'LinkImage',
+                    'CodeBlock',
+                    'CloudServices',
+                    'FontColor',
+                    'FontBackgroundColor',
+                    'FontFamily',
+                    'FontSize',
+                    'Link',
+                    'LinkImage',
+                    'Image',
+                    'ImageCaption',
+                    'ImageInsert',
+                    'ImageResize',
+                    'ImageStyle',
+                    'ImageToolbar',
+                    'ImageUpload',
+                    'Heading',
+                    'Strikethrough',
+                    'BlockQuote',
+                    'IndentBlock',
+                    'Indent',
+                    'TodoList',
+                    'Table',
+                    'TableCellProperties',
+                    'TableProperties',
+                    'TableToolbar',
+                    'HorizontalLine',
+                    'Highlight',
+                ],
+            },
         }
     },
     mounted(){
@@ -199,6 +244,7 @@ export default{
                     {
                         this.form = {
                             kode: this.profile.person.data.id,
+                            description: this.profile.person.data.description,
                             struktur_fields:[]
                         }
 
