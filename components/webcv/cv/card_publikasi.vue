@@ -1,7 +1,19 @@
 <template>
     <div>
         <div class="card mt-2" v-if="person">
-            <div class="card-header">Publikasi</div>
+            <div class="card-header" style="background:white;border:none">
+                <strong>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-text" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                        <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+                        <path d="M9 9l1 0"></path>
+                        <path d="M9 13l6 0"></path>
+                        <path d="M9 17l6 0"></path>
+                    </svg>
+                    {{ $bahasa.showLabel({label:'Publikasi',negara:person.cv_bahasa}) }}
+                </strong>
+            </div>
             <div class="card-body" v-if="person.publikasi">
                 <div class="divide-y" v-if="person.publikasi.data.length > 0">
                     <div v-for="(l,idx) in person.publikasi.data" :key="idx">
@@ -47,7 +59,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="" class="control-label">Deskripsi</label>
+                            <label for="" class="control-label">{{ $bahasa.showLabel({label:'Deskripsi',negara:person.cv_bahasa}) }}</label>
                             <client-only placeholder="loading...">
                                 <ckeditor-nuxt :config="editorConfig" v-model="state.publikasi" />
                             </client-only>
@@ -60,14 +72,14 @@
                         <div class="text-end">
                             <div class="d-flex">
                                 <a href="#" class="btn btn-link" @click.prevent="reset">Cancel</a>
-                                <button type="submit" class="btn btn-outline-primary ms-auto">Simpan</button>
+                                <button type="submit" class="btn btn-outline-primary ms-auto">{{ $bahasa.showLabel({label:'Simpan',negara:person.cv_bahasa}) }}</button>
                             </div>
                         </div>
 
                     </form>
                 </div>
 
-                <a href="#" class="btn btn-secondary btn-block mt-3" @click.prevent="addTambahan">
+                <a href="#" class="btn btn-outline-secondary btn-block mt-3" @click.prevent="addTambahan">
                     <svg v-if="tambahan == false" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-rounded-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <path d="M9 12h6"></path>
@@ -79,7 +91,7 @@
                         <path d="M9 12h6"></path>
                         <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path>
                     </svg>
-                    Tambah publikasi lain
+                    {{ $bahasa.showLabel({label:'Tambah publikasi lain',negara:person.cv_bahasa}) }}
                 </a>
             </div>
         </div>

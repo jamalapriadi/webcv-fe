@@ -1,7 +1,16 @@
 <template>
     <div>
         <div class="card mt-2" v-if="person">
-            <div class="card-header">Link / Social Media</div>
+            <div class="card-header" style="background:white;border:none">
+                <strong>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5"></path>
+                        <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5"></path>
+                    </svg>
+                    Link / Social Media
+                </strong>
+            </div>
             <div class="card-body" v-if="person.sosmed">
                 <div class="divide-y" v-if="person.sosmed.data.length > 0">
                     <div v-for="(l,idx) in person.sosmed.data" :key="idx">
@@ -77,14 +86,14 @@
                         <div class="text-end">
                             <div class="d-flex">
                                 <a href="#" class="btn btn-link" @click.prevent="reset">Cancel</a>
-                                <button type="submit" class="btn btn-outline-primary ms-auto">Simpan</button>
+                                <button type="submit" class="btn btn-outline-primary ms-auto">{{ $bahasa.showLabel({label:'Simpan',negara:person.cv_bahasa}) }} </button>
                             </div>
                         </div>
 
                     </form>
                 </div>
 
-                <a href="#" class="btn btn-secondary btn-block mt-3" @click.prevent="addTambahan">
+                <a href="#" class="btn btn-outline-secondary btn-block mt-3" @click.prevent="addTambahan">
                     <svg v-if="tambahan == false" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-rounded-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <path d="M9 12h6"></path>
@@ -96,7 +105,7 @@
                         <path d="M9 12h6"></path>
                         <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path>
                     </svg>
-                    Tambah Link / Social Media lain
+                    {{ $bahasa.showLabel({label:'Tambah Link / Social Media lain',negara:person.cv_bahasa}) }}
                 </a>
             </div>
         </div>

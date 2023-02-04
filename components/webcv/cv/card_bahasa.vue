@@ -1,7 +1,19 @@
 <template>
     <div>
         <div class="card mt-2" v-if="person">
-            <div class="card-header">Bahasa</div>
+            <div class="card-header" style="background:white;border:none">
+                <strong>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-world" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+                        <path d="M3.6 9l16.8 0"></path>
+                        <path d="M3.6 15l16.8 0"></path>
+                        <path d="M11.5 3a17 17 0 0 0 0 18"></path>
+                        <path d="M12.5 3a17 17 0 0 1 0 18"></path>
+                    </svg>
+                    {{ $bahasa.showLabel({label:'Bahasa',negara:person.cv_bahasa}) }}
+                </strong>
+            </div>
             <div class="card-body" v-if="person.bahasa">
                 <div class="divide-y" v-if="person.bahasa.data.length > 0">
                     <div v-for="(l,idx) in person.bahasa.data" :key="idx">
@@ -49,8 +61,8 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="" class="control-label">Bahasa</label>
-                                    <input type="text" :class="getClassInput('bahasa')" placeholder="misal. Bahasa Inggris" v-model="state.bahasa">
+                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Label Bahasa',negara:person.cv_bahasa}) }} </label>
+                                    <input type="text" :class="getClassInput('bahasa')" :placeholder="$bahasa.showLabel({label:'misal. Bahasa Inggris',negara:person.cv_bahasa})" v-model="state.bahasa">
 
                                     <span v-if="errors">
                                         <p class="text-danger" v-if="errors['bahasa']">{{ errors['bahasa'][0] }}</p>
@@ -63,12 +75,12 @@
                                     <label for="" class="control-label">Level</label>
 
                                     <select name="level" id="level" class="form-select" v-model="state.level">
-                                        <option value="0">Pilih</option>
-                                        <option value="100">Penutur asli</option>
-                                        <option value="75">Sangat cakap berbicara dan menulis</option>
-                                        <option value="50">Pemahaman bahasa yang sangat baik</option>
-                                        <option value="25">Pemahaman bahasa yang baik dalam pekerjaan</option>
-                                        <option value="20">Pemahaman bahasa standar dalam pekerjaan</option>
+                                        <option value="0">{{ $bahasa.showLabel({label:'Pilih',negara:person.cv_bahasa}) }}</option>
+                                        <option value="100">{{ $bahasa.showLabel({label:'Penutur asli',negara:person.cv_bahasa}) }}</option>
+                                        <option value="75">{{ $bahasa.showLabel({label:'Sangat cakap berbicara dan menulis',negara:person.cv_bahasa}) }}</option>
+                                        <option value="50">{{ $bahasa.showLabel({label:'Pemahaman bahasa yang sangat baik',negara:person.cv_bahasa}) }}</option>
+                                        <option value="25">{{ $bahasa.showLabel({label:'Pemahaman bahasa yang baik dalam pekerjaan',negara:person.cv_bahasa}) }}</option>
+                                        <option value="20">{{ $bahasa.showLabel({label:'Pemahaman bahasa standar dalam pekerjaan',negara:person.cv_bahasa}) }}</option>
                                         <option value="120">A1</option>
                                         <option value="130">A2</option>
                                         <option value="140">B1</option>
@@ -89,14 +101,14 @@
                         <div class="text-end">
                             <div class="d-flex">
                                 <a href="#" class="btn btn-link" @click.prevent="reset">Cancel</a>
-                                <button type="submit" class="btn btn-outline-primary ms-auto">Simpan</button>
+                                <button type="submit" class="btn btn-outline-primary ms-auto">{{ $bahasa.showLabel({label:'Simpan',negara:person.cv_bahasa}) }}</button>
                             </div>
                         </div>
 
                     </form>
                 </div>
 
-                <a href="#" class="btn btn-secondary btn-block mt-3" @click.prevent="addTambahan">
+                <a href="#" class="btn btn-outline-secondary btn-block mt-3" @click.prevent="addTambahan">
                     <svg v-if="tambahan == false" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-rounded-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <path d="M9 12h6"></path>
@@ -108,7 +120,7 @@
                         <path d="M9 12h6"></path>
                         <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path>
                     </svg>
-                    Tambah Bahasa lain
+                    {{ $bahasa.showLabel({label:'Tambah Bahasa lain',negara:person.cv_bahasa}) }}
                 </a>
             </div>
         </div>
@@ -125,7 +137,7 @@ export default{
                 kode:'',
                 person_id:this.person.id,
                 bahasa:'',
-                level:''
+                level:'0'
             },
             errors:[],
             loading:false,

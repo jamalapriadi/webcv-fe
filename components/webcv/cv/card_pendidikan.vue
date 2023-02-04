@@ -1,7 +1,16 @@
 <template>
     <div>
         <div class="card mt-2" v-if="person">
-            <div class="card-header">Pendidikan</div>
+            <div class="card-header" style="background:white;border:none">
+                <strong>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-school" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M22 9l-10 -4l-10 4l10 4l10 -4v6"></path>
+                        <path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4"></path>
+                    </svg>
+                    {{ $bahasa.showLabel({label:'Pendidikan',negara:person.cv_bahasa}) }}
+                </strong>
+            </div>
             <div class="card-body" v-if="person.pendidikan">
                 <div class="divide-y" v-if="person.pendidikan.data.length > 0">
                     <div v-for="(l,idx) in person.pendidikan.data" :key="idx">
@@ -49,8 +58,8 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="" class="control-label">Gelar</label>
-                                    <input type="text" :class="getClassInput('gelar')" placeholder="misal. S.Kom" v-model="state.gelar">
+                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Gelar',negara:person.cv_bahasa}) }}</label>
+                                    <input type="text" :class="getClassInput('gelar')" :placeholder="$bahasa.showLabel({label:'misal. S.Kom',negara:person.cv_bahasa})" v-model="state.gelar">
 
                                     <span v-if="errors">
                                         <p class="text-danger" v-if="errors['gelar']">{{ errors['gelar'][0] }}</p>
@@ -60,8 +69,8 @@
 
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="" class="control-label">Kota</label>
-                                    <input type="text" :class="getClassInput('kota')" placeholder="misal. Jakarta" v-model="state.kota">
+                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Kota',negara:person.cv_bahasa}) }}</label>
+                                    <input type="text" :class="getClassInput('kota')" :placeholder="$bahasa.showLabel({label:'misal. Jakarta',negara:person.cv_bahasa})" v-model="state.kota">
 
                                     <span v-if="errors">
                                         <p class="text-danger" v-if="errors['kota']">{{ errors['kota'][0] }}</p>
@@ -73,8 +82,8 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="" class="control-label">Sekolah</label>
-                                    <input type="text" :class="getClassInput('sekolah')" placeholder="misal. Universitas Indonesia" v-model="state.sekolah">
+                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Sekolah',negara:person.cv_bahasa}) }}</label>
+                                    <input type="text" :class="getClassInput('sekolah')" :placeholder="$bahasa.showLabel({label:'misal. Universitas Indonesia',negara:person.cv_bahasa})" v-model="state.sekolah">
 
                                     <span v-if="errors">
                                         <p class="text-danger" v-if="errors['sekolah']">{{ errors['sekolah'][0] }}</p>
@@ -86,7 +95,7 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="" class="control-label">Tanggal Mulai</label>
+                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Tanggal Mulai',negara:person.cv_bahasa}) }}</label>
                                     <input type="date" :class="getClassInput('tanggal_mulai')" v-model="state.tanggal_mulai">
 
                                     <span v-if="errors">
@@ -95,7 +104,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="" class="control-label">Sampai Sekarang?</label>
+                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Sampai Sekarang?',negara:person.cv_bahasa}) }}</label>
 
                                     <toggle-button v-if="state.present == 'N'"
                                         :value="false"
@@ -117,7 +126,7 @@
 
                             <div class="col-6">
                                 <div class="form-group" v-if="state.present == 'N'">
-                                    <label for="" class="control-label">Tanggal Selesai</label>
+                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Tanggal Selesai',negara:person.cv_bahasa}) }}</label>
                                     <input type="date" :class="getClassInput('tanggal_selesai')" v-model="state.tanggal_selesai">
 
                                     <span v-if="errors">
@@ -130,7 +139,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="" class="control-label">Deskripsi</label>
+                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Deskripsi',negara:person.cv_bahasa}) }}</label>
                                     <client-only placeholder="loading...">
                                         <ckeditor-nuxt :config="editorConfig" v-model="state.deskripsi" />
                                     </client-only>
@@ -145,14 +154,14 @@
                         <div class="text-end">
                             <div class="d-flex">
                                 <a href="#" class="btn btn-link" @click.prevent="reset">Cancel</a>
-                                <button type="submit" class="btn btn-outline-primary ms-auto">Simpan</button>
+                                <button type="submit" class="btn btn-outline-primary ms-auto">{{ $bahasa.showLabel({label:'Simpan',negara:person.cv_bahasa}) }}</button>
                             </div>
                         </div>
 
                     </form>
                 </div>
 
-                <a href="#" class="btn btn-secondary btn-block mt-3" @click.prevent="addTambahan">
+                <a href="#" class="btn btn-outline-secondary btn-block mt-3" @click.prevent="addTambahan">
                     <svg v-if="tambahan == false" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-rounded-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <path d="M9 12h6"></path>
@@ -164,7 +173,7 @@
                         <path d="M9 12h6"></path>
                         <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path>
                     </svg>
-                    Tambah pendidikan lain
+                    {{ $bahasa.showLabel({label:'Tambah pendidikan lain',negara:person.cv_bahasa}) }}
                 </a>
             </div>
         </div>

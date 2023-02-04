@@ -1,7 +1,18 @@
 <template>
     <div>
         <div class="card mt-2" v-if="person">
-            <div class="card-header">Minat</div>
+            <div class="card-header" style="background:white;border:none">
+                <strong>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-palette" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25"></path>
+                        <path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                        <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                        <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                    </svg>
+                    {{ $bahasa.showLabel({label:'Minat',negara:person.cv_bahasa}) }}
+                </strong>
+            </div>
             <div class="card-body" v-if="person.minat">
                 <div class="divide-y" v-if="person.minat.data.length > 0">
                     <div v-for="(l,idx) in person.minat.data" :key="idx">
@@ -46,8 +57,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="" class="control-label">Hobi</label>
-                            <input type="text" :class="getClassInput('hobi')" placeholder="misal. Berenang" v-model="state.hobi">
+                            <label for="" class="control-label">{{ $bahasa.showLabel({label:'Hobi',negara:person.cv_bahasa}) }}</label>
+                            <input type="text" :class="getClassInput('hobi')" :placeholder="$bahasa.showLabel({label:'misal. Berenang',negara:person.cv_bahasa})" v-model="state.hobi">
 
                             <span v-if="errors">
                                 <p class="text-danger" v-if="errors['hobi']">{{ errors['hobi'][0] }}</p>
@@ -57,14 +68,14 @@
                         <div class="text-end">
                             <div class="d-flex">
                                 <a href="#" class="btn btn-link" @click.prevent="reset">Cancel</a>
-                                <button type="submit" class="btn btn-outline-primary ms-auto">Simpan</button>
+                                <button type="submit" class="btn btn-outline-primary ms-auto">{{ $bahasa.showLabel({label:'Simpan',negara:person.cv_bahasa}) }} </button>
                             </div>
                         </div>
 
                     </form>
                 </div>
 
-                <a href="#" class="btn btn-secondary btn-block mt-3" @click.prevent="addTambahan">
+                <a href="#" class="btn btn-outline-secondary btn-block mt-3" @click.prevent="addTambahan">
                     <svg v-if="tambahan == false" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-rounded-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <path d="M9 12h6"></path>
@@ -76,7 +87,7 @@
                         <path d="M9 12h6"></path>
                         <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path>
                     </svg>
-                    Tambah Minat lain
+                    {{ $bahasa.showLabel({label:'Tambah Minat lain',negara:person.cv_bahasa}) }}
                 </a>
             </div>
         </div>

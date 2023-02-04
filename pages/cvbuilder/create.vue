@@ -174,12 +174,14 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="" class="control-label">{{ $bahasa.showLabel({label:'Status Pernikahan',negara:form.bahasa}) }} </label>
-                                            <select name="status_pernikahan" id="status_pernikahan" class="form-select" v-model="form.status_pernikahan">
+                                            <select v-if="form.bahasa == 'ID'" name="status_pernikahan" id="status_pernikahan" class="form-select" v-model="form.status_pernikahan">
                                                 <option value="Belum Kawin">Belum Kawin</option>
                                                 <option value="Kawin">Kawin</option>
                                                 <option value="Cerai Hidup">Cerai Hidup</option>
                                                 <option value="Cerai Mati">Cerai Mati</option>
                                             </select>
+
+                                            <input v-else type="text" class="form-control" v-model="form.status_pernikahan" :placeholder="$bahasa.showLabel({label:'Status Pernikahan',negara:form.bahasa})">
                                         </div>
                                     </div>
                                 </div>

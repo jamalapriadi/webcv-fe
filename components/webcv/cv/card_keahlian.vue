@@ -1,7 +1,17 @@
 <template>
     <div>
         <div class="card mt-2" v-if="person">
-            <div class="card-header">Keahlian</div>
+            <div class="card-header" style="background:white;border:none">
+                <strong>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mouse-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M6 3m0 4a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-4a4 4 0 0 1 -4 -4z"></path>
+                        <path d="M12 3v7"></path>
+                        <path d="M6 10h12"></path>
+                    </svg>
+                    {{ $bahasa.showLabel({label:'Keahlian',negara:person.cv_bahasa}) }}
+                </strong>
+            </div>
             <div class="card-body" v-if="person.keahlian">
                 <div class="divide-y" v-if="person.keahlian.data.length > 0">
                     <div v-for="(l,idx) in person.keahlian.data" :key="idx">
@@ -49,8 +59,8 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="" class="control-label">Keahlian</label>
-                                    <input type="text" :class="getClassInput('keahlian')" placeholder="misal. Microsoft Word" v-model="state.keahlian">
+                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Label Keahlian',negara:person.cv_bahasa}) }} </label>
+                                    <input type="text" :class="getClassInput('keahlian')" :placeholder="$bahasa.showLabel({label:'misal. Microsoft Word',negara:person.cv_bahasa})" v-model="state.keahlian">
 
                                     <span v-if="errors">
                                         <p class="text-danger" v-if="errors['keahlian']">{{ errors['keahlian'][0] }}</p>
@@ -64,7 +74,7 @@
 
                                     <select name="level" id="level" class="form-select" v-model="state.level">
                                         <option value="">--Select Level--</option>
-                                        <option v-for="(l,idx) in levels" :key="idx" :value="l.id">{{ l.text }}</option>
+                                        <option v-for="(l,idx) in levels" :key="idx" :value="l.id">{{ $bahasa.showLabel({label:l.text,negara:person.cv_bahasa}) }}</option>
                                     </select>
 
                                     <span v-if="errors">
@@ -79,14 +89,14 @@
                         <div class="text-end">
                             <div class="d-flex">
                                 <a href="#" class="btn btn-link" @click.prevent="reset">Cancel</a>
-                                <button type="submit" class="btn btn-outline-primary ms-auto">Simpan</button>
+                                <button type="submit" class="btn btn-outline-primary ms-auto">{{ $bahasa.showLabel({label:'Simpan',negara:person.cv_bahasa}) }} </button>
                             </div>
                         </div>
 
                     </form>
                 </div>
 
-                <a href="#" class="btn btn-secondary btn-block mt-3" @click.prevent="addTambahan">
+                <a href="#" class="btn btn-outline-secondary btn-block mt-3" @click.prevent="addTambahan">
                     <svg v-if="tambahan == false" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-rounded-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <path d="M9 12h6"></path>
@@ -98,7 +108,7 @@
                         <path d="M9 12h6"></path>
                         <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path>
                     </svg>
-                    Tambah Minat lain
+                    {{ $bahasa.showLabel({label:'Tambah Skill lain',negara:person.cv_bahasa}) }}
                 </a>
             </div>
         </div>
@@ -142,7 +152,7 @@ export default{
                     id:'1',
                     text:'Pemula'
                 },
-            ]
+            ],
         }
     },
     methods:{

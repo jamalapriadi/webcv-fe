@@ -1,7 +1,16 @@
 <template>
     <div>
         <div class="card mt-2" v-if="person">
-            <div class="card-header">Pencapaian</div>
+            <div class="card-header" style="background:white;border:none">
+                <strong>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+                        <path d="M12 7l0 5l3 3"></path>
+                    </svg>
+                    {{ $bahasa.showLabel({label:'Pencapaian',negara:person.cv_bahasa}) }}
+                </strong>
+            </div>
             <div class="card-body" v-if="person.pencapaian">
                 <div class="divide-y" v-if="person.pencapaian.data.length > 0">
                     <div v-for="(l,idx) in person.pencapaian.data" :key="idx">
@@ -47,7 +56,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="" class="control-label">Deskripsi</label>
+                            <label for="" class="control-label">{{ $bahasa.showLabel({label:'Deskripsi',negara:person.cv_bahasa}) }}</label>
                             <client-only placeholder="loading...">
                                 <ckeditor-nuxt :config="editorConfig" v-model="state.pencapaian" />
                             </client-only>
@@ -60,14 +69,14 @@
                         <div class="text-end">
                             <div class="d-flex">
                                 <a href="#" class="btn btn-link" @click.prevent="reset">Cancel</a>
-                                <button type="submit" class="btn btn-outline-primary ms-auto">Simpan</button>
+                                <button type="submit" class="btn btn-outline-primary ms-auto">{{ $bahasa.showLabel({label:'Simpan',negara:person.cv_bahasa}) }}</button>
                             </div>
                         </div>
 
                     </form>
                 </div>
 
-                <a href="#" class="btn btn-secondary btn-block mt-3" @click.prevent="addTambahan">
+                <a href="#" class="btn btn-outline-secondary btn-block mt-3" @click.prevent="addTambahan">
                     <svg v-if="tambahan == false" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-rounded-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <path d="M9 12h6"></path>
@@ -79,7 +88,7 @@
                         <path d="M9 12h6"></path>
                         <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path>
                     </svg>
-                    Tambah Pencapaian lain
+                    {{ $bahasa.showLabel({label:'Tambah Pencapaian lain',negara:person.cv_bahasa}) }}
                 </a>
             </div>
         </div>
