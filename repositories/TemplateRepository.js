@@ -13,6 +13,10 @@ export default ($axios) =>({
         return $axios.get('/template-all')
     },
 
+    location(){
+        return $axios.get('/location')
+    },
+
     save(payload){
         return $axios.post(`${resource}`, payload)
     },

@@ -3,8 +3,8 @@
         <div class="page-body" v-if="profile.success == true">
             <div class="container-xl">
                 <ul class="steps steps-green steps-counter my-4">
-                    <li :class="classStep(0)">Detail Pribadi</li>
-                    <li :class="classStep(1)">Pengalaman</li>
+                    <li :class="classStep(0)">{{ $bahasa.showLabel({label:'Detail Pribadi',negara:profile.person.data.cv_bahasa}) }}</li>
+                    <li :class="classStep(1)">{{ $bahasa.showLabel({label:'Detail Pengalaman',negara:profile.person.data.cv_bahasa}) }}</li>
                     <li :class="classStep(2)">Template</li>
                 </ul>
 
@@ -24,10 +24,15 @@
                         <div class="card-body">
                             <div class="row" v-if="templates">
                                 <div v-for="(l,idx) in templates.data" :key="idx" class="col-4">
-                                    <!-- <div v-if="l.nama_template == 'Crisp'">
-                                        <crispVue v-if="profile.person" :person="profile.person.data"></crispVue>
-                                    </div> -->
+                                    <!-- <div v-if="l.nama_template == 'Crisp'"> -->
+                                        <!-- <crispVue v-if="profile.person" :person="profile.person.data"></crispVue> -->
+                                        <!-- <crisp_smallVue v-if="profile.person" :person="profile.person.data"></crisp_smallVue> -->
+                                    <!-- </div> -->
+                                    <!-- <div v-else> -->
+                                        <!-- <img :src="l.preview_image" class="img-fluid" alt=""> -->
+                                    <!-- </div> -->
                                     <img :src="l.preview_image" class="img-fluid" alt="">
+                                    
                                     <label class="form-check mt-2">
                                         <input class="form-check-input" :checked="form.template_id == l.id" type="radio" name="radios" v-on:change="changeRadio($event, l.id)">
                                         <span class="form-check-label">{{ l.nama_template }}</span>
@@ -70,6 +75,8 @@ import crispVue from "~/components/webcv/cvtemplate/crisp.vue"
 import nanicaVue from '~/components/webcv/cvtemplate/nanica.vue'
 import influxVue from '~/components/webcv/cvtemplate/influx.vue'
 
+import crisp_smallVue from '~/components/webcv/cvtemplate/crisp_small.vue'
+
 export default{
     layout:'main',
     async fetch({store, params}){
@@ -91,7 +98,8 @@ export default{
         oxfordVue,
         crispVue,
         nanicaVue,
-        influxVue
+        influxVue,
+        crisp_smallVue
     },
     computed:{
         ...mapState('person',{

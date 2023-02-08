@@ -83,10 +83,15 @@ export const state = () => ({
     ],
     negara:[],
     sosmed:[],
-    template:[]
+    template:[],
+    location:{}
 })
 
 export const mutations = {
+    SET_LOCATION(state, data){
+        state.location = data
+    },
+
     SET_PATH_FOTO(state, data){
         state.form.file = data 
         state.form.file_preview = data
@@ -322,6 +327,12 @@ export const actions = {
         const res = await this.$repositories.template.allnoauth()
 
         commit('SET_ALL_TEMPLATE', res.data)
+    },
+
+    async get_location({commit}){
+        const res = await this.$repositories.template.location()
+
+        commit('SET_LOCATION', res.data)
     },
 
     change_struktur_field({commit}, params)

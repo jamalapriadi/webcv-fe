@@ -4,8 +4,8 @@
             <h1>Create CV</h1>
             
             <ul class="steps steps-green steps-counter my-4">
-                <li :class="classStep(1)">Detail Pribadi</li>
-                <li :class="classStep(2)">Pengalaman</li>
+                <li :class="classStep(1)">{{ $bahasa.showLabel({label:'Detail Pribadi',negara:form.bahasa}) }}</li>
+                <li :class="classStep(2)">{{ $bahasa.showLabel({label:'Detail Pengalaman',negara:form.bahasa}) }}</li>
                 <li :class="classStep(3)">Template</li>
             </ul>
 
