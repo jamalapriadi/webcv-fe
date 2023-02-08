@@ -1,28 +1,30 @@
 <template>
     <div>
-        <div class="card mt-2" v-if="person">
+        <div class="card mt-2" v-if="form">
             <div class="card-header" style="background:white;border:none">
                 <strong>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-asana" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
-                        <path d="M12 7l0 5l3 3"></path>
+                        <path d="M12 7m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                        <path d="M17 16m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                        <path d="M7 16m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
                     </svg>
-                    {{ $bahasa.showLabel({label:'Pencapaian',negara:person.cv_bahasa}) }}
+                    {{ $bahasa.showLabel({label:'Project',negara:form.bahasa}) }}
                 </strong>
             </div>
-            <div class="card-body" v-if="person.pencapaian">
-                <div class="divide-y" v-if="person.pencapaian.data.length > 0">
-                    <div v-for="(l,idx) in person.pencapaian.data" :key="idx">
+            <div class="card-body" v-if="form.project">
+                <div class="divide-y" v-if="form.project.length > 0">
+                    <div v-for="(l,idx) in form.project" :key="idx">
                         <div class="row mb-3">
                             <div class="col">
-                                <div class="text-truncate" v-html="l.pencapaian">
-                                    <!-- <strong>{{ l.pencapaian }}</strong> -->
+                                <div class="text-truncate">
+                                    <strong>{{ l.nama }}</strong>
                                 </div>
-                                <!-- <div class="text-muted">{{ l.periode }} ( {{ l.lama }} )</div> -->
+                                <div class="text-muted">{{ l.tanggal_mulai }} ( {{ l.tanggal_selesai }} )</div>
+                                <div class="text-muted" v-html="l.deskripsi"></div>
                             </div>
                             <div class="col-1 align-self-center">
-                                <a href="#" @click.prevent="edit(l)">
+                                <a href="#" @click.prevent="edit(idx,l)">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                         <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
@@ -31,7 +33,7 @@
                                 </a>
                             </div>
                             <div class="col-1 align-self-center">
-                                <a href="#" @click.prevent="hapus(l)">
+                                <a href="#" @click.prevent="hapus(idx)">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                         <path d="M18 6l-12 12"></path>
@@ -43,7 +45,7 @@
                     </div>
                 </div>
 
-                <hr class="mt-4" v-if="person.pencapaian.data.length > 0">
+                <hr class="mt-4" v-if="form.project.length > 0">
 
                 <div v-if="tambahan" class="mt-3">
                     <form action="#" class="mb-5" @submit.prevent="simpan">
@@ -56,20 +58,57 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="" class="control-label">{{ $bahasa.showLabel({label:'Deskripsi',negara:person.cv_bahasa}) }}</label>
-                            <client-only placeholder="loading...">
-                                <ckeditor-nuxt :config="editorConfig" v-model="state.pencapaian" />
-                            </client-only>
+                            <label for="" class="control-label">{{ $bahasa.showLabel({label:'Nama Project',negara:form.bahasa}) }}</label>
+                            <input type="text" :class="getClassInput('nama')" :placeholder="$bahasa.showLabel({label:'misal. Design',negara:form.bahasa})" v-model="state.nama">
 
                             <span v-if="errors">
-                                <p class="text-danger" v-if="errors['pencapaian']">{{ errors['pencapaian'][0] }}</p>
+                                <p class="text-danger" v-if="errors['nama']">{{ errors['nama'][0] }}</p>
                             </span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Tanggal Mulai',negara:form.bahasa}) }} </label>
+                                    <input type="date" :class="getClassInput('tanggal_mulai')" v-model="state.tanggal_mulai">
+
+                                    <span v-if="errors">
+                                        <p class="text-danger" v-if="errors['tanggal_mulai']">{{ errors['tanggal_mulai'][0] }}</p>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Tanggal Selesai',negara:form.bahasa}) }}</label>
+                                    <input type="date" :class="getClassInput('tanggal_selesai')" v-model="state.tanggal_selesai">
+
+                                    <span v-if="errors">
+                                        <p class="text-danger" v-if="errors['tanggal_selesai']">{{ errors['tanggal_selesai'][0] }}</p>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Deskripsi',negara:form.bahasa}) }}</label>
+                                    <client-only placeholder="loading...">
+                                        <ckeditor-nuxt :config="editorConfig" v-model="state.deskripsi" />
+                                    </client-only>
+
+                                    <span v-if="errors">
+                                        <p class="text-danger" v-if="errors['deskripsi']">{{ errors['deskripsi'][0] }}</p>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="text-end">
                             <div class="d-flex">
                                 <a href="#" class="btn btn-link" @click.prevent="reset">Cancel</a>
-                                <button type="submit" class="btn btn-outline-primary ms-auto">{{ $bahasa.showLabel({label:'Simpan',negara:person.cv_bahasa}) }}</button>
+                                <button type="submit" class="btn btn-outline-primary ms-auto">{{ $bahasa.showLabel({label:'Simpan',negara:form.bahasa}) }}</button>
                             </div>
                         </div>
 
@@ -88,7 +127,7 @@
                         <path d="M9 12h6"></path>
                         <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path>
                     </svg>
-                    {{ $bahasa.showLabel({label:'Tambah Pencapaian lain',negara:person.cv_bahasa}) }}
+                    {{ $bahasa.showLabel({label:'Tambah Project lain',negara:form.bahasa}) }}
                 </a>
             </div>
         </div>
@@ -96,18 +135,29 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 export default{
-    props:['person'],
     components: {
         'ckeditor-nuxt': () => { return import('@blowstack/ckeditor-nuxt') },
+    },
+    computed:{
+        ...mapState('createcv',{
+            current_step: state=> state.current_step,
+            form: state => state.form,
+            struktur_fields: state => state.struktur_fields,
+            negara: state => state.negara
+        })
     },
     data(){
         return {
             tambahan:false,
+            type:'add',
+            kode:'',
             state:{
-                kode:'',
-                person_id:this.person.id,
-                pencapaian:'',
+                nama:'',
+                tanggal_mulai:'',
+                tanggal_selesai:'',
+                deskripsi:'',
             },
             errors:[],
             loading:false,
@@ -161,8 +211,12 @@ export default{
         }
     },
     methods:{
+        ...mapActions('createcv',['change_current_state','change_struktur_field','add_pengalaman','edit_pengalaman','delete_pengalaman']),
+
         addTambahan(){
             this.tambahan = !this.tambahan
+
+            this.type = 'add'
         },
 
         getClassInput(l)
@@ -181,14 +235,20 @@ export default{
         },  
 
         reset(){
+            this.kode = ''
+
             this.state ={
-                kode:'',
-                person_id:this.person.id,
-                pencapaian:'',
+                nama:'',
+                tanggal_mulai:'',
+                tanggal_selesai:'',
+                deskripsi:'',
             }
+
+            this.type = 'add'
 
             this.message = ''
             this.messageclass =''
+
             this.addTambahan()
         },
 
@@ -202,66 +262,45 @@ export default{
         },
 
         simpan(){
-            this.loading = true
-            this.$axios.post('/auth/cv/pencapaian', this.state)
-                .then(resp => {
-                    this.loading = false
+            if(this.type == 'add')
+            {
+                var params = {
+                    type:'project',
+                    form: this.state
+                }
 
-                    if(resp.data.success == true)
-                    {
-                        this.message = resp.data.message
-                        this.messageclass = 'alert alert-success'
+                this.add_pengalaman(params)
+            }
 
-                        this.$toast.success(resp.data.message,{ 
-                            className: ['toasting'], 
-                            position: "top-right", 
-                            duration : 2000
-                        })
+            if(this.type == 'edit')
+            {
+                var params = {
+                    idx : this.kode,
+                    form: this.state,
+                    type: 'project'
+                }
 
-                        this.reset()
+                this.edit_pengalaman(params)
+            }
+            
 
-                        this.$emit('sukses')
-                    }else{
-                        this.message = resp.data.message
-                        this.messageclass = 'alert alert-warning'
-
-                        this.$toast.error(resp.data.message,{ 
-                            position: "top-right", 
-                            duration : 2000
-                        })
-                    }
-                }).catch(error => {
-                    if (error.response.status == 422) {
-                        this.loading=false
-                        this.errors = error.response.data.errors;
-                        this.messageclass='alert alert-danger';
-                        this.message = error.response.data.message
-
-                        this.$swal('422', this.message, 'Danger')
-                    }
-
-                    if (error.response.status == 500) {
-                        this.loading=false
-                        this.errors = error.response.data.errors;
-                        this.messageclass='alert alert-danger';
-                        this.message = error.response.data.message
-
-                        this.$swal('500', this.message, 'Danger')
-                    }
-                })
+            this.reset()
         },
 
-        edit(l){
+        edit(idx,l){
             this.state ={
-                kode:l.id,
-                person_id:this.person.id,
-                pencapaian:l.pencapaian,
+                nama:l.nama,
+                tanggal_mulai:l.tanggal_mulai,
+                tanggal_selesai:l.tanggal_selesai,
+                deskripsi:l.deskripsi,
             }
 
             this.tambahan = true
+            this.type = 'edit'
+            this.kode = idx
         },
 
-        hapus(l){
+        hapus(idx){
             this.$swal({
                 title: 'delete data?',
                 text: 'Apakah anda yakin ingin menghapus data ini!',
@@ -274,16 +313,12 @@ export default{
             })
             .then((result) => {
                 if(result.value) {
-                    this.$axios.delete(l.links.detail)
-                        .then(response => {
-                            if(response.data.success==true){
-                                this.$swal('Info', 'Delete data  berhasil' , 'success');
-                            }else{
-                                this.$swal('Info', 'delete data  gagal' , 'error');
-                            }
+                    var params = {
+                        idx: idx,
+                        type:'project'
+                    }
 
-                            this.$emit('changeStatusMember')
-                        })
+                    this.delete_pengalaman(params)
                 } else {
                     this.$swal('Cancelled', 'Data tidak di hapus', 'info')
 

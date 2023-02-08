@@ -400,10 +400,21 @@ export default {
                         this.message = resp.data.message
                         this.messageclass = 'alert alert-success'
 
+                        this.$toast.success(resp.data.message,{ 
+                            className: ['toasting'], 
+                            position: "top-right", 
+                            duration : 2000
+                        })
+
                         this.$router.replace("/cvbuilder/"+resp.data.person_id+"/riwayat");
                     }else{
                         this.message = resp.data.message
                         this.messageclass = 'alert alert-warning'
+
+                        this.$toast.error(resp.data.message,{ 
+                            position: "top-right", 
+                            duration : 2000
+                        })
                     }
                 }).catch(error => {
                     if (error.response.status == 422) {

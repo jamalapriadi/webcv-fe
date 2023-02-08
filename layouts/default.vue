@@ -10,9 +10,9 @@
                 </nuxt-link>
 
                 <ul class="nav nav-pills">
-                    <li class="nav-item" v-if="this.$auth.loggedIn == false">
+                    <!-- <li class="nav-item" v-if="this.$auth.loggedIn == false">
                         <nuxt-link :to="'/'" class="nav-link">Home</nuxt-link>
-                    </li>
+                    </li> -->
                     <li class="nav-item" v-if="this.$auth.loggedIn == false">
                         <nuxt-link :to="'/login'" class="nav-link">Login</nuxt-link>
                     </li>

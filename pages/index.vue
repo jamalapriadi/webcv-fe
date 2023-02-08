@@ -13,7 +13,7 @@
                     mari ungguli pesaing anda dan dapatkan pekerjan impian itu.
                 </p>
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-                    <nuxt-link v-if="this.$auth.loggedIn == false" :to="'/login'" class="btn btn-primary btn-lg px-4 me-sm-3">
+                    <nuxt-link v-if="this.$auth.loggedIn == false" :to="'/create-cv'" class="btn btn-primary btn-lg px-4 me-sm-3">
                         Buat CV Sekarang
                     </nuxt-link>
 

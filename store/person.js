@@ -185,6 +185,12 @@ export const actions = {
         commit('SET_MODEL', res.data)
     },
 
+    async show({commit}, id){
+        const res = await this.$repositories.person.profileByIdNonAuth(id)
+
+        commit('SET_MODEL', res.data)
+    },
+
     async get_template({commit}){
         const res = await this.$repositories.cvtemplate.all()
 

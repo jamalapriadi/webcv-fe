@@ -1,28 +1,33 @@
 <template>
     <div>
-        <div class="card mt-2" v-if="person">
+        <div class="card mt-2" v-if="form">
             <div class="card-header" style="background:white;border:none">
                 <strong>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
-                        <path d="M12 7l0 5l3 3"></path>
+                        <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5"></path>
+                        <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5"></path>
                     </svg>
-                    {{ $bahasa.showLabel({label:'Pencapaian',negara:person.cv_bahasa}) }}
+                    Link / Social Media
                 </strong>
             </div>
-            <div class="card-body" v-if="person.pencapaian">
-                <div class="divide-y" v-if="person.pencapaian.data.length > 0">
-                    <div v-for="(l,idx) in person.pencapaian.data" :key="idx">
+            <div class="card-body" v-if="form.sosmed">
+                <div class="divide-y" v-if="form.sosmed.length > 0">
+                    <div v-for="(l,idx) in form.sosmed" :key="idx">
                         <div class="row mb-3">
                             <div class="col">
-                                <div class="text-truncate" v-html="l.pencapaian">
-                                    <!-- <strong>{{ l.pencapaian }}</strong> -->
+                                <div class="text-truncate" v-if="sosmed">
+                                    <strong v-for="(k,ix) in sosmed.data" :key="ix">
+                                        <span v-if="k.id == l.sosmed" v-html="l.icon"></span>
+                                        {{ l.nama }}
+                                    </strong>
+                                    <div class="text-muted">
+                                        <a :href="l.link" target="_blank">{{ l.link }}</a>
+                                    </div>
                                 </div>
-                                <!-- <div class="text-muted">{{ l.periode }} ( {{ l.lama }} )</div> -->
                             </div>
                             <div class="col-1 align-self-center">
-                                <a href="#" @click.prevent="edit(l)">
+                                <a href="#" @click.prevent="edit(idx,l)">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                         <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
@@ -31,7 +36,7 @@
                                 </a>
                             </div>
                             <div class="col-1 align-self-center">
-                                <a href="#" @click.prevent="hapus(l)">
+                                <a href="#" @click.prevent="hapus(idx)">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                         <path d="M18 6l-12 12"></path>
@@ -43,7 +48,7 @@
                     </div>
                 </div>
 
-                <hr class="mt-4" v-if="person.pencapaian.data.length > 0">
+                <hr class="mt-4" v-if="form.sosmed.length > 0">
 
                 <div v-if="tambahan" class="mt-3">
                     <form action="#" class="mb-5" @submit.prevent="simpan">
@@ -55,21 +60,33 @@
                             <div class="text-muted" v-html="message"></div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="" class="control-label">{{ $bahasa.showLabel({label:'Deskripsi',negara:person.cv_bahasa}) }}</label>
-                            <client-only placeholder="loading...">
-                                <ckeditor-nuxt :config="editorConfig" v-model="state.pencapaian" />
-                            </client-only>
+                        <div class="form-group" v-if="sosmed">
+                            <label for="" class="control-label">Social Media</label>
+                            <select class="form-select" v-model="state.sosmed">
+                                <option value="" disabled selected>Pilih</option>
+                                <option v-for="(l,idx) in sosmed.data" :key="idx" :value="l.id">{{ l.nama }}</option>
+                            </select>
 
                             <span v-if="errors">
-                                <p class="text-danger" v-if="errors['pencapaian']">{{ errors['pencapaian'][0] }}</p>
+                                <p class="text-danger" v-if="errors['sosmed']">{{ errors['sosmed'][0] }}</p>
                             </span>
                         </div>
+
+                        <div class="form-group">
+                            <label for="" class="control-label">Link</label>
+                            <input type="text" :class="getClassInput('link')" v-model="state.link" placeholder="Link Website / Social Media">
+
+                            <span v-if="errors">
+                                <p class="text-danger" v-if="errors['link']">{{ errors['link'][0] }}</p>
+                            </span>
+                        </div>
+
+                        
 
                         <div class="text-end">
                             <div class="d-flex">
                                 <a href="#" class="btn btn-link" @click.prevent="reset">Cancel</a>
-                                <button type="submit" class="btn btn-outline-primary ms-auto">{{ $bahasa.showLabel({label:'Simpan',negara:person.cv_bahasa}) }}</button>
+                                <button type="submit" class="btn btn-outline-primary ms-auto">{{ $bahasa.showLabel({label:'Simpan',negara:form.bahasa}) }} </button>
                             </div>
                         </div>
 
@@ -88,7 +105,7 @@
                         <path d="M9 12h6"></path>
                         <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path>
                     </svg>
-                    {{ $bahasa.showLabel({label:'Tambah Pencapaian lain',negara:person.cv_bahasa}) }}
+                    {{ $bahasa.showLabel({label:'Tambah Link / Social Media lain',negara:form.bahasa}) }}
                 </a>
             </div>
         </div>
@@ -96,18 +113,28 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 export default{
-    props:['person'],
     components: {
         'ckeditor-nuxt': () => { return import('@blowstack/ckeditor-nuxt') },
+    },
+    computed:{
+        ...mapState('createcv',{
+            current_step: state=> state.current_step,
+            form: state => state.form,
+            struktur_fields: state => state.struktur_fields,
+            negara: state => state.negara,
+            sosmed: state => state.sosmed
+        })
     },
     data(){
         return {
             tambahan:false,
+            type:'add',
+            kode:'',
             state:{
-                kode:'',
-                person_id:this.person.id,
-                pencapaian:'',
+                sosmed:'',
+                link:''
             },
             errors:[],
             loading:false,
@@ -161,8 +188,12 @@ export default{
         }
     },
     methods:{
+        ...mapActions('createcv',['change_current_state','change_struktur_field','add_pengalaman','edit_pengalaman','delete_pengalaman']),
+
         addTambahan(){
             this.tambahan = !this.tambahan
+
+            this.type = 'add'
         },
 
         getClassInput(l)
@@ -181,14 +212,18 @@ export default{
         },  
 
         reset(){
+            this.kode = ''
+
             this.state ={
-                kode:'',
-                person_id:this.person.id,
-                pencapaian:'',
+                sosmed:'',
+                link:''
             }
+
+            this.type = 'add'
 
             this.message = ''
             this.messageclass =''
+
             this.addTambahan()
         },
 
@@ -202,66 +237,43 @@ export default{
         },
 
         simpan(){
-            this.loading = true
-            this.$axios.post('/auth/cv/pencapaian', this.state)
-                .then(resp => {
-                    this.loading = false
+            if(this.type == 'add')
+            {
+                var params = {
+                    type:'sosmed',
+                    form: this.state
+                }
 
-                    if(resp.data.success == true)
-                    {
-                        this.message = resp.data.message
-                        this.messageclass = 'alert alert-success'
+                this.add_pengalaman(params)
+            }
 
-                        this.$toast.success(resp.data.message,{ 
-                            className: ['toasting'], 
-                            position: "top-right", 
-                            duration : 2000
-                        })
+            if(this.type == 'edit')
+            {
+                var params = {
+                    idx : this.kode,
+                    form: this.state,
+                    type: 'sosmed'
+                }
 
-                        this.reset()
+                this.edit_pengalaman(params)
+            }
+            
 
-                        this.$emit('sukses')
-                    }else{
-                        this.message = resp.data.message
-                        this.messageclass = 'alert alert-warning'
-
-                        this.$toast.error(resp.data.message,{ 
-                            position: "top-right", 
-                            duration : 2000
-                        })
-                    }
-                }).catch(error => {
-                    if (error.response.status == 422) {
-                        this.loading=false
-                        this.errors = error.response.data.errors;
-                        this.messageclass='alert alert-danger';
-                        this.message = error.response.data.message
-
-                        this.$swal('422', this.message, 'Danger')
-                    }
-
-                    if (error.response.status == 500) {
-                        this.loading=false
-                        this.errors = error.response.data.errors;
-                        this.messageclass='alert alert-danger';
-                        this.message = error.response.data.message
-
-                        this.$swal('500', this.message, 'Danger')
-                    }
-                })
+            this.reset()
         },
 
-        edit(l){
+        edit(idx,l){
             this.state ={
-                kode:l.id,
-                person_id:this.person.id,
-                pencapaian:l.pencapaian,
+                sosmed:l.sosmed,
+                link:l.link
             }
 
             this.tambahan = true
+            this.type = 'edit'
+            this.kode = idx
         },
 
-        hapus(l){
+        hapus(idx){
             this.$swal({
                 title: 'delete data?',
                 text: 'Apakah anda yakin ingin menghapus data ini!',
@@ -274,16 +286,12 @@ export default{
             })
             .then((result) => {
                 if(result.value) {
-                    this.$axios.delete(l.links.detail)
-                        .then(response => {
-                            if(response.data.success==true){
-                                this.$swal('Info', 'Delete data  berhasil' , 'success');
-                            }else{
-                                this.$swal('Info', 'delete data  gagal' , 'error');
-                            }
+                    var params = {
+                        idx: idx,
+                        type:'sosmed'
+                    }
 
-                            this.$emit('changeStatusMember')
-                        })
+                    this.delete_pengalaman(params)
                 } else {
                     this.$swal('Cancelled', 'Data tidak di hapus', 'info')
 

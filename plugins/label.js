@@ -230,6 +230,9 @@ export default (context, inject) => {
                 }else if(label == 'Tambah Pencapaian lain')
                 {
                     return 'Tambah Pencapaian lain'
+                }else if(label == 'Pencapaian')
+                {
+                    return 'Pencapaian'
                 }else if(label == 'Publikasi')
                 {
                     return 'Publikasi'

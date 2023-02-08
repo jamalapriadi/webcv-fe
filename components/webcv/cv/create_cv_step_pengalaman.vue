@@ -1,28 +1,45 @@
 <template>
     <div>
-        <div class="card mt-2" v-if="person">
+        <div class="card mt-2" v-if="form">
             <div class="card-header" style="background:white;border:none">
                 <strong>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-school" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-briefcase" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                        <path d="M22 9l-10 -4l-10 4l10 4l10 -4v6"></path>
-                        <path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4"></path>
+                        <path d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path>
+                        <path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2"></path>
+                        <path d="M12 12l0 .01"></path>
+                        <path d="M3 13a20 20 0 0 0 18 0"></path>
                     </svg>
-                    {{ $bahasa.showLabel({label:'Pendidikan',negara:person.cv_bahasa}) }}
+                    {{ $bahasa.showLabel({label:'Pengalaman kerja',negara:form.bahasa}) }}
                 </strong>
+
+                <!-- <div class="card-actions">
+                    <a href="#" class="btn btn-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-up" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M6 15l6 -6l6 6"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="btn btn-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-down" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M6 9l6 6l6 -6"></path>
+                        </svg>
+                    </a>
+                </div> -->
             </div>
-            <div class="card-body" v-if="person.pendidikan">
-                <div class="divide-y" v-if="person.pendidikan.data.length > 0">
-                    <div v-for="(l,idx) in person.pendidikan.data" :key="idx">
+            <div class="card-body" v-if="form.pengalaman">
+                <div class="divide-y" v-if="form.pengalaman.length > 0">
+                    <div v-for="(l,idx) in form.pengalaman" :key="idx">
                         <div class="row mb-3">
                             <div class="col">
                                 <div class="text-truncate">
-                                    <strong>{{ l.gelar }}</strong>
+                                    <strong>{{ l.posisi }}</strong>
                                 </div>
-                                <div class="text-muted">{{ l.periode }} ( {{ l.lama }} )</div>
+                                <div class="text-muted">{{ l.tanggal_mulai }} ( {{ l.tanggal_selesai }} )</div>
                             </div>
                             <div class="col-1 align-self-center">
-                                <a href="#" @click.prevent="edit(l)">
+                                <a href="#" @click.prevent="edit(idx,l)">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                         <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
@@ -31,7 +48,7 @@
                                 </a>
                             </div>
                             <div class="col-1 align-self-center">
-                                <a href="#" @click.prevent="hapus(l)">
+                                <a href="#" @click.prevent="hapus(idx)">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                         <path d="M18 6l-12 12"></path>
@@ -43,7 +60,7 @@
                     </div>
                 </div>
 
-                <hr class="mt-4" v-if="person.pendidikan.data.length > 0">
+                <hr class="mt-4" v-if="form.pengalaman.length > 0">
 
                 <div v-if="tambahan" class="mt-3">
                     <form action="#" class="mb-5" @submit.prevent="simpan">
@@ -58,19 +75,19 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Gelar',negara:person.cv_bahasa}) }}</label>
-                                    <input type="text" :class="getClassInput('gelar')" :placeholder="$bahasa.showLabel({label:'misal. S.Kom',negara:person.cv_bahasa})" v-model="state.gelar">
+                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Posisi Kerja',negara:form.bahasa}) }}</label>
+                                    <input type="text" :class="getClassInput('posisi')" :placeholder="$bahasa.showLabel({label:'misal. Manajer',negara:form.bahasa})" v-model="state.posisi">
 
                                     <span v-if="errors">
-                                        <p class="text-danger" v-if="errors['gelar']">{{ errors['gelar'][0] }}</p>
+                                        <p class="text-danger" v-if="errors['posisi']">{{ errors['posisi'][0] }}</p>
                                     </span>
                                 </div>
                             </div>
 
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Kota',negara:person.cv_bahasa}) }}</label>
-                                    <input type="text" :class="getClassInput('kota')" :placeholder="$bahasa.showLabel({label:'misal. Jakarta',negara:person.cv_bahasa})" v-model="state.kota">
+                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Kota',negara:form.bahasa}) }}</label>
+                                    <input type="text" :class="getClassInput('kota')" :placeholder="$bahasa.showLabel({label:'misal. Jakarta',negara:form.bahasa})" v-model="state.kota">
 
                                     <span v-if="errors">
                                         <p class="text-danger" v-if="errors['kota']">{{ errors['kota'][0] }}</p>
@@ -82,11 +99,11 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Sekolah',negara:person.cv_bahasa}) }}</label>
-                                    <input type="text" :class="getClassInput('sekolah')" :placeholder="$bahasa.showLabel({label:'misal. Universitas Indonesia',negara:person.cv_bahasa})" v-model="state.sekolah">
+                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Perusahaan',negara:form.bahasa}) }}</label>
+                                    <input type="text" :class="getClassInput('perusahaan')" placeholder="" v-model="state.perusahaan">
 
                                     <span v-if="errors">
-                                        <p class="text-danger" v-if="errors['sekolah']">{{ errors['sekolah'][0] }}</p>
+                                        <p class="text-danger" v-if="errors['perusahaan']">{{ errors['perusahaan'][0] }}</p>
                                     </span>
                                 </div>
                             </div>
@@ -95,7 +112,7 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Tanggal Mulai',negara:person.cv_bahasa}) }}</label>
+                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Tanggal Mulai',negara:form.bahasa}) }}</label>
                                     <input type="date" :class="getClassInput('tanggal_mulai')" v-model="state.tanggal_mulai">
 
                                     <span v-if="errors">
@@ -104,7 +121,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Sampai Sekarang?',negara:person.cv_bahasa}) }}</label>
+                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Sampai Sekarang?',negara:form.bahasa}) }}</label>
 
                                     <toggle-button v-if="state.present == 'N'"
                                         :value="false"
@@ -126,7 +143,7 @@
 
                             <div class="col-6">
                                 <div class="form-group" v-if="state.present == 'N'">
-                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Tanggal Selesai',negara:person.cv_bahasa}) }}</label>
+                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Tanggal Selesai',negara:form.bahasa}) }}</label>
                                     <input type="date" :class="getClassInput('tanggal_selesai')" v-model="state.tanggal_selesai">
 
                                     <span v-if="errors">
@@ -139,7 +156,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Deskripsi',negara:person.cv_bahasa}) }}</label>
+                                    <label for="" class="control-label">{{ $bahasa.showLabel({label:'Tugas/Tanggung Jawab Pekerjaan',negara:form.bahasa}) }}</label>
                                     <client-only placeholder="loading...">
                                         <ckeditor-nuxt :config="editorConfig" v-model="state.deskripsi" />
                                     </client-only>
@@ -154,7 +171,7 @@
                         <div class="text-end">
                             <div class="d-flex">
                                 <a href="#" class="btn btn-link" @click.prevent="reset">Cancel</a>
-                                <button type="submit" class="btn btn-outline-primary ms-auto">{{ $bahasa.showLabel({label:'Simpan',negara:person.cv_bahasa}) }}</button>
+                                <button type="submit" class="btn btn-outline-primary ms-auto">{{ $bahasa.showLabel({label:'Simpan',negara:form.bahasa}) }}</button>
                             </div>
                         </div>
 
@@ -173,7 +190,7 @@
                         <path d="M9 12h6"></path>
                         <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path>
                     </svg>
-                    {{ $bahasa.showLabel({label:'Tambah pendidikan lain',negara:person.cv_bahasa}) }}
+                    {{ $bahasa.showLabel({label:'Tambah pengalaman kerja lain',negara:form.bahasa}) }}
                 </a>
             </div>
         </div>
@@ -181,20 +198,28 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 export default{
-    props:['person'],
     components: {
         'ckeditor-nuxt': () => { return import('@blowstack/ckeditor-nuxt') },
+    },
+    computed:{
+        ...mapState('createcv',{
+            current_step: state=> state.current_step,
+            form: state => state.form,
+            struktur_fields: state => state.struktur_fields,
+            negara: state => state.negara
+        })
     },
     data(){
         return {
             tambahan:false,
+            type:'add',
+            kode:'',
             state:{
-                kode:'',
-                person_id:this.person.id,
-                gelar:'',
+                posisi:'',
                 kota:'',
-                sekolah:'',
+                perusahaan:'',
                 tanggal_mulai:'',
                 tanggal_selesai:'',
                 deskripsi:'',
@@ -252,8 +277,12 @@ export default{
         }
     },
     methods:{
+        ...mapActions('createcv',['change_current_state','change_struktur_field','add_pengalaman','edit_pengalaman','delete_pengalaman']),
+
         addTambahan(){
             this.tambahan = !this.tambahan
+
+            this.type = 'add'
         },
 
         getClassInput(l)
@@ -272,17 +301,19 @@ export default{
         },  
 
         reset(){
+            this.kode = ''
+
             this.state ={
-                kode:'',
-                person_id:this.person.id,
-                gelar:'',
+                posisi:'',
                 kota:'',
-                sekolah:'',
+                perusahaan:'',
                 tanggal_mulai:'',
                 tanggal_selesai:'',
                 deskripsi:'',
                 present:'N'
             }
+
+            this.type = 'add'
 
             this.message = ''
             this.messageclass =''
@@ -300,62 +331,36 @@ export default{
         },
 
         simpan(){
-            this.loading = true
-            this.$axios.post('/auth/cv/pendidikan', this.state)
-                .then(resp => {
-                    this.loading = false
+            if(this.type == 'add')
+            {
+                var params = {
+                    type:'pengalaman',
+                    form: this.state
+                }
 
-                    if(resp.data.success == true)
-                    {
-                        this.message = resp.data.message
-                        this.messageclass = 'alert alert-success'
+                this.add_pengalaman(params)
+            }
 
-                        this.$toast.success(resp.data.message,{ 
-                            className: ['toasting'], 
-                            position: "top-right", 
-                            duration : 2000
-                        })
+            if(this.type == 'edit')
+            {
+                var params = {
+                    idx : this.kode,
+                    form: this.state,
+                    type: 'pengalaman'
+                }
 
-                        this.reset()
+                this.edit_pengalaman(params)
+            }
+            
 
-                        this.$emit('sukses')
-                    }else{
-                        this.message = resp.data.message
-                        this.messageclass = 'alert alert-warning'
-
-                        this.$toast.error(resp.data.message,{ 
-                            position: "top-right", 
-                            duration : 2000
-                        })
-                    }
-                }).catch(error => {
-                    if (error.response.status == 422) {
-                        this.loading=false
-                        this.errors = error.response.data.errors;
-                        this.messageclass='alert alert-danger';
-                        this.message = error.response.data.message
-
-                        this.$swal('422', this.message, 'Danger')
-                    }
-
-                    if (error.response.status == 500) {
-                        this.loading=false
-                        this.errors = error.response.data.errors;
-                        this.messageclass='alert alert-danger';
-                        this.message = error.response.data.message
-
-                        this.$swal('500', this.message, 'Danger')
-                    }
-                })
+            this.reset()
         },
 
-        edit(l){
+        edit(idx,l){
             this.state ={
-                kode:l.id,
-                person_id:this.person.id,
-                gelar:l.gelar,
+                posisi:l.posisi,
                 kota:l.kota,
-                sekolah:l.sekolah,
+                perusahaan:l.perusahaan,
                 tanggal_mulai:l.tanggal_mulai,
                 tanggal_selesai:l.tanggal_selesai,
                 deskripsi:l.description,
@@ -363,9 +368,11 @@ export default{
             }
 
             this.tambahan = true
+            this.type = 'edit'
+            this.kode = idx
         },
 
-        hapus(l){
+        hapus(idx){
             this.$swal({
                 title: 'delete data?',
                 text: 'Apakah anda yakin ingin menghapus data ini!',
@@ -378,16 +385,12 @@ export default{
             })
             .then((result) => {
                 if(result.value) {
-                    this.$axios.delete(l.links.detail)
-                        .then(response => {
-                            if(response.data.success==true){
-                                this.$swal('Info', 'Delete data  berhasil' , 'success');
-                            }else{
-                                this.$swal('Info', 'delete data  gagal' , 'error');
-                            }
+                    var params = {
+                        idx: idx,
+                        type:'pengalaman'
+                    }
 
-                            this.$emit('changeStatusMember')
-                        })
+                    this.delete_pengalaman(params)
                 } else {
                     this.$swal('Cancelled', 'Data tidak di hapus', 'info')
 

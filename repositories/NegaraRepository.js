@@ -9,6 +9,10 @@ export default ($axios) =>({
         return $axios.get('/auth/cv/negara-all')
     },
 
+    allnoauth(){
+        return $axios.get('/negara-all')
+    },
+
     save(payload){
         return $axios.post(`${resource}`, payload)
     },

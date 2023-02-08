@@ -7,5 +7,9 @@ export default ($axios) =>({
 
     save(data){
         return $axios.post('/auth/cv/person', data);
-    }
+    },
+
+    profileByIdNonAuth(id){
+        return $axios.get('/person/'+id)
+    },
 }) 

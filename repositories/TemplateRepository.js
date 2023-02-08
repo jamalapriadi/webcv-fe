@@ -9,6 +9,10 @@ export default ($axios) =>({
         return $axios.get('/auth/template-all')
     },
 
+    allnoauth(){
+        return $axios.get('/template-all')
+    },
+
     save(payload){
         return $axios.post(`${resource}`, payload)
     },

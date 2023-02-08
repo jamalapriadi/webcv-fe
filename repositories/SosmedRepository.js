@@ -9,6 +9,10 @@ export default ($axios) =>({
         return $axios.get('/auth/cv/sosmed-all')
     },
 
+    allnoauth(){
+        return $axios.get('/sosmed-all')
+    },
+
     save(payload){
         return $axios.post(`${resource}`, payload)
     },

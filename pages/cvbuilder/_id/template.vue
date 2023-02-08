@@ -53,7 +53,7 @@
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                 <path d="M15 6l-6 6l6 6"></path>
                             </svg> &nbsp;
-                            Langkah Sebelumnya
+                            {{ $bahasa.showLabel({label:'Langkah Sebelumnya',negara:profile.person.data.cv_bahasa}) }}
                         </nuxt-link>
                     </div>
                 </form>
@@ -170,10 +170,21 @@ export default{
                         this.message = resp.data.message
                         this.messageclass = 'alert alert-success'
 
+                        this.$toast.success(resp.data.message,{ 
+                            className: ['toasting'], 
+                            position: "top-right", 
+                            duration : 2000
+                        })
+
                         this.$router.replace("/cvbuilder/"+this.form.kode+'/preview');
                     }else{
                         this.message = resp.data.message
                         this.messageclass = 'alert alert-warning'
+
+                        this.$toast.error(resp.data.message,{ 
+                            position: "top-right", 
+                            duration : 2000
+                        })
                     }
                 }).catch(error => {
                     if (error.response.status == 422) {
