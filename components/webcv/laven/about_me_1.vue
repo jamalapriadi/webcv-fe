@@ -6,9 +6,11 @@
                     
                     <div class="col-sm-12 col-md-5 col-lg-5">
                         <div class="home-photo">
-                            <div class="hp-inner" v-bind:style="{
-                                backgroundImage:'url('+person.foto+')'
-                            }"></div>
+
+                            <div class="hp-inner">
+                                <img :src="person.foto" alt="">
+                            </div>
+                            
                         </div>
                     </div>
 

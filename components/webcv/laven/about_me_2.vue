@@ -4,9 +4,9 @@
             <div class="row">
                 <div class="col-sm-12 col-md-6 col-lg-6">
                     <div class="inner-content">
-                        <div class="fill-block" v-bind:style="{
-                            backgroundImage:'url('+person.foto+')'
-                        }"></div>
+                        <div class="fill-block">
+                            <img :src="person.foto" alt="">
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6">
