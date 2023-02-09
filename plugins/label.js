@@ -591,6 +591,118 @@ export default (context, inject) => {
                     return "Creating a CV and Web can be overwhelming, especially if you have to do everything yourself. We help you create a professional CV and website for you. let's get ahead of your competitors and get that dream job."
                 }
             }
+        },
+
+        showCardLabel({label='', negara=''}){
+            if(negara == 'ID')
+            {
+                if(label == 'Pengalaman Kerja')
+                {
+                    return 'Pengalaman Kerja'
+                }else if(label == 'Pendidikan')
+                {
+                    return 'Pendidikan'
+                }else if(label == 'Hobi')
+                {
+                    return 'Minat/Hobi'
+                }else if(label == 'Kursus')
+                {
+                    return 'Kursus'
+                }else if(label == 'Publikasi')
+                {
+                    return 'Publikasi'
+                }else if(label == 'Pencapaian')
+                {
+                    return 'Pencapaian'
+                }else if(label == 'Telepon')
+                {
+                    return 'Telepon'
+                }else if(label == 'Email')
+                {
+                    return 'Email'
+                }else if(label == 'Alamat')
+                {
+                    return 'Alamat'
+                }else if(label == 'Jenis Kelamin')
+                {
+                    return 'Jenis Kelamin'
+                }else if(label == 'Laki-Laki')
+                {
+                    return 'Laki-Laki'
+                }else if(label == 'Perempuan')
+                {
+                    return 'Perempuan'
+                }else if(label == 'Tempat, Tanggal Lahir')
+                {
+                    return 'Tempat, Tanggal Lahir'
+                }else if(label == 'Status Pernikahan')
+                {
+                    return 'Status Pernikahan'
+                }else if(label == 'Kebangsaan')
+                {
+                    return 'Kebangsaan'
+                }else if(label == 'Keahlian')
+                {
+                    return 'Keahlian'
+                }else if(label == 'Bahasa')
+                {
+                    return 'Bahasa'
+                }
+            }else if(negara == 'EN')
+            {
+                if(label == 'Pengalaman Kerja')
+                {
+                    return 'Work Experiences'
+                }else if(label == 'Pendidikan')
+                {
+                    return 'Educations'
+                }else if(label == 'Hobi')
+                {
+                    return 'Interests'
+                }else if(label == 'Kursus')
+                {
+                    return 'Certifications'
+                }else if(label == 'Publikasi')
+                {
+                    return 'Publications'
+                }else if(label == 'Pencapaian')
+                {
+                    return 'Achivements'
+                }else if(label == 'Telepon')
+                {
+                    return 'Phone'
+                }else if(label == 'Email')
+                {
+                    return 'Email'
+                }else if(label == 'Alamat')
+                {
+                    return 'Address'
+                }else if(label == 'Jenis Kelamin')
+                {
+                    return 'Gender'
+                }else if(label == 'Laki-Laki')
+                {
+                    return 'Male'
+                }else if(label == 'Perempuan')
+                {
+                    return 'Female'
+                }else if(label == 'Tempat, Tanggal Lahir')
+                {
+                    return 'Place and date of birth'
+                }else if(label == 'Status Pernikahan')
+                {
+                    return 'Marital status'
+                }else if(label == 'Kebangsaan')
+                {
+                    return 'Nationality'
+                }else if(label == 'Keahlian')
+                {
+                    return 'Skills'
+                }else if(label == 'Bahasa')
+                {
+                    return 'Languages'
+                }
+            }
         }
     })
 }

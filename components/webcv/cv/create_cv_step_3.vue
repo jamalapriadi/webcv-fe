@@ -5,10 +5,18 @@
                 <div class="card-body">
                     <div class="row" v-if="template">
                         <div v-for="(l,idx) in template.data" :key="idx" class="col-4">
-                            <!-- <div v-if="l.nama_template == 'Crisp'">
-                                <crispVue v-if="profile.person" :person="profile.person.data"></crispVue>
-                            </div> -->
-                            <img :src="l.preview_image" class="img-fluid" alt="">
+                            <div v-if="l.nama_template == 'Crisp'">
+                                <crisp_smallVue v-if="form" :person="form"></crisp_smallVue>
+                            </div>
+                            <div v-else-if="l.nama_template == 'Influx'">
+                                <influxVue v-if="form" :person="form"></influxVue>
+                            </div>
+                            <div v-else-if="l.nama_template == 'Nanica'">
+                                <nanicaVue v-if="form" :person="form"></nanicaVue>
+                            </div>
+                            <div v-else>
+                                <img :src="l.preview_image" class="img-fluid" alt="">
+                            </div>
                             <label class="form-check mt-2">
                                 <input class="form-check-input" :checked="form.template_id == l.id" type="radio" name="radios" v-on:change="changeRadio($event, l.id)">
                                 <span class="form-check-label">{{ l.nama_template }}</span>
@@ -56,7 +64,19 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 
+import crispVue from "~/components/webcv/cvtemplate/crisp.vue"
+import nanicaVue from '~/components/webcv/cvtemplate/nanica_small_temp.vue'
+import influxVue from '~/components/webcv/cvtemplate/influx_small_temp.vue'
+
+import crisp_smallVue from '~/components/webcv/cvtemplate/crisp_small_temp.vue'
+
 export default{
+    components:{
+        crispVue,
+        nanicaVue,
+        influxVue,
+        crisp_smallVue
+    },
     computed:{
         ...mapState('createcv',{
             current_step: state=> state.current_step,

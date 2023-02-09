@@ -2,16 +2,16 @@
     <div v-if="location">
         <div class="px-4 pt-5 text-center border-bottom">
             <h3 class="display-5 fw-bold">
-                {{ $bahasa.showLabelFields({label:'CV dan Web Builder',negara:location.countryCode ? location.countryCode : 'ID'}) }} <br>
-                {{ $bahasa.showLabelFields({label:'Buat CV dan Web Profesional anda dengan cepat',negara:location.countryCode ? location.countryCode : 'ID'}) }}
+                {{ $bahasa.showLabelFields({label:'CV dan Web Builder',negara:setCountry()}) }} <br>
+                {{ $bahasa.showLabelFields({label:'Buat CV dan Web Profesional anda dengan cepat',negara:setCountry()}) }}
             </h3>
             <div class="col-lg-6 mx-auto">
                 <p class="lead mb-4">
-                    {{ $bahasa.showLabelFields({label:'Membuat CV dan Web bisa sangat melelahkan, terutama jika Anda harus melakukan semuanya sendiri. Kami membantu anda membuat CV dan Web profesional untuk anda. mari ungguli pesaing anda dan dapatkan pekerjan impian itu.',negara:location.countryCode ? location.countryCode : 'ID'}) }}
+                    {{ $bahasa.showLabelFields({label:'Membuat CV dan Web bisa sangat melelahkan, terutama jika Anda harus melakukan semuanya sendiri. Kami membantu anda membuat CV dan Web profesional untuk anda. mari ungguli pesaing anda dan dapatkan pekerjan impian itu.',negara:setCountry()}) }}
                 </p>
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
                     <nuxt-link v-if="this.$auth.loggedIn == false" :to="'/create-cv'" class="btn btn-primary btn-lg px-4 me-sm-3">
-                        {{ $bahasa.showLabelFields({label:'Buat CV Sekarang',negara:location.countryCode ? location.countryCode : 'ID'}) }}
+                        {{ $bahasa.showLabelFields({label:'Buat CV Sekarang',negara:setCountry()}) }}
                     </nuxt-link>
 
                     <nuxt-link v-if="this.$auth.loggedIn == true" :to="'/dashboard'" class="btn btn-primary btn-lg px-4 me-sm-3">
@@ -42,6 +42,27 @@ export default{
         ...mapState('createcv',{
             location: state=> state.location,
         })
+    },
+    methods:{
+        setCountry(){
+            var asli = 'ID'
+            if(this.location)
+            {
+                if(this.location.countryCode)
+                {
+                    if(this.location.countryCode == 'EN')
+                    {
+                        asli = 'EN'
+                    }else{
+                        asli = 'ID'
+                    }
+                }else{
+                    asli = 'ID'
+                }
+            }
+
+            return asli
+        }
     }
 }
 </script>

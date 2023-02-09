@@ -19,7 +19,7 @@
                             <div class="col">
                                 <div class="text-truncate">
                                     <strong>{{ l.keahlian }}</strong>
-                                    <div class="text-muted">Level : {{ l.nama_level }}</div>
+                                    <div class="text-muted">Level : {{ $bahasa.showLabel({label:l.nama_level,negara:person.cv_bahasa}) }}</div>
                                 </div>
                             </div>
                             <div class="col-1 align-self-center">

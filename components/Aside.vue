@@ -3,7 +3,7 @@
         <div class="container-fluid">
 
             <div class="bg-dark text-center text-white pt-10" style="padding:5px">
-                <nuxt-link :to="'/dashboard'" class="text-link text-reset">
+                <nuxt-link :to="'/dashboard'" class="text-link text-reset" style="text-decoration: none;">
                     <h1>CVAku</h1>
                 </nuxt-link>
             </div>
