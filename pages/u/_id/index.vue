@@ -115,29 +115,7 @@
                         </div>
                     </div>
 
-                    <!-- Footer -->
-                    <footer class="site-footer clearfix">
-                        <div class="footer-social">
-                            <ul class="footer-social-links">
-                                <li>
-                                    <a href="https://www.linkedin.com/in/jamal-apriadi" target="_blank">Linkedin</a>
-                                </li>
-
-                                <li>
-                                    <a href="https://www.facebook.com/gha16" target="_blank">Facebook</a>
-                                </li>
-
-                                <li>
-                                    <a href="https://www.instagram.com/jamalapriadi/" target="_blank">Instagram</a>
-                                </li>
-                            </ul>
-                        </div>
-                            
-                        <div class="footer-copyrights">
-                            <p>© 2023 All rights reserved. Jamal Apriadi.</p>
-                        </div>
-                    </footer>
-                    <!-- /Footer -->
+                    <footer_previewVue v-if="list.profile.data" :profile="list.profile.data" :current_menu="current_menu"></footer_previewVue>
                 </div>
             </div>
         </div>
@@ -169,6 +147,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import header_preview from "~/components/webcv/laven/header_preview.vue"
+import footer_previewVue from "~/components/webcv/laven/footer_preview.vue"
 
 import About_me_1Vue from '~/components/webcv/laven/about_me_1.vue';
 import About_me_2Vue from '~/components/webcv/laven/about_me_2.vue';
@@ -192,6 +171,7 @@ export default{
     },
     components:{
         header_preview,
+        footer_previewVue,
         About_me_1Vue,
         About_me_2Vue,
         what_i_doVue,
