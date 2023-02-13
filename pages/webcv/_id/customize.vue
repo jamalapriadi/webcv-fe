@@ -63,7 +63,7 @@
                                             </div>
 
                                             <div v-if="l.section.data.title == 'education'">
-                                                <experienceVue :title="'Education'" :person="profile.person.data"></experienceVue>
+                                                <educationVue :title="'Education'" :person="profile.person.data"></educationVue>
                                             </div>
 
                                             <div v-if="l.section.data.title == 'certification'">
@@ -367,6 +367,7 @@ import About_me_2Vue from '~/components/webcv/laven/about_me_2.vue';
 import input_what_i_doVue from '~/components/webcv/laven/input_what_i_do.vue';
 import what_i_doVue from '~/components/webcv/laven/what_i_do.vue';
 import experienceVue from '~/components/webcv/laven/experience.vue';
+import educationVue from "~/components/webcv/laven/education.vue";
 import certificationVue from "~/components/webcv/laven/certification.vue"
 import two_row_blogVue from "~/components/webcv/laven/two_row_blog.vue"
 import three_row_blogVue from '~/components/webcv/laven/three_row_blog.vue';
@@ -404,6 +405,7 @@ export default{
         About_me_2Vue,
         what_i_doVue,
         experienceVue,
+        educationVue,
         certificationVue,
         two_row_blogVue,
         three_row_blogVue,

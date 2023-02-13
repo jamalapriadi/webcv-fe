@@ -147,51 +147,51 @@ export default{
             script: [
                 {
                     src: "/js/modernizr.custom.js",
-                    body: true
+                    body: false
                 },
                 {
                     src: "/js/jquery-3.5.1.min.js",
-                    body: true
+                    body: false
                 },
                 {
                     src: "/js/imagesloaded.pkgd.min.js",
-                    body: true
+                    body: false
                 },
                 {
                     src: "/js/bootstrap.min.js",
-                    body: true
+                    body: false
                 },
                 {
                     src: "/js/jquery.shuffle.min.js",
-                    body: true
+                    body: false
                 },
                 {
                     src: "/js/masonry.pkgd.min.js",
-                    body: true
+                    body: false
                 },
                 {
                     src: "/js/owl.carousel.min.js",
-                    body: true
+                    body: false
                 },
                 {
                     src: "/js/jquery.magnific-popup.min.js",
-                    body: true
+                    body: false
                 },
                 // {
                 //     src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCrDf32aQTCVENBhFJbMBKOUTiUAABtC2o',
-                //     body: true
+                //     body: false
                 // },
                 // {
                 //     src: "/js/jquery.googlemap.js",
-                //     body: true
+                //     body: false
                 // },
                 {
                     src: "/js/validator.js",
-                    body: true
+                    body: false
                 },
                 {
                     src: "/js/main.js",
-                    body: true
+                    body: false
                 },
             ],
         };
