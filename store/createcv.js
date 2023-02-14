@@ -20,7 +20,7 @@ export const state = () => ({
         file:'',
         file_preview:'',
         deskripsi:'',
-        bahasa:'ID',
+        bahasa:'EN',
         struktur_fields:[],
         pengalaman:[],
         pendidikan:[],
@@ -90,6 +90,21 @@ export const state = () => ({
 export const mutations = {
     SET_LOCATION(state, data){
         state.location = data
+
+        if(state.location)
+        {
+            if(state.location.countryCode)
+            {
+                if(state.location.countryCode == 'ID')
+                {
+                    state.form.bahasa = 'ID'
+                }else{
+                    state.form.bahasa = 'EN'
+                }
+            }else{
+                state.form.bahasa = 'ID'
+            }
+        }
     },
 
     SET_PATH_FOTO(state, data){

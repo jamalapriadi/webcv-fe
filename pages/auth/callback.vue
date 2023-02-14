@@ -50,7 +50,7 @@ export default {
                         data: {
                             username: this.token,
                             password: 'fromgoogle',
-                            level: 'Student',
+                            level: 'Customer',
                             source: 'social'
                         }
                     }).then(response => {
@@ -61,7 +61,7 @@ export default {
                         {
                             this.message = response.data.message
                             this.success = true
-                            this.$router.replace("/home");
+                            this.$router.replace("/dashboard");
                         }else{
                             this.success = false
                             this.messageclass = "alert alert-danger";

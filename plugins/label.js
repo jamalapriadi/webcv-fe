@@ -490,7 +490,9 @@ export default (context, inject) => {
 
         showLabelFields({label = '', negara = ''}){
             if(negara == 'ID'){
-                if(label == 'informasi_tambahan')
+                if(label == 'CVAku'){
+                    return 'CVAku'
+                }else if(label == 'informasi_tambahan')
                 {
                     return 'informasi_tambahan'
                 }else if(label == 'description')
@@ -534,14 +536,16 @@ export default (context, inject) => {
                     return 'Buat CV dan Web Profesional anda dengan cepat'
                 }else if(label == 'Buat CV Sekarang')
                 {
-                    return 'Buat CV Sekarang'
+                    return 'Buat CV dan Web Sekarang'
                 }else if(label == 'Membuat CV dan Web bisa sangat melelahkan, terutama jika Anda harus melakukan semuanya sendiri. Kami membantu anda membuat CV dan Web profesional untuk anda. mari ungguli pesaing anda dan dapatkan pekerjan impian itu.')
                 {
                     return 'Membuat CV dan Web bisa sangat melelahkan, terutama jika Anda harus melakukan semuanya sendiri. Kami membantu anda membuat CV dan Web profesional untuk anda. mari ungguli pesaing anda dan dapatkan pekerjan impian itu.'
                 }
             }else if(negara == 'EN')
             {
-                if(label == 'informasi_tambahan')
+                if(label == 'CVAku'){
+                    return 'CVAku'
+                }else if(label == 'informasi_tambahan')
                 {
                     return 'another_information'
                 }else if(label == 'description')
@@ -585,7 +589,7 @@ export default (context, inject) => {
                     return 'Create CV and Your Web Profesional faster'
                 }else if(label == 'Buat CV Sekarang')
                 {
-                    return 'Create CV Now'
+                    return 'Create CV and Web Now'
                 }else if(label == 'Membuat CV dan Web bisa sangat melelahkan, terutama jika Anda harus melakukan semuanya sendiri. Kami membantu anda membuat CV dan Web profesional untuk anda. mari ungguli pesaing anda dan dapatkan pekerjan impian itu.')
                 {
                     return "Creating a CV and Web can be overwhelming, especially if you have to do everything yourself. We help you create a professional CV and website for you. let's get ahead of your competitors and get that dream job."
