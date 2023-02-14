@@ -11,7 +11,7 @@
 
             <div class="hr-text">or</div>
 
-            <a href="#" class="btn btn-google w-100">
+            <a href="#" class="btn btn-google w-100" @click.prevent="loginWithGoogle">
                 <!-- Download SVG icon from http://tabler-icons.io/i/brand-github -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><desc>Download more icon variants from https://tabler-icons.io/i/brand-google</desc><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M17.788 5.108a9 9 0 1 0 3.212 6.892h-8"></path></svg>
                 Sign up with Google
