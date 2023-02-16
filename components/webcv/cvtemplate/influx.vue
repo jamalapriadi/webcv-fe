@@ -48,7 +48,7 @@
                     <div class="col-12">
                         <div v-if="person.pengalaman && person.pengalaman.data.length > 0">
                             <h3 style="border-bottom:1px solid lightgray; padding-bottom:10px;">{{ $bahasa.showCardLabel({label:'Pengalaman Kerja',negara:person.cv_bahasa}) }}</h3>
-                            <div class="row" v-for="(l,idx) in person.pengalaman.data" :key="idx">
+                            <div class="row mb-2" v-for="(l,idx) in person.pengalaman.data" :key="idx">
                                 <div class="col-4">
                                     <strong>{{ l.periode }}</strong>
                                     <div class="text-muted">{{ l.lama }}</div>
@@ -65,7 +65,7 @@
 
                         <div v-if="person.pendidikan && person.pendidikan.data.length > 0" class="mt-1">
                             <h3 style="border-bottom:1px solid lightgray; padding-bottom:10px;">{{ $bahasa.showCardLabel({label:'Pendidikan',negara:person.cv_bahasa}) }}</h3>
-                            <div class="row" v-for="(l,idx) in person.pendidikan.data" :key="idx">
+                            <div class="row mb-2" v-for="(l,idx) in person.pendidikan.data" :key="idx">
                                 <div class="col-4">
                                     <strong>{{ l.periode }}</strong>
                                 </div>
@@ -81,7 +81,7 @@
 
                         <div v-if="person.kursus && person.kursus.data.length > 0" class="mt-1">
                             <h3 style="border-bottom:1px solid lightgray; padding-bottom:10px;">{{ $bahasa.showCardLabel({label:'Kursus',negara:person.cv_bahasa}) }}</h3>
-                            <div class="row" v-for="(l,idx) in person.kursus.data" :key="idx">
+                            <div class="row mb-2" v-for="(l,idx) in person.kursus.data" :key="idx">
                                 <div class="col-4">
                                     <strong>{{ l.periode }}</strong>
                                 </div>

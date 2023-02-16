@@ -533,13 +533,13 @@ export default (context, inject) => {
                     return 'CV dan Web Builder'
                 }else if(label == 'Buat CV dan Web Profesional anda dengan cepat')
                 {
-                    return 'Buat CV dan Web Profesional anda dengan cepat'
+                    return 'Buat Web CV Anda dengan cepat dan mudah'
                 }else if(label == 'Buat CV Sekarang')
                 {
-                    return 'Buat CV dan Web Sekarang'
+                    return 'Buat Web CV Sekarang'
                 }else if(label == 'Membuat CV dan Web bisa sangat melelahkan, terutama jika Anda harus melakukan semuanya sendiri. Kami membantu anda membuat CV dan Web profesional untuk anda. mari ungguli pesaing anda dan dapatkan pekerjan impian itu.')
                 {
-                    return 'Membuat CV dan Web bisa sangat melelahkan, terutama jika Anda harus melakukan semuanya sendiri. Kami membantu anda membuat CV dan Web profesional untuk anda. mari ungguli pesaing anda dan dapatkan pekerjan impian itu.'
+                    return 'Menyimpan dan mengupdate CV dalam bentuk document sangat merepotkan bagi sebagian orang, kini anda bisa membuat CV anda dalam bentuk Web dan bisa dengan mudah anda share dan download cv anda.'
                 }
             }else if(negara == 'EN')
             {
@@ -586,13 +586,13 @@ export default (context, inject) => {
                     return 'CV and Web Builder'
                 }else if(label == 'Buat CV dan Web Profesional anda dengan cepat')
                 {
-                    return 'Create CV and Your Web Profesional faster'
+                    return 'Create your Web CV Quickly and Easily'
                 }else if(label == 'Buat CV Sekarang')
                 {
-                    return 'Create CV and Web Now'
+                    return 'Create Web CV Now'
                 }else if(label == 'Membuat CV dan Web bisa sangat melelahkan, terutama jika Anda harus melakukan semuanya sendiri. Kami membantu anda membuat CV dan Web profesional untuk anda. mari ungguli pesaing anda dan dapatkan pekerjan impian itu.')
                 {
-                    return "Creating a CV and Web can be overwhelming, especially if you have to do everything yourself. We help you create a professional CV and website for you. let's get ahead of your competitors and get that dream job."
+                    return "Saving and updating CV in document form is very inconvenient for some people, now you can make your CV in Web form and you can easily share and download your CV"
                 }
             }
         },
