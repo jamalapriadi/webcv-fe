@@ -102,7 +102,7 @@
                 let formData = new FormData();
                 formData.append('file', this.files);
     
-                this.$axios.post('/auth/uploads', formData, config)
+                this.$axios.post('/uploads', formData, config)
                     .then(response => {
                         this.loadingimage = false
     

@@ -7,8 +7,8 @@
 
                 <div class="row mt-1">
                     <div class="col-6">
-                        <p class="desc_cv">
-                            <strong>{{ $bahasa.showCardLabel({label:'Telepon',negara:person.bahasa}) }}</strong> :  <br>{{ person.telp }}
+                        <p class="desc_cv" v-if="person.phone">
+                            <strong>{{ $bahasa.showCardLabel({label:'Telepon',negara:person.bahasa}) }}</strong> :  <br>{{ person.phone }}
                         </p>
                         <p class="desc_cv">
                             <strong>{{ $bahasa.showCardLabel({label:'Email',negara:person.bahasa}) }}</strong> :  <br>{{ person.email }}
@@ -25,7 +25,7 @@
                     </div>
                 </div>
 
-                <p class="mt-1 desc_cv" v-html="person.deskripsi"></p>
+                <p class="mt-1 desc_cv" v-html="person.description"></p>
 
                 <div class="row mt-1">
                     <div class="col-12">

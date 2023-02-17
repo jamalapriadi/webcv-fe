@@ -5,7 +5,7 @@
                 <h1 class="title_cv">{{ person.nama_depan }} {{ person.nama_belakang }}</h1>
                 <h3 class="subtitle_cv">{{ person.profesi }}</h3>
 
-                <p class="mt-1 desc_cv" v-html="person.deskripsi"></p>
+                <p class="mt-1 desc_cv" v-html="person.description"></p>
 
                 <div class="row mt-1">
                     <div class="col-4" style="padding-right: 5px;">
@@ -18,10 +18,10 @@
                                 <br>
                                 <span v-if="person.kota">{{ person.kota }}</span>
                             </p>
-                            <p class="desc_cv">
+                            <p class="desc_cv" v-if="person.phone">
                                 <strong>{{ $bahasa.showCardLabel({label:'Telepon',negara:person.bahasa}) }}</strong>
                                 <br>
-                                {{ person.telp }}
+                                {{ person.phone }}
                             </p>
                             <p class="desc_cv">
                                 <strong>{{ $bahasa.showCardLabel({label:'Email',negara:person.bahasa}) }}</strong>

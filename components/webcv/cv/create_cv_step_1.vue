@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="col-4">
                             <div v-if="show_preview == false">
-                                <InputDropzoneDefault @suksesUploadDropzone="handleUploadFoto"></InputDropzoneDefault>
+                                <InputDropzoneDefault :key="formKey" @suksesUploadDropzone="handleUploadFoto" @batal="handleBatalUploadFile"></InputDropzoneDefault>
                             </div>
 
                             <div v-if="show_preview == true">
@@ -228,7 +228,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 
-import InputDropzoneDefault from '~/components/input/InputDropzoneDefault.vue'
+import InputDropzoneDefault from '~/components/input/InputDropzoneDefaultNoAuth.vue'
 export default{
     components:{
         InputDropzoneDefault,
@@ -237,7 +237,6 @@ export default{
         ...mapState('createcv',{
             current_step: state=> state.current_step,
             form: state => state.form,
-            struktur_fields: state => state.struktur_fields,
             negara: state => state.negara
         })
     },
@@ -248,20 +247,21 @@ export default{
             errors:[],
             loading:false,
             message:'',
-            messageclass:''
+            messageclass:'',
+            formKey:0
         }
     },
     methods:{
-        ...mapActions('createcv',['change_current_state','change_struktur_field','add_pengalaman','edit_pengalaman','delete_pengalaman','change_path_foto','clear_path_foto']),
+        ...mapActions('createcv',['change_current_state','change_struktur_field','add_pengalaman','edit_pengalaman','delete_pengalaman','change_path_foto','clear_path_foto','change_informasi_tambahan']),
         
         showStrukturFile(nama){
-            if(this.struktur_fields)
+            if(this.form.struktur_fields)
             {
-                for(var a=0;a<this.struktur_fields.length;a++)
+                for(var a=0;a<this.form.struktur_fields.length;a++)
                 {
-                    if(this.struktur_fields[a].name == nama)
+                    if(this.form.struktur_fields[a].name == nama)
                     {
-                        if(this.struktur_fields[a].show == 'Y')
+                        if(this.form.struktur_fields[a].show == 'Y')
                         {
                             return true
                         }else{
@@ -351,6 +351,10 @@ export default{
                         this.$swal('500', this.message, 'Danger')
                     }
                 })
+        },
+
+        handleBatalUploadFile(){
+            this.formKey++;
         }
     }
 }

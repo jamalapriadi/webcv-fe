@@ -98,30 +98,30 @@ export default{
         this.setOthersField()
     },
     methods:{
-        ...mapActions('createcv',['change_current_state','change_struktur_field','add_pengalaman','edit_pengalaman','delete_pengalaman','change_default_template']),
+        ...mapActions('createcv',['change_current_state','change_struktur_field','add_pengalaman','edit_pengalaman','delete_pengalaman','change_default_template','reset_ulang']),
 
         setOthersField(){
             this.others_struktur_fields = []
-            if(this.struktur_fields)
+            if(this.form.struktur_fields)
             {
-                for(var a=0;a<this.struktur_fields.length;a++)
+                for(var a=0;a<this.form.struktur_fields.length;a++)
                 {
-                    if(this.struktur_fields[a].show == 'N')
+                    if(this.form.struktur_fields[a].show == 'N')
                     {
-                        this.others_struktur_fields.push(this.struktur_fields[a])
+                        this.others_struktur_fields.push(this.form.struktur_fields[a])
                     }
                 }
             }
         },
 
         showStrukturFile(nama){
-            if(this.struktur_fields)
+            if(this.form.struktur_fields)
             {
-                for(var a=0;a<this.struktur_fields.length;a++)
+                for(var a=0;a<this.form.struktur_fields.length;a++)
                 {
-                    if(this.struktur_fields[a].name == nama)
+                    if(this.form.struktur_fields[a].name == nama)
                     {
-                        if(this.struktur_fields[a].show == 'Y')
+                        if(this.form.struktur_fields[a].show == 'Y')
                         {
                             return true
                         }else{
@@ -161,6 +161,8 @@ export default{
                             position: "top-right", 
                             duration : 2000
                         })
+
+                        this.reset_ulang()
 
                         this.$router.replace("/create-cv/"+resp.data.profile_id+'/preview');
                     }else{

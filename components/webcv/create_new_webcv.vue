@@ -20,7 +20,7 @@
                         <div class="form-group">
                             <label for="" class="form-label">Domain</label>
                             <select v-model="state.domain" name="domain" id="domain" class="form-select">
-                                <option value="https://webcv.id">webcv.id</option>
+                                <option value="https://cvaku.com">cvaku.com</option>
                             </select>
                         </div>
                     </div>
@@ -78,7 +78,7 @@ export default {
             can_create:true,
             cek:false,
             state:{
-                domain:process.env.FE_URL,
+                domain:'https://cvaku.com',
                 slug:'',
                 person:''
             },

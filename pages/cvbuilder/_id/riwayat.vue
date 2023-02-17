@@ -70,9 +70,9 @@
                         <card_sosmedVue v-if="profile.person" :person="profile.person.data" @sukses="get_data" @changeStatusMember="get_data" :sosmed="sosmeds"></card_sosmedVue>
                     </div>
 
-                    <div class="card mt-3" v-if="others_struktur_fields.length > 0">
+                    <div class="card mt-4" v-if="others_struktur_fields.length > 0">
                         <div class="card-body">
-                            <select name="" id="" class="form-select" v-model="bagian" @change="changeBagian">
+                            <select name="" id="" class="form-select bg-vimeo text-white" v-model="bagian" @change="changeBagian">
                                 <option value="" disabled selected>
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>

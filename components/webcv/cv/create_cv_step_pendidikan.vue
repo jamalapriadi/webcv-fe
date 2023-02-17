@@ -346,7 +346,7 @@ export default{
                 sekolah:l.sekolah,
                 tanggal_mulai:l.tanggal_mulai,
                 tanggal_selesai:l.tanggal_selesai,
-                deskripsi:l.description,
+                deskripsi:l.deskripsi,
                 present:l.present
             }
 

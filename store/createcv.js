@@ -19,9 +19,54 @@ export const state = () => ({
         website:'',
         file:'',
         file_preview:'',
-        deskripsi:'',
+        description:'',
         bahasa:'EN',
-        struktur_fields:[],
+        struktur_fields:[
+            {
+                name:'description',
+                show:'Y'
+            },
+            {
+                name:'pengalaman',
+                show:'Y'
+            },
+            {
+                name:'keahlian',
+                show:'Y'
+            },
+            {
+                name:'pendidikan',
+                show:'Y'
+            },
+            {
+                name:'minat',
+                show:'Y'
+            },
+            {
+                name:'social media',
+                show:'Y'
+            },
+            {
+                name:'project',
+                show:'N'
+            },
+            {
+                name:'bahasa',
+                show:'N'
+            },
+            {
+                name:'kursus',
+                show:'N'
+            },
+            {
+                name:'pencapaian',
+                show:'N'
+            },
+            {
+                name:'publikasi',
+                show:'N'
+            }
+        ],
         pengalaman:[],
         pendidikan:[],
         minat:[],
@@ -35,52 +80,6 @@ export const state = () => ({
         template_id:'',
         informasi_tambahan:'N'
     },
-    struktur_fields:[
-        {
-            name:'description',
-            show:'Y'
-        },
-        {
-            name:'pengalaman',
-            show:'Y'
-        },
-        {
-            name:'keahlian',
-            show:'Y'
-        },
-        {
-            name:'pendidikan',
-            show:'Y'
-        },
-        {
-            name:'minat',
-            show:'Y'
-        },
-        {
-            name:'social media',
-            show:'Y'
-        },
-        {
-            name:'project',
-            show:'N'
-        },
-        {
-            name:'bahasa',
-            show:'N'
-        },
-        {
-            name:'kursus',
-            show:'N'
-        },
-        {
-            name:'pencapaian',
-            show:'N'
-        },
-        {
-            name:'publikasi',
-            show:'N'
-        }
-    ],
     negara:[],
     sosmed:[],
     template:[],
@@ -88,6 +87,94 @@ export const state = () => ({
 })
 
 export const mutations = {
+    SET_RESET_ULANG(state){
+        state.current_step =  1
+        state.form = {
+            nama_depan:'',
+            nama_belakang:'',
+            profesi:'',
+            email:'',
+            phone:'',
+            alamat:'',
+            kode_pos:'',
+            kota:'',
+            tempat_lahir:'',
+            tanggal_lahir:'',
+            sim:'',
+            jenis_kelamin:'L',
+            kebangsaan:'',
+            status_pernikahan:'Belum Kawin',
+            linkedin:'',
+            website:'',
+            file:'',
+            file_preview:'',
+            description:'',
+            bahasa:'EN',
+            struktur_fields:[
+                {
+                    name:'description',
+                    show:'Y'
+                },
+                {
+                    name:'pengalaman',
+                    show:'Y'
+                },
+                {
+                    name:'keahlian',
+                    show:'Y'
+                },
+                {
+                    name:'pendidikan',
+                    show:'Y'
+                },
+                {
+                    name:'minat',
+                    show:'Y'
+                },
+                {
+                    name:'social media',
+                    show:'Y'
+                },
+                {
+                    name:'project',
+                    show:'N'
+                },
+                {
+                    name:'bahasa',
+                    show:'N'
+                },
+                {
+                    name:'kursus',
+                    show:'N'
+                },
+                {
+                    name:'pencapaian',
+                    show:'N'
+                },
+                {
+                    name:'publikasi',
+                    show:'N'
+                }
+            ],
+            pengalaman:[],
+            pendidikan:[],
+            minat:[],
+            keahlian:[],
+            bahasas:[],
+            kursus:[],
+            pencapaian:[],
+            publikasi:[],
+            project:[],
+            sosmed:[],
+            template_id:'',
+            informasi_tambahan:'N'
+        }
+    },
+
+    SET_INFORMASI_TAMBAHAN(state, data){
+        state.form.informasi_tambahan = data
+    },
+
     SET_LOCATION(state, data){
         state.location = data
 
@@ -139,15 +226,15 @@ export const mutations = {
 
     SET_STRUKTUR_FIELDS(state,data)
     {
-        for(var a=0;a<state.struktur_fields.length;a++)
+        for(var a=0;a<state.form.struktur_fields.length;a++)
         {
-            if(state.struktur_fields[a].name == data.nama)
+            if(state.form.struktur_fields[a].name == data.nama)
             {
                 if(data.tambahan == true)
                 {
-                    state.struktur_fields[a].show = 'Y'
+                    state.form.struktur_fields[a].show = 'Y'
                 }else{
-                    state.struktur_fields[a].show = 'N'
+                    state.form.struktur_fields[a].show = 'N'
                 }
             }
         }
@@ -380,5 +467,13 @@ export const actions = {
 
     clear_path_foto({commit}){
         commit('SET_CLEAR_PATH_FOTO')
+    },
+
+    change_informasi_tambahan({commit},val){
+        commit('SET_INFORMASI_TAMBAHAN',val)
+    },
+
+    reset_ulang({commit}){
+        commit('SET_RESET_ULANG')
     }
 }

@@ -9,8 +9,6 @@
                 <li :class="classStep(3)">Template</li>
             </ul>
 
-            
-
             <create_cv_step_1Vue v-if="current_step == 1" 
                 :list="form" 
                 :struktur_fields="struktur_fields" 
