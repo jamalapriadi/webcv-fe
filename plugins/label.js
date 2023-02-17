@@ -8,6 +8,9 @@ export default (context, inject) => {
                 if(label == 'Detail Pribadi')
                 {
                     return 'Detail Pribadi'
+                }else if(label == 'Detail Pengalaman')
+                {
+                    return "Detail Pengalaman"
                 }else if(label == 'Nama Depan')
                 {
                     return 'Nama Depan'

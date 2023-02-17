@@ -5,7 +5,7 @@
                 <ul class="steps steps-green steps-counter my-4">
                     <li :class="classStep(0)">{{ $bahasa.showLabel({label:'Detail Pribadi',negara:form.bahasa}) }}</li>
                     <li :class="classStep(1)">{{ $bahasa.showLabel({label:'Detail Pengalaman',negara:form.bahasa}) }}</li>
-                    <li :class="classStep(2)">Template</li>
+                    <li :class="classStep(2)">CV Template</li>
                 </ul>
 
                 <form action="#" @submit.prevent="simpan">

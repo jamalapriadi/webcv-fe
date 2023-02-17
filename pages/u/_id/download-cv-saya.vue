@@ -3,6 +3,10 @@
         <div v-if="list.success">
             <div v-if="list.profile">
                 <div v-if="list.profile.data">
+
+                    <header_preview v-if="list.profile.data" :profile="list.profile.data" :current_menu="current_menu"></header_preview>
+
+
                     <div class="container-xl" v-if="list.profile.data.ijin_download_cv == 'Y'">
 
                         <div v-if="list.profile.data.person">
@@ -49,7 +53,7 @@
                             'min-height': '60px',
                             'height':'auto',
                             'max-width': '8%',
-                            'min-width': '150px',
+                            'min-width': '180px',
                             'padding': '10px',
                             'position': 'fixed',
                             'left': '0%',
@@ -93,6 +97,8 @@
                         </div>
                     </div>
 
+                    <footer_previewVue v-if="list.profile.data" :profile="list.profile.data" :current_menu="current_menu"></footer_previewVue>
+
                 </div>
             </div>
         </div>
@@ -101,6 +107,8 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import header_preview from "~/components/webcv/laven/header_preview.vue"
+import footer_previewVue from "~/components/webcv/laven/footer_preview.vue"
 
 import oxfordVue from '~/components/webcv/cvtemplate/oxford.vue'
 import crispVue from "~/components/webcv/cvtemplate/crisp.vue"
@@ -109,13 +117,15 @@ import influxVue from '~/components/webcv/cvtemplate/influx.vue'
 
 export default{
     auth:false,
-    layout:'default',
+    layout:'laven_preview',
     head(){
         return {
             title:this.list.profile ? this.list.profile.data.title : '',
         }
     },
     components:{
+        header_preview,
+        footer_previewVue,
         oxfordVue,
         crispVue,
         nanicaVue,
@@ -134,10 +144,49 @@ export default{
             current_menu:''
         }
     },
+    mounted(){
+        this.getData()
+    },
     methods:{
         generateReport () {
             this.$refs.html2Pdf.generatePdf()
-        }
+        },
+
+        getData(){
+            if(this.list)
+            {
+                if(this.list.success == true)
+                {
+                    if(this.list.profile.data)
+                    {
+                        if(this.list.profile.data.menu)
+                        {
+                            if(this.list.profile.data.menu.data)
+                            {
+                                for(var a=0;a<this.list.profile.data.menu.data.length; a++)
+                                {
+                                    if(a == 0)
+                                    {
+                                        this.current_menu = this.list.profile.data.menu.data[a].menu
+                                    }
+                                }   
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        getClassMenu(id){
+            var asli = 'nav-link'
+
+            if(id == this.current_menu)
+            {
+                asli = 'nav-link active'
+            }
+
+            return asli
+        },
     }
 }
 </script>

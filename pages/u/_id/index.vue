@@ -221,6 +221,7 @@ export default{
                 }
             }
         },
+        
         getData(){
             if(this.list)
             {

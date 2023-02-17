@@ -5,7 +5,7 @@
                 <ul class="steps steps-green steps-counter my-4">
                     <li :class="classStep(0)">{{ $bahasa.showLabel({label:'Detail Pribadi',negara:profile.person.data.cv_bahasa}) }}</li>
                     <li :class="classStep(1)">{{ $bahasa.showLabel({label:'Detail Pengalaman',negara:profile.person.data.cv_bahasa}) }}</li>
-                    <li :class="classStep(2)">Template</li>
+                    <li :class="classStep(2)">CV Template</li>
                 </ul>
 
                 <!-- <influxVue v-if="profile.person" :person="profile.person.data"></influxVue> -->

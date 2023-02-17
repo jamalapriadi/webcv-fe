@@ -5,12 +5,12 @@
                 
             <!-- Text Logo -->
             <div class="text-logo">
-                <a href="#">
+                <nuxt-link :to="'/'" v-if="profile.title">
                     <div class="logo-symbol" v-if="profile.title">
                         {{ profile.title.charAt(0) }}
                     </div>
                     <div class="logo-text">{{ profile.title }}</div>
-                </a>
+                </nuxt-link>
             </div>
             <!-- /Text Logo -->
 
