@@ -15,8 +15,10 @@
                                     <article class="post" v-if="list.post.data">
 
                                         <header class="entry-header">
-                                            <div class="entry-meta entry-meta-top">
-                                                <span><a href="#" rel="category tag">WordPress</a></span>      
+                                            <div class="entry-meta entry-meta-top" v-if="list.post.category && list.post.category.data">
+                                                <span v-for="(l,idx) in list.post.category.data" :key="idx">
+                                                    <a href="#" rel="category tag">{{ l.name }}</a>
+                                                </span>      
                                             </div><!-- .entry-meta -->
 
                                             <h2 class="entry-title">{{ list.post.data.title }}</h2>
@@ -33,6 +35,12 @@
                                                     <div class=" col-xs-12 col-sm-12 ">
 
                                                         <p v-html="list.post.data.description"></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mt-2" v-if="list.post.data.files">
+                                                    <div v-for="(l,idx) in list.post.data.files" class="col-3">
+                                                        <img :src="l.file" class="img-fluid">
                                                     </div>
                                                 </div>
                                             </div>

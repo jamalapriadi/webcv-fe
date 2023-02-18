@@ -10,7 +10,7 @@
                     <div :class="class_title" v-if="lists">
 
                         <!-- Portfolio Item 1 -->
-                        <figure v-for="(l,idx) in lists.data" :key="idx" class="item standard">
+                        <figure v-for="(l,idx) in lists.data" :key="idx" class="item standard mb-5">
                             <div class="portfolio-item-img">
                                 <img :src="l.featured_image" :alt="l.title" :title="l.title"
                                 v-bind:style="[

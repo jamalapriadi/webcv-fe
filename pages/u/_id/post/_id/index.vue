@@ -15,8 +15,10 @@
                                     <article class="post" v-if="list.post.data">
 
                                         <header class="entry-header">
-                                            <div class="entry-meta entry-meta-top">
-                                                <span><a href="#" rel="category tag">WordPress</a></span>      
+                                            <div class="entry-meta entry-meta-top" v-if="list.post.category && list.post.category.data">
+                                                <span v-for="(l,idx) in list.post.category.data" :key="idx">
+                                                    <a href="#" rel="category tag">{{ l.name }}</a>
+                                                </span>      
                                             </div><!-- .entry-meta -->
 
                                             <h2 class="entry-title">{{ list.post.data.title }}</h2>
