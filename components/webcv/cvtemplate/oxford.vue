@@ -78,7 +78,7 @@
                     </table>
                 </div>
 
-                <div class="mt-4" v-if="person.keahlian && person.keahlian.length > 0">
+                <div class="mt-4" v-if="person.keahlian && person.keahlian.data.length > 0">
                     <h2>Skill</h2>
                     <hr>
                     <div class="row">

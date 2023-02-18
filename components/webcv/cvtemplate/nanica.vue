@@ -46,7 +46,7 @@
                             </div>
                         </div>
 
-                        <div v-if="person.pendidikan && person.pendidikan.data.length > 0" class="mt-1">
+                        <div v-if="person.pendidikan && person.pendidikan.data.length > 0" class="mt-3">
                             <h3 style="border-bottom:1px solid lightgray; padding-bottom:10px;">{{ $bahasa.showCardLabel({label:'Pendidikan',negara:person.cv_bahasa}) }}</h3>
                             <div class="row mb-2" v-for="(l,idx) in person.pendidikan.data" :key="idx">
                                 <div class="col-4">
@@ -62,7 +62,7 @@
                             </div>
                         </div>
 
-                        <div v-if="person.kursus && person.kursus.data.length > 0" class="mt-1">
+                        <div v-if="person.kursus && person.kursus.data.length > 0" class="mt-3">
                             <h3 style="border-bottom:1px solid lightgray; padding-bottom:10px;">{{ $bahasa.showCardLabel({label:'Kursus',negara:person.cv_bahasa}) }}</h3>
                             <div class="row mb-2" v-for="(l,idx) in person.kursus.data" :key="idx">
                                 <div class="col-4">
@@ -78,7 +78,7 @@
                             </div>
                         </div>
 
-                        <div v-if="person.publikasi && person.publikasi.data.length > 0" class="mt-1">
+                        <div v-if="person.publikasi && person.publikasi.data.length > 0" class="mt-3">
                             <h3 style="border-bottom:1px solid lightgray; padding-bottom:10px;">{{ $bahasa.showCardLabel({label:'Publikasi',negara:person.cv_bahasa}) }}</h3>
                             <ul>
                                 <li v-for="(l,idx) in person.publikasi.data" :key="idx">
@@ -87,7 +87,7 @@
                             </ul>
                         </div>
 
-                        <div v-if="person.pencapaian && person.pencapaian.data.length > 0" class="mt-1">
+                        <div v-if="person.pencapaian && person.pencapaian.data.length > 0" class="mt-3">
                             <h3 style="border-bottom:1px solid lightgray; padding-bottom:10px;">{{ $bahasa.showCardLabel({label:'Pencapaian',negara:person.cv_bahasa}) }}</h3>
                             <ul>
                                 <li v-for="(l,idx) in person.pencapaian.data" :key="idx">
@@ -96,7 +96,7 @@
                             </ul>
                         </div>
 
-                        <div v-if="person.minat && person.minat.data.length > 0" class="mt-1">
+                        <div v-if="person.minat && person.minat.data.length > 0" class="mt-3">
                             <h3 style="border-bottom:1px solid lightgray; padding-bottom:10px;">{{ $bahasa.showCardLabel({label:'Hobi',negara:person.cv_bahasa}) }}</h3>
                             <div class="row">
                                 <div class="col-auto" v-for="(l,idx) in person.minat.data" :key="idx">
@@ -107,7 +107,7 @@
                             </div>
                         </div>
 
-                        <div v-if="person.sosmed && person.sosmed.data.length > 0" class="mt-1">
+                        <div v-if="person.sosmed && person.sosmed.data.length > 0" class="mt-3">
                             <h3 style="border-bottom:1px solid lightgray; padding-bottom:10px;">Links /  Social Media</h3>
                             
                             <div class="row g-3 align-items-center" v-for="(l,idx) in person.sosmed.data" :key="idx">
@@ -119,6 +119,32 @@
                                     <div class="text-muted text-truncate mt-11">
                                         <a href="#" :href="l.link_social_media" target="_blank">{{ l.link_social_media }}</a>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-3" v-if="person.keahlian && person.keahlian.data.length > 0">
+                            <h3 style="border-bottom:1px solid lightgray; padding-bottom:10px;">Skill</h3>
+                            <hr>
+                            <div class="row">
+                                <div v-for="(l,idx) in person.keahlian.data" :key="idx" class="col-auto">
+                                    <a href="#" class="btn btn-default btn-outline-secondary">{{ l.keahlian }}</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div v-if="person.project && person.project.data.length > 0" class="mt-3">
+                            <h3 style="border-bottom:1px solid lightgray; padding-bottom:10px;">{{ $bahasa.showCardLabel({label:'Project',negara:person.cv_bahasa}) }}</h3>
+                            <div class="row mb-2" v-for="(l,idx) in person.project.data" :key="idx">
+                                <div class="col-4">
+                                    <strong>{{ l.periode }}</strong>
+                                </div>
+                                <div class="col-8">
+                                    <div class="text-truncate">
+                                        <strong>{{ l.nama_project }}</strong>
+                                    </div>
+                                    <!-- <div class="text-muted">{{ l.sekolah }}</div> -->
+                                    <div class="text-muted" v-html="l.description"></div>
                                 </div>
                             </div>
                         </div>
