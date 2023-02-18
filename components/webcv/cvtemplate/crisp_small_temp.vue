@@ -104,6 +104,23 @@
                             </div>
                         </div>
 
+                        <div v-if="person.project && person.project.data.length > 0">
+                            <h3 class="subtitle_cv" style="border-bottom:1px solid lightgray; padding-bottom:10px;">{{ $bahasa.showCardLabel({label:'Project',negara:person.cv_bahasa}) }}</h3>
+                            <div class="row" v-for="(l,idx) in person.project.data" :key="idx">
+                                <div class="col-auto">
+                                    <strong class="desc_cv">{{ l.periode }}</strong>
+                                    <!-- <div class="text-muted desc_cv">{{ l.lama }}</div> -->
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-truncate">
+                                        <strong class="desc_cv">{{ l.nama_project }}</strong>
+                                    </div>
+                                    <!-- <div class="text-muted desc_cv">{{ l.perusahaan }}</div> -->
+                                    <div class="text-muted desc_cv" v-html="l.description"></div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div v-if="person.pendidikan && person.pendidikan.length > 0" class="mt-1">
                             <h3 class="subtitle_cv" style="border-bottom:1px solid lightgray; padding-bottom:10px;">{{ $bahasa.showCardLabel({label:'Pendidikan',negara:person.bahasa}) }}</h3>
                             <div class="row" v-for="(l,idx) in person.pendidikan" :key="idx">

@@ -33,7 +33,8 @@
                                                 </div>
 
                                                 <div v-if="list.profile.data.person.data.template.data.nama_template == 'Nanica'">
-                                                    <nanicaVue v-if="list.profile.data.person" :person="list.profile.data.person.data"></nanicaVue>
+                                                    <!-- <nanicaVue v-if="list.profile.data.person" :person="list.profile.data.person.data"></nanicaVue> -->
+                                                    <crispVue v-if="list.profile.data.person" :person="list.profile.data.person.data"></crispVue>
                                                 </div>
 
                                                 <div v-if="list.profile.data.person.data.template.data.nama_template == 'Influx'">

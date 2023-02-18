@@ -654,6 +654,9 @@ export default (context, inject) => {
                 }else if(label == 'Bahasa')
                 {
                     return 'Bahasa'
+                }else if(label == 'Project')
+                {
+                    return 'Project'
                 }
             }else if(negara == 'EN')
             {
@@ -708,6 +711,9 @@ export default (context, inject) => {
                 }else if(label == 'Bahasa')
                 {
                     return 'Languages'
+                }else if(label == 'Project')
+                {
+                    return 'Projects'
                 }
             }
         }

@@ -12,24 +12,24 @@
                     color:'white',
                     border:'none'
                 }">
-                    <h1>{{ person.nama_depan }} {{ person.nama_belakang }}</h1>
-                    <h3>{{ person.profesi }}</h3>
+                    <h1 class="text-white">{{ person.nama_depan }} {{ person.nama_belakang }}</h1>
+                    <h3 class="text-white">{{ person.profesi }}</h3>
 
                     <div class="row mt-1">
                         <div class="col-6">
-                            <p>
+                            <p class="text-white">
                                 <strong>{{ $bahasa.showCardLabel({label:'Telepon',negara:person.cv_bahasa}) }}</strong> :  {{ person.telp }}
                             </p>
-                            <p>
+                            <p class="text-white">
                                 <strong>{{ $bahasa.showCardLabel({label:'Email',negara:person.cv_bahasa}) }}</strong> :  {{ person.email }}
                             </p>
                         </div>
 
                         <div class="col-6">
-                            <p v-if="person.linkedin">
+                            <p v-if="person.linkedin" class="text-white">
                                 <strong>{{ $bahasa.showLabel({label:'Linkedin',negara:person.cv_bahasa}) }}</strong> :  <a :href="person.linkedin" target="_blank">{{ person.linkedin }}</a>
                             </p>
-                            <p v-if="person.website">
+                            <p v-if="person.website" class="text-white">
                                 <strong>{{ $bahasa.showLabel({label:'Website',negara:person.cv_bahasa}) }}</strong> :  <a :href="person.website" target="_blank">{{ person.website }}</a>
                             </p>
                         </div>
@@ -120,6 +120,22 @@
                                     <a href="#" class="btn" style="border:none">
                                         {{ l.hobi }}
                                     </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div v-if="person.project && person.project.data.length > 0" class="mt-1">
+                            <h3 style="border-bottom:1px solid lightgray; padding-bottom:10px;">{{ $bahasa.showCardLabel({label:'Project',negara:person.cv_bahasa}) }}</h3>
+                            <div class="row mb-2" v-for="(l,idx) in person.project.data" :key="idx">
+                                <div class="col-4">
+                                    <strong>{{ l.periode }}</strong>
+                                </div>
+                                <div class="col-8">
+                                    <div class="text-truncate">
+                                        <strong>{{ l.nama_project }}</strong>
+                                    </div>
+                                    <!-- <div class="text-muted">{{ l.institusi }}</div> -->
+                                    <div class="text-muted" v-html="l.description"></div>
                                 </div>
                             </div>
                         </div>
