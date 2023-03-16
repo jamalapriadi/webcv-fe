@@ -65,51 +65,51 @@ export default{
             script: [
                 {
                     src: "/js/modernizr.custom.js",
-                    body: false
+                    body: true
                 },
                 {
                     src: "/js/jquery-3.5.1.min.js",
-                    body: false
+                    body: true
                 },
                 {
                     src: "https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.js",
-                    body: false
+                    body: true
                 },
                 {
                     src: "/js/bootstrap.min.js",
-                    body: false
+                    body: true
                 },
                 {
                     src: "/js/jquery.shuffle.min.js",
-                    body: false
+                    body: true
                 },
                 {
                     src: "/js/masonry.pkgd.min.js",
-                    body: false
+                    body: true
                 },
                 {
                     src: "/js/owl.carousel.min.js",
-                    body: false
+                    body: true
                 },
                 {
                     src: "/js/jquery.magnific-popup.min.js",
-                    body: false
+                    body: true
                 },
                 // {
                 //     src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCrDf32aQTCVENBhFJbMBKOUTiUAABtC2o',
-                //     body: false
+                //     body: true
                 // },
                 // {
                 //     src: "/js/jquery.googlemap.js",
-                //     body: false
+                //     body: true
                 // },
                 {
                     src: "/js/validator.js",
-                    body: false
+                    body: true
                 },
                 {
                     src: "/js/main.js",
-                    body: false
+                    body: true
                 },
             ],
         };

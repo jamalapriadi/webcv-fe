@@ -34,7 +34,7 @@
                 <div class="text-center" v-if="meta">
                     <div v-if="meta.pagination">
                         <div v-if="meta.pagination.links">
-                            <a v-if="meta.pagination.links.next" @click.prevent="selanjutnya" class="btn btn-primary" href="#">Next</a>
+                            <a v-if="meta.pagination.links.next" @click.prevent="selanjutnya" class="btn btn-primary" href="#">Load more ..</a>
                         </div> 
                     </div>
                 </div>

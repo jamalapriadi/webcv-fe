@@ -39,8 +39,10 @@
                                                 </div>
 
                                                 <div class="row mt-2" v-if="list.post.data.files">
-                                                    <div v-for="(l,idx) in list.post.data.files" class="col-3">
-                                                        <img :src="l.file" class="img-fluid">
+                                                    <div v-for="(l,idx) in list.post.data.files" class="col-3 mb-3" style="margin-bottom: 50px !important;">
+                                                        <a href="#" @click.prevent="showFile(l.file)">
+                                                            <img :src="l.file" class="img-fluid">
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -78,6 +80,19 @@
                             </div>
                         </div>
                     </div>
+
+                    <b-modal
+                        :ref="'modal-portofolio'"
+                        :id="'modal-portofolio'"
+                        size="lg"
+                        no-close-on-backdrop
+                        hide-footer
+                        :modal-class="'modal modal-blur fade'" 
+                        :dialog-class="'modal-dialog modal-dialog-centered'"
+                        :title="list.post.data.title"
+                    >
+                        <img :src="file_attachment">
+                    </b-modal>
 
                     <footer_previewVue v-if="list.profile.data" :profile="list.profile.data" :current_menu="current_menu"></footer_previewVue>
                     
@@ -152,7 +167,8 @@ export default{
             kode:'',
             fullpath:'',
             list:{},
-            current_menu:''
+            current_menu:'',
+            file_attachment:''
         }
     },
     mounted(){
@@ -213,6 +229,12 @@ export default{
 
         changePage(id){
             this.current_menu = id
+        },
+
+        showFile(l){
+            this.file_attachment = l
+
+            this.$bvModal.show("modal-portofolio");
         }
     }
 }

@@ -61,6 +61,21 @@
 
                     </div>
 
+                    <div class="text-center" v-if="meta">
+                        <div v-if="meta.pagination">
+                            <div v-if="meta.pagination.links">
+                                <div class="flex justify-center mt-6">
+                                    <a href="#" v-if="meta.pagination.links.next" 
+                                        class="btn btn-primary"
+                                        @click.prevent="selanjutnya"
+                                    >
+                                        Load more ..
+                                    </a>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -117,7 +132,7 @@ export default{
 
         detailNews(l){
             this.detail = l
-        }
+        },
     }
 }
 </script>

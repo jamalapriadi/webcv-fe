@@ -7,8 +7,6 @@
                     <b-spinner variant="success" type="grow" label="Spinning"></b-spinner>
                 </div>
 
-                <!-- <pre>{{ $auth.user.data }}</pre> -->
-
             </div>
         </div>
     </div>
