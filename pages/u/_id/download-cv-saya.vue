@@ -49,7 +49,7 @@
                             </div>
                         </div>
 
-                        <ul v-bind:style="{
+                        <!-- <ul v-bind:style="{
                             'line-height': '28px',
                             'min-height': '60px',
                             'height':'auto',
@@ -72,7 +72,7 @@
                                     Download PDF
                                 </a>
                             </li>
-                        </ul>
+                        </ul> -->
 
                     </div>
 
