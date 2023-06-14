@@ -51,15 +51,9 @@ export default{
         backToHome(){
             var current_page = '/' 
 
-            if(this.$auth.user.data)
+            if(this.profile)
             {
-                if(this.$auth.user.data.webcv)
-                {
-                    if(this.$auth.user.data.webcv.data)
-                    {
-                        current_page = "/u/"+this.$auth.user.data.webcv.data.slug
-                    }
-                }
+                current_page = "/u/"+this.profile.slug
             }
 
             return current_page

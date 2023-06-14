@@ -316,37 +316,43 @@ export default{
         editPage(page){
             var current_page = page 
 
-            if(this.$auth.user.data)
+            if(this.$auth.loggedIn)
             {
-                if(this.$auth.user.data.webcv)
+                if(this.$auth.user)
                 {
-                    if(this.$auth.user.data.webcv.data)
+                    if(this.$auth.user.data)
                     {
-                        if(page == '/u/'+this.$auth.user.data.webcv.data.slug)
+                        if(this.$auth.user.data.webcv)
                         {
-                            if(this.$auth.user.data.webcv.data.menu)
+                            if(this.$auth.user.data.webcv.data)
                             {
-                                if(this.$auth.user.data.webcv.data.menu.data)
+                                if(page == '/u/'+this.$auth.user.data.webcv.data.slug)
                                 {
-                                    for(var a=0; a<this.$auth.user.data.webcv.data.menu.data.length; a++)
+                                    if(this.$auth.user.data.webcv.data.menu)
                                     {
-                                        if(a == 0)
+                                        if(this.$auth.user.data.webcv.data.menu.data)
                                         {
-                                            current_page = '/webcv/'+this.$auth.user.data.webcv.data.menu.data[a].id+'/customize'
+                                            for(var a=0; a<this.$auth.user.data.webcv.data.menu.data.length; a++)
+                                            {
+                                                if(a == 0)
+                                                {
+                                                    current_page = '/webcv/'+this.$auth.user.data.webcv.data.menu.data[a].id+'/customize'
+                                                }
+                                            }
                                         }
                                     }
-                                }
-                            }
-                        }else{
-                            if(this.$auth.user.data.webcv.data.menu)
-                            {
-                                if(this.$auth.user.data.webcv.data.menu.data)
-                                {
-                                    for(var a=0; a<this.$auth.user.data.webcv.data.menu.data.length; a++)
+                                }else{
+                                    if(this.$auth.user.data.webcv.data.menu)
                                     {
-                                        if('/u/'+this.$auth.user.data.webcv.data.slug+'/page/'+this.$auth.user.data.webcv.data.menu.data[a].slug == page)
+                                        if(this.$auth.user.data.webcv.data.menu.data)
                                         {
-                                            current_page = '/webcv/'+this.$auth.user.data.webcv.data.menu.data[a].id+'/customize'
+                                            for(var a=0; a<this.$auth.user.data.webcv.data.menu.data.length; a++)
+                                            {
+                                                if('/u/'+this.$auth.user.data.webcv.data.slug+'/page/'+this.$auth.user.data.webcv.data.menu.data[a].slug == page)
+                                                {
+                                                    current_page = '/webcv/'+this.$auth.user.data.webcv.data.menu.data[a].id+'/customize'
+                                                }
+                                            }
                                         }
                                     }
                                 }
