@@ -15,17 +15,29 @@
                                     <div v-if="list.profile.data.menu">
                                         <div v-if="list.profile.data.menu.data">
                                             <div v-for="(l,idx) in list.profile.data.menu.data" :key="idx">
-                                                <div v-if="l.menu == current_menu">
+                                                <div v-if="l.slug == current_menu">
                                                     <div v-if="l.sections.data" v-for="(k,ix) in l.sections.data" :key="ix">
                                                         <div v-if="k.section">
                                                             <div v-if="k.section.data">
 
                                                                 <div v-if="k.section.data.title == 'about_me_2'">
-                                                                    <About_me_2Vue :person="list.profile.data.person.data" :ijin_download_cv="list.profile.data.ijin_download_cv" @downloadCv="handleDownloadCvSaya(list.profile.data.slug)"></About_me_2Vue>
+                                                                    <div v-if="list.profile">
+                                                                        <div v-if="list.profile.data">
+                                                                            <div v-if="list.profile.data.person">
+                                                                                <About_me_2Vue v-if="list.profile.data.person.data" :person="list.profile.data.person.data" :ijin_download_cv="list.profile.data.ijin_download_cv" @downloadCv="handleDownloadCvSaya(list.profile.data.slug)"></About_me_2Vue>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == 'about_me_1'">
-                                                                    <About_me_1Vue :person="list.profile.data.person.data" :ijin_download_cv="list.profile.data.ijin_download_cv" @downloadCv="handleDownloadCvSaya(list.profile.data.slug)"></About_me_1Vue>
+                                                                    <div v-if="list.profile">
+                                                                        <div v-if="list.profile.data">
+                                                                            <div v-if="list.profile.data.person">
+                                                                                <About_me_1Vue v-if="list.profile.data.person.data" :person="list.profile.data.person.data" :ijin_download_cv="list.profile.data.ijin_download_cv" @downloadCv="handleDownloadCvSaya(list.profile.data.slug)"></About_me_1Vue>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == 'what_i_do'">
@@ -33,23 +45,53 @@
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == 'experience'">
-                                                                    <experienceVue :title="'Experience'" :person="list.profile.data.person.data"></experienceVue>
+                                                                    <div v-if="list.profile">
+                                                                        <div v-if="list.profile.data">
+                                                                            <div v-if="list.profile.data.person">
+                                                                                <experienceVue v-if="list.profile.data.person.data" :title="'Experience'" :person="list.profile.data.person.data"></experienceVue>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == 'education'">
-                                                                    <educationVue :title="'Education'" :person="list.profile.data.person.data"></educationVue>
+                                                                    <div v-if="list.profile">
+                                                                        <div v-if="list.profile.data">
+                                                                            <div v-if="list.profile.data.person">
+                                                                                <educationVue v-if="list.profile.data.person.data" :title="'Education'" :person="list.profile.data.person.data"></educationVue>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == 'certification'">
-                                                                    <certificationVue :person="list.profile.data.person.data"></certificationVue>
+                                                                    <div v-if="list.profile">
+                                                                        <div v-if="list.profile.data">
+                                                                            <div v-if="list.profile.data.person">
+                                                                                <certificationVue v-if="list.profile.data.person.data" :person="list.profile.data.person.data"></certificationVue>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == '2_row_blog'">
-                                                                    <two_row_blogVue :profile="list.profile.data" :user_id="list.profile.data.person.data.user_id"></two_row_blogVue>
+                                                                    <div v-if="list.profile">
+                                                                        <div v-if="list.profile.data">
+                                                                            <div v-if="list.profile.data.person">
+                                                                                <two_row_blogVue v-if="list.profile.data.person.data" :profile="list.profile.data" :user_id="list.profile.data.person.data.user_id"></two_row_blogVue>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == '3_row_blog'">
-                                                                    <three_row_blogVue :profile="list.profile.data" :user_id="list.profile.data.person.data.user_id"></three_row_blogVue>
+                                                                    <div v-if="list.profile">
+                                                                        <div v-if="list.profile.data">
+                                                                            <div v-if="list.profile.data.person">
+                                                                                <three_row_blogVue v-if="list.profile.data.person.data" :profile="list.profile.data" :user_id="list.profile.data.person.data.user_id"></three_row_blogVue>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == 'testimonial'">
@@ -237,7 +279,7 @@ export default{
                                 {
                                     if(a == 0)
                                     {
-                                        this.current_menu = this.list.profile.data.menu.data[a].menu
+                                        this.current_menu = this.list.profile.data.menu.data[a].slug
                                     }
                                 }   
                             }

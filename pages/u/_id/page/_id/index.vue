@@ -15,17 +15,17 @@
                                     <div v-if="list.profile.data.menu">
                                         <div v-if="list.profile.data.menu.data">
                                             <div v-for="(l,idx) in list.profile.data.menu.data" :key="idx">
-                                                <div v-if="l.menu == current_menu">
+                                                <div v-if="l.slug == current_menu">
                                                     <div v-if="l.sections.data" v-for="(k,ix) in l.sections.data" :key="ix">
                                                         <div v-if="k.section">
                                                             <div v-if="k.section.data">
                                                                 
                                                                 <div v-if="k.section.data.title == 'about_me_2'">
-                                                                    <About_me_2Vue :person="list.profile.data.person.data" :ijin_download_cv="list.profile.data.ijin_download_cv" @downloadCv="handleDownloadCvSaya(list.profile.data.slug)"></About_me_2Vue>
+                                                                    <About_me_2Vue v-if="list.profile && list.profile.data && list.profile.data.person && list.profile.data.person.data" :person="list.profile.data.person.data" :ijin_download_cv="list.profile.data.ijin_download_cv" @downloadCv="handleDownloadCvSaya(list.profile.data.slug)"></About_me_2Vue>
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == 'about_me_1'">
-                                                                    <About_me_1Vue :person="list.profile.data.person.data" :ijin_download_cv="list.profile.data.ijin_download_cv" @downloadCv="handleDownloadCvSaya(list.profile.data.slug)"></About_me_1Vue>
+                                                                    <About_me_1Vue v-if="list.profile && list.profile.data && list.profile.data.person && list.profile.data.person.data" :person="list.profile.data.person.data" :ijin_download_cv="list.profile.data.ijin_download_cv" @downloadCv="handleDownloadCvSaya(list.profile.data.slug)"></About_me_1Vue>
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == 'what_i_do'">
@@ -33,23 +33,23 @@
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == 'experience'">
-                                                                    <experienceVue :title="'Experience'" :person="list.profile.data.person.data"></experienceVue>
+                                                                    <experienceVue v-if="list.profile && list.profile.data && list.profile.data.person && list.profile.data.person.data" :title="'Experience'" :person="list.profile.data.person.data"></experienceVue>
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == 'education'">
-                                                                    <educationVue :title="'Education'" :person="list.profile.data.person.data"></educationVue>
+                                                                    <educationVue v-if="list.profile && list.profile.data && list.profile.data.person && list.profile.data.person.data" :title="'Education'" :person="list.profile.data.person.data"></educationVue>
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == 'certification'">
-                                                                    <certificationVue :person="list.profile.data.person.data"></certificationVue>
+                                                                    <certificationVue v-if="list.profile && list.profile.data && list.profile.data.person && list.profile.data.person.data" :person="list.profile.data.person.data"></certificationVue>
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == '2_row_blog'">
-                                                                    <two_row_blogVue :profile="list.profile.data" :user_id="list.profile.data.person.data.user_id"></two_row_blogVue>
+                                                                    <two_row_blogVue v-if="list.profile && list.profile.data" :profile="list.profile.data" :user_id="list.profile.data.person.data.user_id"></two_row_blogVue>
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == '3_row_blog'">
-                                                                    <three_row_blogVue :profile="list.profile.data" :user_id="list.profile.data.person.data.user_id"></three_row_blogVue>
+                                                                    <three_row_blogVue v-if="list.profile && list.profile.data" :profile="list.profile.data" :user_id="list.profile.data.person.data.user_id"></three_row_blogVue>
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == 'testimonial'">
@@ -61,19 +61,19 @@
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == 'portofolio_two_columns'">
-                                                                    <portofolio_two_colomunsVue :profile="list.profile.data" :title="'portofolio_two_columns'" :user_id="list.profile.data.person.data.user_id" :class_title="'portfolio-grid two-columns shuffle'"></portofolio_two_colomunsVue>
+                                                                    <portofolio_two_colomunsVue v-if="list.profile && list.profile.data" :profile="list.profile.data" :title="'portofolio_two_columns'" :user_id="list.profile.data.person.data.user_id" :class_title="'portfolio-grid two-columns shuffle'"></portofolio_two_colomunsVue>
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == 'portofolio_three_columns'">
-                                                                    <portofolio_two_colomunsVue :profile="list.profile.data" :title="'portofolio_three_columns'" :user_id="list.profile.data.person.data.user_id" :class_title="'portfolio-grid three-columns shuffle'"></portofolio_two_colomunsVue>
+                                                                    <portofolio_two_colomunsVue v-if="list.profile && list.profile.data" :profile="list.profile.data" :title="'portofolio_three_columns'" :user_id="list.profile.data.person.data.user_id" :class_title="'portfolio-grid three-columns shuffle'"></portofolio_two_colomunsVue>
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == 'portofolio_four_columns'">
-                                                                    <portofolio_two_colomunsVue :profile="list.profile.data" :title="'portofolio_four_columns'" :user_id="list.profile.data.person.data.user_id" :class_title="'portfolio-grid four-columns shuffle'"></portofolio_two_colomunsVue>
+                                                                    <portofolio_two_colomunsVue v-if="list.profile && list.profile.data" :profile="list.profile.data" :title="'portofolio_four_columns'" :user_id="list.profile.data.person.data.user_id" :class_title="'portfolio-grid four-columns shuffle'"></portofolio_two_colomunsVue>
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == 'portofolio_five_columns'">
-                                                                    <portofolio_two_colomunsVue :profile="list.profile.data" :title="'portofolio_five_columns'" :user_id="list.profile.data.person.data.user_id" :class_title="'portfolio-grid five-columns shuffle'"></portofolio_two_colomunsVue>
+                                                                    <portofolio_two_colomunsVue v-if="list.profile && list.profile.data" :profile="list.profile.data" :title="'portofolio_five_columns'" :user_id="list.profile.data.person.data.user_id" :class_title="'portfolio-grid five-columns shuffle'"></portofolio_two_colomunsVue>
                                                                 </div>
 
                                                                 <div v-if="k.section.data.title == 'blank_header'">

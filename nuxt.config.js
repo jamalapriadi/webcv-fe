@@ -109,7 +109,7 @@ export default {
                 login: { url: '/login', method: 'post'},
                 refresh: { url: '/auth/refresh', method: 'post' },
                 user: { url: '/auth/me', method: 'get' },
-                logout: { url: '/logout', method: 'post' },
+                logout: { url: '/auth/logout', method: 'post' },
                 userInfo: { url: '/auth/me', method: 'get' },
             },
             token: {

@@ -17,8 +17,8 @@
             <!-- Navigation -->
             <div class="site-nav mobile-menu-hide" v-if="profile.menu">
                 <ul class="leven-classic-menu site-main-menu" v-if="profile.menu.data">
-                    <li v-for="(l,idx) in profile.menu.data" :key="idx" :class="getClassMenu(l.menu)">
-                        <nuxt-link :to="'/u/'+profile.slug+'/page/'+l.menu">{{ l.menu }}</nuxt-link>
+                    <li v-for="(l,idx) in profile.menu.data" :key="idx" :class="getClassMenu(l.slug)">
+                        <nuxt-link :to="'/u/'+profile.slug+'/page/'+l.slug">{{ l.menu }}</nuxt-link>
                     </li>
                 </ul>
             </div>
