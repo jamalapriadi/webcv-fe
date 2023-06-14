@@ -10,9 +10,9 @@
             </div>
         </div> -->
         <!-- /Loading animation -->
-        <!-- <pre>{{ $nuxt.$route.path }}</pre>
+        <!-- <pre>{{ $nuxt.$route.path }}</pre> -->
 
-        <pre>{{ $auth.user.data }}</pre> -->
+        <!-- <pre>{{ $auth.user.data }}</pre> -->
 
         <div v-if="$auth.loggedIn">
             <nav class="navbar navbar-expand-sm navbar-dark bg-dark">

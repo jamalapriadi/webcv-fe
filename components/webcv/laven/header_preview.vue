@@ -5,7 +5,7 @@
                 
             <!-- Text Logo -->
             <div class="text-logo">
-                <nuxt-link :to="'/'" v-if="profile.title">
+                <nuxt-link :to="backToHome()" v-if="profile.title">
                     <div class="logo-symbol" v-if="profile.title">
                         {{ profile.title.charAt(0) }}
                     </div>
@@ -46,7 +46,24 @@ export default{
             }
 
             return asli
-        }
+        },
+
+        backToHome(){
+            var current_page = '/' 
+
+            if(this.$auth.user.data)
+            {
+                if(this.$auth.user.data.webcv)
+                {
+                    if(this.$auth.user.data.webcv.data)
+                    {
+                        current_page = "/u/"+this.$auth.user.data.webcv.data.slug
+                    }
+                }
+            }
+
+            return current_page
+        },
     }
 }
 </script>
